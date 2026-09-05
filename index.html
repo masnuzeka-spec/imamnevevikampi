@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<!-- PWA & İkon Bağlantıları -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#15381a">
+
+<!-- iOS (iPhone/iPad) İçin -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nevevî Kampı">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>İMÂM NEVEVÎ KAMPI | GÖNÜLLÜ PLATFORMU</title>
+    
+    <!-- PWA & Mobil Ana Ekran Tanımları -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#15381a">
+    
+    <!-- iOS Safari Özel Ayarları -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Nevevî Kampı">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,700&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --bg-center: #2b5f31; 
+            --bg-edge: #091a0e;   
+            --text-gold: #f3cf8b;
+            --text-light: #F8F1E5;
+            --card-bg: rgba(20, 48, 25, 0.85); 
+            --line-color: rgba(243, 207, 139, 0.5); 
+            --autumn-leaf-1: #b84323; 
+            --autumn-leaf-2: #611e0a;
+            --accent-main: #d9efb1;
+            --modal-overlay: rgba(0, 0, 0, 0.85);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.3s ease, border-color 0.3s ease; }
+        
+        body { 
+            background-color: var(--bg-edge); 
+            color: var(--text-light); 
+            font-family: 'Lora', serif; 
+            line-height: 1.8; 
+            padding: 25px 15px 100px 15px; 
+            overflow-x: hidden; 
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* 🟢 RADYAL DERİNLİK */
+        body::before {
+            content: ""; position: fixed; inset: 0; z-index: -4;
+            background: radial-gradient(circle at 50% 20%, var(--bg-center) 0%, #15381a 50%, var(--bg-edge) 100%);
+        }
+
+        /* 🌿 DOĞAL DOKU */
+        body::after {
+            content: ""; position: fixed; inset: 0; z-index: -3; pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+        }
+
+        /* ✨ GÜNEŞ IŞIKLARI (BOKEH) */
+        .bokeh {
+            position: fixed; border-radius: 50%; filter: blur(50px); z-index: -2;
+            animation: float 20s ease-in-out infinite alternate; opacity: 0.6; pointer-events: none;
+        }
+        .b1 { width: 400px; height: 400px; background: rgba(243, 207, 139, 0.12); top: -100px; left: 10%; }
+        .b2 { width: 500px; height: 500px; background: rgba(129, 199, 132, 0.1); top: 30%; right: -150px; animation-delay: -5s; }
+        .b3 { width: 350px; height: 350px; background: rgba(243, 207, 139, 0.08); bottom: -50px; left: 30%; animation-delay: -10s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 40px) scale(1.1); }
+            100% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* 🍂 HAVADAN SÜZÜLEN YAPRAKLAR */
+        .garden-breeze { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .falling-leaf {
+            position: absolute; color: #a5d6a7; top: -10%; font-size: 1.8rem;
+            opacity: 0; animation: fall linear infinite; text-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+        @keyframes fall {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.8; }
+            85% { opacity: 0.8; }
+            100% { transform: translate(150px, 110vh) rotate(360deg); opacity: 0; }
+        }
+        .fl-1 { left: 15%; font-size: 1.4rem; animation-duration: 15s; animation-delay: 1s; }
+        .fl-2 { left: 45%; font-size: 2rem; animation-duration: 18s; animation-delay: 4s; color: #81c784; }
+        .fl-3 { left: 75%; font-size: 1.2rem; animation-duration: 12s; animation-delay: 2s; }
+        .fl-4 { left: 90%; font-size: 1.7rem; animation-duration: 17s; animation-delay: 8s; color: #c8e6c9; }
+
+        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+
+        /* BAŞLIKLAR */
+        header { text-align: center; margin-bottom: 30px; display: flex; flex-direction: column; align-items: center; }
+        .header-top-tag { font-size: 0.85rem; color: var(--accent-main); letter-spacing: 3px; text-transform: uppercase; font-weight: 800; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; color: #fff; letter-spacing: 3px; margin-bottom: 15px; text-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 15px rgba(243, 207, 139, 0.3); text-transform: uppercase; line-height: 1.2;}
+        .badge-gonullu { display: inline-block; background: rgba(15, 40, 20, 0.6); backdrop-filter: blur(5px); border: 1.5px solid var(--text-gold); color: var(--text-gold); padding: 8px 30px; border-radius: 30px; font-size: 1rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .header-date { font-size: 1.15rem; color: #fff; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+
+        /* ANA SEKMELER */
+        .ana-sekme-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; padding: 0 10px; }
+        .ana-sekme-btn { background: rgba(20, 48, 25, 0.8); backdrop-filter: blur(5px); border: 2px solid var(--text-gold); color: var(--text-gold); padding: 12px 30px; border-radius: 30px; font-family: 'Cinzel', serif; font-size: 1.05rem; cursor: pointer; transition: all 0.3s ease; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .ana-sekme-btn:hover { transform: translateY(-3px); background: rgba(30, 70, 38, 0.9); }
+        .ana-sekme-btn.aktif { background: var(--text-gold); color: #15381a; box-shadow: 0 0 20px rgba(243, 207, 139, 0.5); font-weight: 900; }
+
+        /* İLERLEME ÇUBUĞU */
+        .progress-container { position: relative; z-index: 10; max-width: 800px; margin: 0 auto 40px auto; padding: 20px 30px; background: rgba(15, 38, 20, 0.85); backdrop-filter: blur(10px); border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.4); border: 1px solid rgba(243, 207, 139, 0.3); }
+        .progress-info { display: flex; justify-content: space-between; color: var(--text-gold); font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 12px; font-weight: bold; text-transform: uppercase; }
+        .progress-bar-bg { background-color: rgba(0, 0, 0, 0.5); border-radius: 10px; height: 10px; width: 100%; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);}
+        .progress-bar-fill { background: linear-gradient(90deg, #81c784, var(--text-gold), #fff2cd); height: 100%; width: 0%; border-radius: 10px; transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 10px rgba(243, 207, 139, 0.5);}
+
+        /* ZARİF TIMELINE ÇİZGİSİ */
+        .timeline { position: relative; max-width: 1000px; margin: 0 auto; padding: 20px 0; animation: fadeIn 0.8s ease; }
+        .timeline::after { 
+            content: ''; position: absolute; width: 4px; background-color: var(--line-color); 
+            top: 20px; bottom: 0; left: 50%; transform: translateX(-50%); 
+            border-radius: 2px; box-shadow: 0 0 15px var(--line-color); z-index: 0; 
+        }
+        
+        .container-box { padding: 10px 40px; position: relative; width: 50%; box-sizing: border-box; z-index: 2; margin-bottom: 20px; }
+        
+        .container-box::before {
+            content: ''; position: absolute; width: 35px; height: 2px; background-color: var(--line-color);
+            top: 50%; transform: translateY(-50%); z-index: 0;
+        }
+        .left::before { right: 5px; } 
+        .right::before { left: 5px; }
+
+        .container-box::after { 
+            content: ''; position: absolute; width: 16px; height: 16px; 
+            background-color: var(--bg-center); border: 2px solid var(--text-gold); 
+            top: 50%; transform: translateY(-50%); border-radius: 50%; 
+            z-index: 1; transition: all 0.4s ease; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .left::after { right: -8px; }
+        .right::after { left: -8px; }
+
+        .container-box:hover::after { transform: translateY(-50%) scale(1.4); background-color: var(--text-gold); box-shadow: 0 0 15px var(--text-gold); }
+        .left { left: 0; } .right { left: 50%; }
+
+        .container-box.dolu-kutu::after { background-color: var(--text-gold); box-shadow: 0 0 15px var(--text-gold); }
+        .container-box.dolu-kutu .content { border-color: rgba(243, 207, 139, 0.7); }
+        .container-box.completed::after { background-color: #81c784 !important; border-color: #fff !important; box-shadow: 0 0 15px #81c784 !important; }
+
+        /* YAPRAK FORMUNDA KARTLAR */
+        .content { 
+            padding: 25px 30px; 
+            background-color: var(--card-bg); 
+            backdrop-filter: blur(8px);
+            position: relative; 
+            border: 1px solid rgba(243, 207, 139, 0.2); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.05); 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+            text-align: left;
+            z-index: 2;
+        }
+
+        .container-box.completed .content {
+            background: linear-gradient(135deg, var(--autumn-leaf-1), var(--autumn-leaf-2));
+            border-color: #e67d63;
+            box-shadow: 0 15px 35px rgba(97, 30, 10, 0.6), inset 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        .left .content { border-radius: 50px 10px 50px 10px; }
+        .right .content { border-radius: 10px 50px 10px 50px; }
+
+        .content:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--text-gold); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
+        }
+
+        .badge { display: inline-block; background: rgba(243, 207, 139, 0.15); border: 1px solid var(--text-gold); color: var(--text-gold); padding: 6px 18px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 0.9rem; margin-bottom: 12px; letter-spacing: 1px; }
+        .container-box.completed .badge { background: rgba(255, 255, 255, 0.15); border-color: #fff; color: #fff; }
+        .badge.deneme-badge { border-color: #e74c3c; color: #ff9e93; background: rgba(231, 76, 60, 0.15); }
+        .container-box.completed .badge.deneme-badge { color: #fff; border-color: #fff; }
+
+        .content h3 { margin: 0 0 8px 0; font-size: 1.3rem; color: #fff; line-height: 1.35; font-weight: 800; font-family: 'Cinzel', serif; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        .speaker-text { font-size: 0.95rem; color: var(--text-gold); font-style: italic; display: block; margin-bottom: 8px; font-weight: 600; }
+        .container-box.completed .speaker-text { color: #f8c2b5; }
+        
+        .card-footer { display: flex; justify-content: flex-end; align-items: center; font-size: 0.9rem; margin-top: 15px; border-top: 1px dashed rgba(243, 207, 139, 0.3); padding-top: 15px; }
+        .card-status { font-size: 0.95rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+
+        /* NİYET POPUP */
+        #welcomeModal {
+            position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: var(--modal-overlay); backdrop-filter: blur(15px);
+            display: flex; align-items: center; justify-content: center; padding: 15px;
+        }
+
+        .welcome-content {
+            background: linear-gradient(145deg, #183d21 0%, #0a1f11 100%);
+            padding: 50px 40px; border: 2px solid var(--text-gold); border-radius: 20px;
+            text-align: center; max-width: 650px; width: 100%;
+            box-shadow: 0 20px 80px rgba(0,0,0,1); animation: zoomIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .welcome-title {
+            font-family: 'Cinzel', serif; color: var(--text-gold); font-size: 1.8rem; font-weight: 900;
+            margin-bottom: 20px; border-bottom: 1px dashed rgba(243, 207, 139, 0.4); padding-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', serif; font-size: 2.8rem; color: #fff; line-height: 1.6;
+            margin: 25px 0 15px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.6);
+        }
+
+        .turkish-text {
+            font-style: italic; color: #d1bfae; font-size: 1.15rem; margin-bottom: 30px; font-weight: 500;
+        }
+        
+        .niyet-kutusu {
+            background: rgba(243, 207, 139, 0.08); border-left: 3px solid var(--text-gold); border-right: 3px solid var(--text-gold);
+            padding: 15px 20px; margin: 0 auto 30px auto; border-radius: 10px;
+            font-style: italic; color: #e8ded1; font-size: 1.1rem; line-height: 1.6; text-align: center;
+        }
+
+        .accept-btn {
+            background-color: var(--text-gold); color: #15381a; font-family: 'Cinzel', serif;
+            font-weight: 900; font-size: 1.15rem; padding: 16px 40px; border: none; border-radius: 40px;
+            cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(243, 207, 139, 0.3); letter-spacing: 1px;
+        }
+        .accept-btn:hover { transform: translateY(-4px); background-color: #fff; box-shadow: 0 12px 25px rgba(255, 255, 255, 0.4); }
+
+        /* MODALLAR */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 15px; }
+        .modal-overlay.active { display: flex; }
+        .modal-window { background: linear-gradient(145deg, #183d21 0%, #0a1f11 100%); border: 2px solid var(--text-gold); border-radius: 20px; max-width: 860px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; padding: 40px; box-shadow: 0 25px 60px rgba(0,0,0,0.9); }
+        .modal-close-btn { position: absolute; top: 20px; right: 25px; font-size: 2.2rem; color: var(--text-gold); cursor: pointer; line-height: 1; }
+        .modal-close-btn:hover { color: #fff; transform: rotate(90deg); }
+
+        .modal-header-section { border-bottom: 1px solid rgba(243, 207, 139, 0.2); padding-bottom: 15px; margin-bottom: 25px; text-align: center; }
+        .modal-meta { font-size: 1rem; color: var(--text-gold); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif; margin-bottom: 10px; display: block; }
+        .modal-heading { font-size: 2rem; color: #fff; font-weight: 800; margin: 10px 0; font-family: 'Cinzel', serif; line-height: 1.2;}
+        .modal-speaker-name { font-size: 1.15rem; color: var(--text-gold); font-style: italic; }
+
+        .kral-sekme-alan { position: relative; width: 100%; }
+        .k-nav { display: flex; border-bottom: 2px solid rgba(243,207,139,0.2); margin-bottom: 25px; }
+        .k-btn { flex: 1; background: transparent; border: none; border-bottom: 3px solid transparent; color: #a5d6a7; padding: 15px 5px; font-family: 'Cinzel', serif; font-size: 1.15rem; cursor: pointer; transition: all 0.3s; font-weight: bold; }
+        .k-btn:hover { color: var(--text-gold); background: rgba(243,207,139,0.05); }
+        .k-btn.aktif { color: var(--text-gold); border-bottom-color: var(--text-gold); background: rgba(243,207,139,0.1); }
+        .k-ic { display: none; padding-top: 15px; animation: fadeIn 0.4s ease-out; }
+        .k-ic.aktif { display: block; }
+
+        .sinav-iframe { width: 100%; height: 75vh; min-height: 500px; border: none; border-radius: 12px; background: #fff; }
+        .siralama-iframe { width: 100%; height: 65vh; min-height: 500px; border: none; border-radius: 12px; background: transparent; }
+
+        .modal-footer-actions { border-top: 1px solid rgba(243, 207, 139, 0.2); padding-top: 25px; margin-top: 30px; display: flex; justify-content: flex-end; }
+        .btn-complete-toggle { background: var(--text-gold); color: #15381a; padding: 14px 30px; border-radius: 10px; font-size: 1.05rem; font-weight: 900; font-family: 'Cinzel', serif; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 5px 15px rgba(243, 207, 139, 0.3);}
+        .btn-complete-toggle:hover { background: #fff; transform: translateY(-2px); }
+
+        #duyuruModal { z-index: 99999; }
+        .duyuru-kutu { background: rgba(20, 48, 25, 0.95); border: 2px solid var(--text-gold); border-radius: 16px; padding: 40px; width: 90%; max-width: 500px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.8);}
+        .duyuru-baslik { color: var(--text-gold); font-family: 'Cinzel', serif; font-size: 1.6rem; margin-bottom: 20px; border-bottom: 1px dashed rgba(243, 207, 139, 0.3); padding-bottom: 15px; }
+        .btn-duyuru-kapat { background: var(--text-gold); color: #15381a; border: none; padding: 14px; font-weight: 900; font-family: 'Cinzel', serif; font-size: 1.15rem; border-radius: 10px; cursor: pointer; width: 100%; transition: all 0.3s; margin-top:25px;}
+
+        /* FOOTER */
+        footer { margin-top: 80px; border-top: 1px solid rgba(243, 207, 139, 0.2); padding-top: 50px; text-align: center; position: relative; z-index: 2;}
+        .yakisikli-sayac { display: inline-block; background: rgba(15, 38, 20, 0.8); backdrop-filter: blur(5px); border: 1px solid var(--text-gold); padding: 15px 30px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .yakisikli-sayac-baslik { font-family: 'Cinzel', serif; font-size: 0.95rem; color: #fff; margin-bottom: 12px; display: block; letter-spacing: 2px; }
+        .zarif-bilgi-kutusu { margin: 30px auto; max-width: 750px; padding: 25px 20px; border: 1px dashed rgba(243, 207, 139, 0.4); border-radius: 12px; font-size: 0.95rem; color: #fff; line-height: 1.7; text-align: center; background: rgba(0, 0, 0, 0.3); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .bilgi-baslik-vurgu { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--text-gold); font-weight: 800; text-shadow: 0 2px 5px rgba(0,0,0,0.5); margin-bottom: 10px; letter-spacing: 1px; }
+        .zarif-iletisim-alani { margin: 30px 20px 20px; font-size: 1rem; color: #dcebd2; line-height: 1.6; }
+        .iletisim-baslik { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--text-gold); font-weight: 800; letter-spacing: 1px; }
+        .telegram-belirgin-link { display: inline-flex; align-items: center; gap: 8px; color: #fff !important; background: #0088cc; text-decoration: none !important; font-weight: 700; padding: 10px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4); margin-top: 15px; transition: all 0.3s ease; font-size: 1rem; }
+        .telegram-belirgin-link:hover { background: #00a2f2; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6); }
+        .footer-copyright { display: block; font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 2px; color: var(--text-gold); font-weight: bold; margin-top: 40px; text-transform: uppercase; opacity: 0.8; }
+
+        /* ======================================================== */
+        /* 📱 AKILLI PWA YÜKLEME BANNERI & IOS REHBER MODALI        */
+        /* ======================================================== */
+        .pwa-install-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120%);
+            width: 92%;
+            max-width: 500px;
+            background: linear-gradient(135deg, rgba(20, 56, 30, 0.98), rgba(8, 26, 14, 0.98));
+            border: 1.5px solid var(--text-gold);
+            border-radius: 20px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            z-index: 1000;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(243, 207, 139, 0.3);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+        }
+        .pwa-install-banner.active {
+            transform: translateX(-50%) translateY(0);
+        }
+        .pwa-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .pwa-app-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            border: 1px solid var(--text-gold);
+            background: #123018;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gold);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        .pwa-text-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 800;
+            color: #fff;
+            font-size: 0.95rem;
+            line-height: 1.2;
+        }
+        .pwa-text-desc {
+            font-size: 0.78rem;
+            color: var(--accent-main);
+            font-style: italic;
+        }
+        .pwa-install-btn {
+            background: var(--text-gold);
+            color: #15381a;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .pwa-close-btn {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+
+        /* iOS Yönlendirme Modalı */
+        .ios-guide-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 999999;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 25px;
+        }
+        .ios-guide-modal.active { display: flex; }
+        .ios-guide-card {
+            background: linear-gradient(145deg, #183d21, #0a1f11);
+            border: 2px solid var(--text-gold);
+            border-radius: 22px;
+            padding: 25px 22px;
+            width: 92%;
+            max-width: 440px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+        }
+        .ios-guide-title {
+            font-family: 'Cinzel', serif;
+            color: var(--text-gold);
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .ios-steps {
+            text-align: left;
+            font-size: 0.92rem;
+            color: #FAF5EF;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+        .ios-steps li { margin-bottom: 8px; }
+        .ios-icon-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.15);
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: #38ef7d;
+            font-weight: bold;
+        }
+
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        /* MOBİL UYUM */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; line-height: 1.3;}
+            .ana-sekme-container { flex-direction: column; gap: 12px; max-width: 300px; margin: 25px auto;}
+            
+            .timeline::after { left: 50%; width: 3px; } 
+            
+            .container-box { width: 50%; padding-bottom: 20px; margin-bottom: 10px; }
+            .left { padding-right: 15px; padding-left: 0; }
+            .right { padding-left: 15px; padding-right: 0; left: 50%; }
+            
+            .left::before { right: 2px; width: 13px; }
+            .right::before { left: 2px; width: 13px; }
+            
+            .left::after { right: -6px; width: 12px; height: 12px; border-width: 2px; }
+            .right::after { left: -6px; width: 12px; height: 12px; border-width: 2px; }
+
+            .content { padding: 18px 15px; }
+            .left .content { border-radius: 30px 8px 30px 8px; }
+            .right .content { border-radius: 8px 30px 8px 30px; }
+            
+            .badge { font-size: 0.75rem; padding: 5px 12px; margin-bottom: 10px; }
+            .content h3 { font-size: 1rem; line-height: 1.3; margin-bottom: 8px; }
+            .speaker-text { font-size: 0.8rem; margin-bottom: 5px; }
+            .card-footer { font-size: 0.75rem; padding-top: 10px; margin-top: 10px;}
+            
+            .welcome-content { width: 95% !important; padding: 30px 15px !important; border-radius: 16px !important; }
+            .welcome-title { font-size: 1.35rem !important; margin-bottom: 12px !important; padding-bottom: 10px !important; }
+            .arabic-text { font-size: 2rem !important; margin: 12px 0 !important; }
+            .turkish-text { font-size: 0.95rem !important; margin-bottom: 15px !important; }
+            .niyet-kutusu { font-size: 0.95rem !important; padding: 12px 10px !important; margin-bottom: 20px !important; }
+            .accept-btn { width: 100%; padding: 12px; font-size: 1rem; }
+            
+            .modal-window { padding: 30px 20px; border-radius: 16px; }
+            .modal-heading { font-size: 1.6rem; }
+            
+            .bilgi-baslik-vurgu { font-size: 1.2rem; }
+            .zarif-iletisim-alani { font-size: 0.95rem; }
+            .telegram-belirgin-link { display: flex; justify-content: center; margin: 15px auto 0; max-width: 240px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bokeh b1"></div>
+<div class="bokeh b2"></div>
+<div class="bokeh b3"></div>
+
+<div class="garden-breeze">
+    <i class="fa-solid fa-leaf falling-leaf fl-1"></i>
+    <i class="fa-solid fa-leaf falling-leaf fl-2"></i>
+    <i class="fa-solid fa-leaf falling-leaf fl-3"></i>
+    <i class="fa-solid fa-leaf falling-leaf fl-4"></i>
+</div>
+
+<div class="container">
+
+    <header>
+        <span class="header-top-tag">BÜYÜKLERİN AYAK İZLERİ</span>
+        <h1>İMÂM NEVEVÎ KAMPI</h1>
+        <div class="badge-gonullu">GÖNÜLLÜ PLATFORMU</div>
+        <div class="header-date">21 EYLÜL – 6 EKİM 2026</div>
+    </header>
+
+    <div class="ana-sekme-container">
+        <button class="ana-sekme-btn aktif" onclick="anaSekmeDegistir('dersler')">📜 Kamp Dersleri</button>
+        <button class="ana-sekme-btn" onclick="anaSekmeDegistir('denemeler')">📝 Değerlendirme Sınavları</button>
+    </div>
+
+    <!-- 1. SEKME: DERSLER -->
+    <div id="dersler-alan">
+        <div class="progress-container">
+            <div class="progress-info">
+                <span>BAHÇE İLERLEME DURUMU</span>
+                <span id="progressText">%0 TAMAMLANDI</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+        </div>
+        <div class="timeline" id="timelineContainer"></div>
+    </div>
+
+    <!-- 2. SEKME: DENEMELER -->
+    <div id="denemeler-alan" style="display: none;">
+        <div class="timeline" id="denemelerContainer"></div>
+    </div>
+
+    <footer>
+        <div class="yakisikli-sayac">
+            <span class="yakisikli-sayac-baslik">👁️ TOPLAM ZİYARETÇİ</span>
+            <img src="https://api.visitorbadge.io/api/visitors?path=imam-nevevi-kampi-2026-v9&label=Ziyaret&labelColor=%2315381a&countColor=%23f3cf8b" alt="Ziyaretçi Sayacı" style="display: block; margin: 0 auto; border-radius: 4px;">
+        </div>
+
+        <div class="zarif-bilgi-kutusu">
+            <div class="bilgi-baslik-vurgu">Önemli Bilgilendirme</div>
+            Bu site, “İmâm Nevevî Kampı”ndan daha güzel istifade edebilmek için bir eğitim gönüllüsünün emeğiyle hazırlanmıştır.<br>
+            Paylaşılan özet ve testler ise tamamen destek olmak ve fayda sağlamak niyetiyle sunulmuştur.
+        </div>
+
+        <div class="zarif-iletisim-alani">
+            <span class="iletisim-baslik">Sayfa Hakkında</span><br>
+            Soru, öneri ve görüşlerinizi iletmek için:<br>
+            <a href="https://t.me/Bykim1" target="_blank" class="telegram-belirgin-link">
+                <i class="fa-brands fa-telegram"></i> Telegram'dan Ulaşın
+            </a> 
+        </div>
+
+        <span class="footer-copyright">&copy; 2026 İMÂM NEVEVÎ KAMPI GÖNÜLLÜ PLATFORMU</span>
+    </footer>
+
+</div>
+
+<!-- NİYET POPUP (WELCOME MODAL) -->
+<div id="welcomeModal">
+    <div class="welcome-content">
+        <h2 class="welcome-title">Büyüklerin Ayak İzleri: İmâm Nevevî Kampı</h2>
+        <div class="arabic-text">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى</div>
+        <p class="turkish-text">"Ameller (başka değil) ancak niyetlere göredir; herkesin niyeti ne ise eline geçecek odur."</p>
+        <div class="niyet-kutusu">
+            "Niyet ettim; Büyüklerin ayak izlerini takip ederek İmâm Nevevî'nin ilim, ihlâs ve takva mirasını hayatıma rehber edinmeye, öğrendiğim bu güzellikleri hayatıma taşımaya ve her daim istikamet üzere kalmaya.."
+        </div>
+        <button class="accept-btn" onclick="closeWelcomeModal()">Bismillah diyerek başla.</button>
+    </div>
+</div>
+
+<!-- DERS VE DENEME DETAY MODALI -->
+<div class="modal-overlay" id="lessonModal">
+    <div class="modal-window">
+        <span class="modal-close-btn" onclick="closeLessonModal()">&times;</span>
+        
+        <div class="modal-header-section">
+            <span class="modal-meta" id="modalMeta">21 EYLÜL</span>
+            <h2 class="modal-heading" id="modalTitle">Ders Başlığı</h2>
+            <div class="modal-speaker-name" id="modalSpeaker">Konuşmacı</div>
+        </div>
+
+        <div id="modal-body-content"></div>
+
+        <div class="modal-footer-actions">
+            <button class="btn-complete-toggle" id="btnCompleteToggle" onclick="toggleCompleteCurrent()">
+                <i class="fa-solid fa-check"></i> Tamamlandı Olarak İşaretle
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- DUYURU POPUP -->
+<div class="modal-overlay" id="duyuruModal">
+    <div class="duyuru-kutu">
+        <h3 class="duyuru-baslik">📢 DUYURU</h3>
+        <div class="duyuru-metin" id="duyuruMetinAlani">Duyuru yükleniyor...</div>
+        <button class="btn-duyuru-kapat" onclick="duyuruyuKapat()">Okudum, Anladım</button>
+    </div>
+</div>
+
+<!-- 📱 AKILLI PWA YÜKLEME BANNERI -->
+<div id="pwaInstallBanner" class="pwa-install-banner">
+    <div class="pwa-banner-left">
+        <div class="pwa-app-icon"><i class="fa-solid fa-tree"></i></div>
+        <div>
+            <div class="pwa-text-title">Nevevî Kampı</div>
+            <div class="pwa-text-desc">Uygulama olarak ekleyin</div>
+        </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+        <button class="pwa-install-btn" onclick="handlePwaInstallClick()">Yükle</button>
+        <button class="pwa-close-btn" onclick="dismissPwaBanner()">&times;</button>
+    </div>
+</div>
+
+<!-- 🍏 iOS SAFARI İÇİN ÖZEL KURULUM REHBERİ -->
+<div id="iosGuideModal" class="ios-guide-modal" onclick="closeIosGuide()">
+    <div class="ios-guide-card" onclick="event.stopPropagation()">
+        <h3 class="ios-guide-title">Ana Ekrana Nasıl Eklenir?</h3>
+        <ol class="ios-steps">
+            <li>Safari'nin altındaki <span class="ios-icon-badge"><i class="fa-solid fa-arrow-up-from-bracket"></i> Paylaş</span> butonuna dokunun.</li>
+            <li>Aşağı kaydırıp <span class="ios-icon-badge"><i class="fa-regular fa-square-plus"></i> Ana Ekrana Ekle</span> seçeneğini seçin.</li>
+            <li>Sağ üstteki <strong>Ekle</strong> butonuna basarak uygulamayı telefonunuza yükleyin.</li>
+        </ol>
+        <button class="btn-duyuru-kapat" style="margin-top: 0;" onclick="closeIosGuide()">Anladım</button>
+    </div>
+</div>
+
+<script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbxemdQxu8xlRiBWtfBlOGc5VD3uKKDfweXdPA_pFwHQzTyD0DVP_DLWkUBZ2QHLpCe_/exec";
+
+    const lessonsData = [
+        { id: "1", num: "1. BÖLÜM", date: "21 Eylül Pazartesi", speaker: "Muhammed Emin Yıldırım", title: "Bir Siyer Âlimi Olarak İmâm Nevevî" },
+        { id: "2", num: "2. BÖLÜM", date: "22 Eylül Salı", speaker: "Dr. Öğr. Üy. Mesut Çakır", title: "40 Hadis Metin Okumaları - 1" },
+        { id: "3", num: "3. BÖLÜM", date: "23 Eylül Çarşamba", speaker: "Prof. Dr. Nail Okuyucu", title: "İmâm Nevevî'nin Hayatı ve Eserleri" },
+        { id: "4", num: "4. BÖLÜM", date: "24 Eylül Perşembe", speaker: "Dr. Öğr. Üy. Mesut Çakır", title: "40 Hadis Metin Okumaları - 2" },
+        { id: "5", num: "5. BÖLÜM", date: "25 Eylül Cuma", speaker: "Prof. Dr. Muhammed Enes Topgül", title: "Bir Hadis Usulü Âlimi Olarak Nevevî" },
+        { id: "6", num: "6. BÖLÜM", date: "26 Eylül Cumartesi", speaker: "Dr. Öğr. Üy. Mesut Çakır", title: "40 Hadis Metin Okumaları - 3" },
+        { id: "7", num: "7. BÖLÜM", date: "27 Eylül Pazar", speaker: "Molla Abdullah Yıldız", title: "İmâm Nevevî ve Akaidi" },
+        { id: "8", num: "8. BÖLÜM", date: "28 Eylül Pazartesi", speaker: "Dr. Öğr. Üy. Mesut Çakır", title: "40 Hadis Metin Okumaları - 4" },
+        { id: "9", num: "9. BÖLÜM", date: "29 Eylül Salı", speaker: "Recep Songül", title: "İslâm İlim Geleneğinde Riyäzü's-Sâlihîn" },
+        { id: "10", num: "10. BÖLÜM", date: "30 Eylül Çarşamba", speaker: "Dr. Öğr. Üy. Mesut Çakır", title: "40 Hadis Metin Okumaları - 5" },
+        { id: "11", num: "11. BÖLÜM", date: "1 Ekim Perşembe", speaker: "Prof. Dr. Zekeriya Güler", title: "Bir Muhaddis Olarak İmâm Nevevî" },
+        { id: "12", num: "12. BÖLÜM", date: "2 Ekim Cuma", speaker: "Dr. Öğr. Üy. Mesut Çakır", title: "40 Hadis Metin Okumaları - 6" },
+        { id: "13", num: "13. BÖLÜM", date: "3 Ekim Cumartesi", speaker: "Şeyh Yahya el-Gavsanî", title: "el-Ezkâr Meclisi" },
+        { id: "14", num: "14. BÖLÜM", date: "3 Ekim Cumartesi", speaker: "Siyer Vakfı", title: "Hicrî 1448 “Hz. Peygamber ve Hidâyet Yılı” Açılışı" },
+        { id: "15", num: "15. BÖLÜM", date: "6 Ekim Salı", speaker: "Muhammed Emin Yıldırım", title: "İmâm Nevevî Üzerinden Peygamber (sas) Sevgisi" }
+    ];
+
+    const denemelerData = [
+        { id: "D1", num: "1. DENEME", date: "20 Ekim 2026 Salı", title: "Genel Değerlendirme Sınavı 1" },
+        { id: "D2", num: "2. DENEME", date: "22 Ekim 2026 Perşembe", title: "Genel Değerlendirme Sınavı 2" },
+        { id: "D3", num: "3. DENEME", date: "24 Ekim 2026 Cumartesi", title: "Genel Değerlendirme Sınavı 3" },
+        { id: "D4", num: "4. DENEME", date: "26 Ekim 2026 Pazartesi", title: "Genel Değerlendirme Sınavı 4" },
+        { id: "D5", num: "5. DENEME", date: "28 Ekim 2026 Çarşamba", title: "Genel Değerlendirme Sınavı 5" },
+        { id: "D6", num: "6. DENEME", date: "30 Ekim 2026 Cuma", title: "Genel Değerlendirme Sınavı 6" },
+        { id: "D7", num: "7. DENEME", date: "1 Kasım 2026 Pazar", title: "Genel Değerlendirme Sınavı 7" },
+        { id: "D8", num: "8. DENEME", date: "3 Kasım 2026 Salı", title: "Genel Değerlendirme Sınavı 8" },
+        { id: "D9", num: "9. DENEME", date: "5 Kasım 2026 Perşembe", title: "Genel Değerlendirme Sınavı 9" },
+        { id: "D10", num: "10. DENEME", date: "7 Kasım 2026 Cumartesi", title: "Büyük Final Öncesi Son Deneme" }
+    ];
+
+    let dynamicDersData = {};
+    let dynamicDenemeData = {};
+    let activeId = null;
+    let aktifDuyuruNo = "";
+    let deferredPrompt = null;
+
+    function anaSekmeDegistir(sekme) {
+        const btnDers = document.querySelectorAll('.ana-sekme-btn')[0];
+        const btnDeneme = document.querySelectorAll('.ana-sekme-btn')[1];
+        const alanDers = document.getElementById('dersler-alan');
+        const alanDeneme = document.getElementById('denemeler-alan');
+
+        if (sekme === 'dersler') {
+            btnDers.classList.add('aktif');
+            btnDeneme.classList.remove('aktif');
+            alanDers.style.display = 'block';
+            alanDeneme.style.display = 'none';
+        } else {
+            btnDeneme.classList.add('aktif');
+            btnDers.classList.remove('aktif');
+            alanDers.style.display = 'none';
+            alanDeneme.style.display = 'block';
+        }
+    }
+
+    function getCompleted() {
+        return JSON.parse(localStorage.getItem('nevevi_kamp_completed') || '[]');
+    }
+
+    async function fetchData() {
+        try {
+            const res = await fetch(API_URL);
+            const data = await res.json();
+            
+            if (data.dersler) {
+                dynamicDersData = data.dersler || {};
+                dynamicDenemeData = data.denemeler || {};
+            } else {
+                dynamicDersData = data || {};
+            }
+
+            renderDersler();
+            renderDenemeler();
+
+            const resDuyuru = await fetch(API_URL + "?tip=duyuru");
+            const duyuruData = await resDuyuru.json();
+            if (duyuruData && duyuruData.no && duyuruData.metin) {
+                aktifDuyuruNo = "D_" + duyuruData.no;
+                if (localStorage.getItem('nevevi_son_duyuru') !== aktifDuyuruNo) {
+                    document.getElementById('duyuruMetinAlani').innerHTML = duyuruData.metin;
+                    document.getElementById('duyuruModal').classList.add('active');
+                }
+            }
+        } catch (error) {
+            console.warn("Veri bağlantısı kurulamadı:", error);
+            renderDersler();
+            renderDenemeler();
+        }
+    }
+
+    function duyuruyuKapat() {
+        localStorage.setItem('nevevi_son_duyuru', aktifDuyuruNo);
+        document.getElementById('duyuruModal').classList.remove('active');
+    }
+
+    function renderDersler() {
+        const container = document.getElementById('timelineContainer');
+        const completed = getCompleted();
+        container.innerHTML = '';
+
+        lessonsData.forEach((item, index) => {
+            const isDone = completed.includes(item.id);
+            const hasContent = dynamicDersData[item.id] && dynamicDersData[item.id].trim() !== "";
+            const side = index % 2 === 0 ? 'left' : 'right';
+
+            const box = document.createElement('div');
+            box.className = `container-box ${side} ${isDone ? 'completed' : ''} ${hasContent ? 'dolu-kutu' : ''}`;
+
+            const statusHtml = isDone 
+                ? '<i class="fa-solid fa-circle-check" style="color:#d9efb1;"></i> Tamamlandı' 
+                : (hasContent ? '<i class="fa-solid fa-star" style="color:var(--text-gold);"></i> Notlar Hazır' : '');
+                
+            const footerHtml = statusHtml ? `<div class="card-footer"><span class="card-status">${statusHtml}</span></div>` : '';
+
+            box.innerHTML = `
+                <div class="content" onclick="openLessonModal('${item.id}')">
+                    <span class="badge"><i class="fa-solid fa-leaf"></i> ${item.num}</span>
+                    <h3>${item.title}</h3>
+                    <span class="speaker-text">${item.speaker}</span>
+                    <span class="date-text">${item.date}</span>
+                    ${footerHtml}
+                </div>
+            `;
+            container.appendChild(box);
+        });
+
+        updateProgress();
+    }
+
+    function renderDenemeler() {
+        const container = document.getElementById('denemelerContainer');
+        const completed = getCompleted();
+        container.innerHTML = '';
+
+        denemelerData.forEach((item, index) => {
+            const isDone = completed.includes(item.id);
+            const hasLink = dynamicDenemeData[item.id] && dynamicDenemeData[item.id].form && dynamicDenemeData[item.id].form.trim() !== "";
+            const side = index % 2 === 0 ? 'left' : 'right';
+
+            const box = document.createElement('div');
+            box.className = `container-box ${side} ${isDone ? 'completed' : ''} ${hasLink ? 'dolu-kutu' : ''}`;
+
+            const statusHtml = isDone 
+                ? '<i class="fa-solid fa-circle-check" style="color:#d9efb1;"></i> Çözüldü' 
+                : (hasLink ? '<i class="fa-solid fa-fire" style="color:#e74c3c;"></i> Sınav Aktif' : '');
+                
+            const footerHtml = statusHtml ? `<div class="card-footer" style="margin-top:10px;"><span style="color:#ff9e93; font-weight:bold;"><i class="fa-solid fa-pen-nib"></i> Online Değerlendirme</span><span class="card-status">${statusHtml}</span></div>` : '';
+
+            box.innerHTML = `
+                <div class="content" onclick="openDenemeModal('${item.id}')">
+                    <span class="badge deneme-badge"><i class="fa-solid fa-apple-whole"></i> ${item.num}</span>
+                    <h3>${item.title}</h3>
+                    <span class="date-text">${item.date}</span>
+                    ${footerHtml}
+                </div>
+            `;
+            container.appendChild(box);
+        });
+    }
+
+    function updateProgress() {
+        const completed = getCompleted();
+        const doneCount = lessonsData.filter(l => completed.includes(l.id)).length;
+        const percent = Math.round((doneCount / lessonsData.length) * 100);
+        document.getElementById('progressText').innerText = `%${percent} TAMAMLANDI`;
+        document.getElementById('progressBar').style.width = `${percent}%`;
+    }
+
+    function kralSekme(btn, sekmeId) {
+        var alan = btn.closest('.kral-sekme-alan');
+        alan.querySelectorAll('.k-btn').forEach(b => {
+            b.classList.remove('aktif');
+            b.style.borderBottomColor = 'transparent';
+            b.style.color = '#a5d6a7';
+            b.style.background = 'transparent';
+        });
+        alan.querySelectorAll('.k-ic').forEach(c => {
+            c.classList.remove('aktif');
+            c.style.display = 'none';
+        });
+
+        btn.classList.add('aktif');
+        btn.style.borderBottomColor = 'var(--text-gold)';
+        btn.style.color = 'var(--text-gold)';
+        btn.style.background = 'rgba(243, 207, 139, 0.1)';
+
+        var hedef = alan.querySelector('#' + sekmeId);
+        if (hedef) {
+            hedef.classList.add('aktif');
+            hedef.style.display = 'block';
+        }
+    }
+
+    function openLessonModal(id) {
+        activeId = id;
+        const lesson = lessonsData.find(l => l.id === id);
+        if (!lesson) return;
+
+        document.getElementById('modalMeta').innerText = `${lesson.num} • ${lesson.date}`;
+        document.getElementById('modalTitle').innerText = lesson.title;
+        document.getElementById('modalSpeaker').innerText = `Konuşmacı: ${lesson.speaker}`;
+
+        const content = dynamicDersData[id];
+        if (content && content.trim() !== "") {
+            document.getElementById('modal-body-content').innerHTML = content;
+        } else {
+            document.getElementById('modal-body-content').innerHTML = `
+                <div style="text-align:center; padding:40px 20px; background:rgba(0,0,0,0.3); border-radius:10px; border:1px dashed var(--text-gold); margin:20px 0; color:var(--text-light); font-style:italic;">
+                    <i class="fa-regular fa-hourglass-half fa-spin" style="font-size:2rem; color:var(--text-gold); margin-bottom:12px; display:block;"></i>
+                    <p>Bu dersin özeti ve altın notları<br><strong style="color:var(--text-gold);">canlı yayından hemen sonra</strong> buraya eklenecektir.</p>
+                </div>
+            `;
+        }
+
+        updateCompleteButton(id);
+        document.getElementById('lessonModal').classList.add('active');
+    }
+
+    function openDenemeModal(id) {
+        activeId = id;
+        const deneme = denemelerData.find(d => d.id === id);
+        if (!deneme) return;
+
+        document.getElementById('modalMeta').innerText = `${deneme.num} • ${deneme.date}`;
+        document.getElementById('modalTitle').innerText = deneme.title;
+        document.getElementById('modalSpeaker').innerText = `İmâm Nevevî Kampı Değerlendirme Sınavı`;
+
+        const denemeObj = dynamicDenemeData[id];
+        const formLink = denemeObj ? denemeObj.form : "";
+        const siralamaLink = denemeObj ? denemeObj.siralama : "";
+
+        if (formLink && formLink.trim() !== "") {
+            const embedLink = formLink.includes('?') ? formLink + '&embedded=true' : formLink + '?embedded=true';
+            document.getElementById('modal-body-content').innerHTML = `
+                <div class="kral-sekme-alan">
+                    <div class="k-nav">
+                        <button class="k-btn aktif" onclick="kralSekme(this, 'd-sinav')">📝 Sınav Ekranı</button>
+                        <button class="k-btn" onclick="kralSekme(this, 'd-siralama')">🏆 Canlı Sıralama</button>
+                    </div>
+                    <div id="d-sinav" class="k-ic aktif">
+                        <iframe src="${embedLink}" class="sinav-iframe" id="formIframe"></iframe>
+                    </div>
+                    <div id="d-siralama" class="k-ic">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding:0 5px;">
+                            <span style="font-size:0.95rem; color:var(--text-light); font-style:italic;">Puanınızı ve genel sıranızı buradan görebilirsiniz.</span>
+                            ${siralamaLink ? `<a href="${siralamaLink}" target="_blank" style="color:#15381a; background:var(--text-gold); font-size:0.85rem; text-decoration:none; padding:8px 16px; border-radius:20px; font-weight:800;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Tam Ekran Aç</a>` : ''}
+                        </div>
+                        ${siralamaLink ? `<iframe src="${siralamaLink}" class="siralama-iframe"></iframe>` : `<p style='text-align:center; opacity:0.6; padding:30px;'>Sıralama tablosu hazırlanıyor...</p>`}
+                    </div>
+                </div>
+            `;
+        } else {
+            document.getElementById('modal-body-content').innerHTML = `
+                <div style="text-align:center; padding:40px 20px; background:rgba(0,0,0,0.3); border-radius:10px; border:1px dashed var(--text-gold); margin:20px 0; color:var(--text-light);">
+                    <i class="fa-solid fa-lock" style="font-size:2rem; color:var(--text-gold); margin-bottom:12px; display:block;"></i>
+                    <p>Bu değerlendirme sınavı <strong style="color:var(--text-gold);">${deneme.date}</strong> tarihinde aktif edilecektir.</p>
+                </div>
+            `;
+        }
+
+        updateCompleteButton(id);
+        document.getElementById('lessonModal').classList.add('active');
+    }
+
+    function updateCompleteButton(id) {
+        const completed = getCompleted();
+        const isDone = completed.includes(id);
+        const btnComplete = document.getElementById('btnCompleteToggle');
+        if (isDone) {
+            btnComplete.innerHTML = '<i class="fa-solid fa-rotate-left"></i> İşareti Kaldır';
+            btnComplete.style.background = 'transparent';
+            btnComplete.style.color = '#fff';
+            btnComplete.style.border = '1px solid #fff';
+        } else {
+            btnComplete.innerHTML = '<i class="fa-solid fa-check"></i> Tamamlandı Olarak İşaretle';
+            btnComplete.style.background = 'var(--text-gold)';
+            btnComplete.style.color = '#15381a';
+            btnComplete.style.border = '1px solid var(--text-gold)';
+        }
+    }
+
+    function closeLessonModal() {
+        document.getElementById('lessonModal').classList.remove('active');
+        activeId = null;
+    }
+
+    function toggleCompleteCurrent() {
+        if (!activeId) return;
+        let completed = getCompleted();
+        if (completed.includes(activeId)) {
+            completed = completed.filter(i => i !== activeId);
+        } else {
+            completed.push(activeId);
+        }
+        localStorage.setItem('nevevi_kamp_completed', JSON.stringify(completed));
+        renderDersler();
+        renderDenemeler();
+        closeLessonModal();
+    }
+
+    function closeWelcomeModal() {
+        document.getElementById('welcomeModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        sessionStorage.setItem('nevevi_niyet_okundu', 'true');
+    }
+
+    /* ======================================================== */
+    /* 📱 PWA YÜKLEME VE AKILLI REHBER MANTIĞI                  */
+    /* ======================================================== */
+    const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+    const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+    // Service Worker Kaydı
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW Hatası:', err));
+        });
+    }
+
+    // Android / Chrome İndirme Olayı
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (!isStandalone() && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
+            showPwaBanner();
+        }
+    });
+
+    function showPwaBanner() {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) banner.classList.add('active');
+    }
+
+    function dismissPwaBanner() {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) banner.classList.remove('active');
+        sessionStorage.setItem('pwa_banner_dismissed', 'true');
+    }
+
+    function handlePwaInstallClick() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(() => {
+                deferredPrompt = null;
+                dismissPwaBanner();
+            });
+        } else if (isIos()) {
+            document.getElementById('iosGuideModal').classList.add('active');
+        } else {
+            alert('Tarayıcınızın ayarlar (üç nokta) menüsünden "Uygulamayı Yükle" veya "Ana Ekrana Ekle"yi seçebilirsiniz.');
+        }
+    }
+
+    function closeIosGuide() {
+        document.getElementById('iosGuideModal').classList.remove('active');
+        dismissPwaBanner();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchData();
+        if (sessionStorage.getItem('nevevi_niyet_okundu') === 'true') {
+            document.getElementById('welcomeModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        } else {
+            document.body.style.overflow = 'hidden';
+        }
+
+        // iOS cihazlarda otomatik banner gösterimi
+        if (isIos() && !isStandalone() && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
+            setTimeout(showPwaBanner, 2000);
+        }
+    });
+
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal-overlay')) {
+            event.target.classList.remove('active');
+        }
+    };
+</script>
+
+</body>
+</html>
