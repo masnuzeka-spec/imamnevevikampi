@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <!-- Sosyal Medya & Önizleme Başlıkları (Open Graph) -->
+<title>İmâm Nevevî Kampı</title>
+<meta name="title" content="İmâm Nevevî Kampı">
+<meta name="description" content="Büyüklerin Ayak İzleri: İmâm Nevevî Kampı Gönüllü Platformu">
+
+<!-- WhatsApp, Telegram, Facebook Önizleme -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="İmâm Nevevî Kampı">
+<meta property="og:description" content="Riyâzü's-Sâlihîn bahçesinde bir ilim ve amel yolculuğu…">
+<meta property="og:image" content="https://senin-site-adresin.vercel.app/icon-512.png">
+
+<!-- Twitter Önizleme -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="İmâm Nevevî Kampı">
+<meta name="twitter:description" content="Büyüklerin Ayak İzleri: İmâm Nevevî Kampı Gönüllü Platformu">
+<meta name="twitter:image" content="https://senin-site-adresin.vercel.app/icon-512.png">
 <!-- PWA & İkon Bağlantıları -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#15381a">
@@ -963,19 +979,24 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        fetchData();
-        if (sessionStorage.getItem('nevevi_niyet_okundu') === 'true') {
-            document.getElementById('welcomeModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        } else {
-            document.body.style.overflow = 'hidden';
-        }
+    // 🚀 1. BEKLEMEDEN ANINDA ÇİZ: Sayfa açıldığı salise dersleri ve sınavları ekrana basar
+    renderDersler();
+    renderDenemeler();
 
-        // iOS cihazlarda otomatik banner gösterimi
-        if (isIos() && !isStandalone() && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
-            setTimeout(showPwaBanner, 2000);
-        }
-    });
+    // 🌐 2. ARKA PLANDA ÇEK: Google Sheets'ten güncel notlar gelince sessizce tazeler
+    fetchData();
+
+    if (sessionStorage.getItem('nevevi_niyet_okundu') === 'true') {
+        document.getElementById('welcomeModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    } else {
+        document.body.style.overflow = 'hidden';
+    }
+
+    if (isIos() && !isStandalone() && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
+        setTimeout(showPwaBanner, 2000);
+    }
+});
 
     window.onclick = function(event) {
         if (event.target.classList.contains('modal-overlay')) {
