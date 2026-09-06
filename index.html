@@ -187,83 +187,129 @@
             100% { top: 105%; transform: rotate(360deg) translateX(-15px); }
         }
 
-        /* 👑 ÜST KATMAN: BAŞLIK ROZETİ VE SAĞLI SOLLU HATLAR */
-        .hadis-baslik-sarici {
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 6px !important;
-            padding: 3px 14px !important;
-            background: rgba(5, 18, 9, 0.9) !important;
-            border: 1px solid rgba(226, 185, 115, 0.5) !important;
-            border-radius: 20px !important;
-            margin-bottom: 12px !important;
-            position: relative !important;
-            z-index: 3 !important;
-        }
-
-        .hadis-baslik-sarici span {
-            font-family: 'Cinzel', serif !important;
-            font-size: clamp(0.68rem, 2.7vw, 0.76rem) !important;
-            font-weight: 800 !important;
-            letter-spacing: 1.5px !important;
-            color: #E2B973 !important;
-            text-transform: uppercase !important;
-        }
-
-        .hadis-baslik-sarici i {
-            color: #E2B973 !important;
-            font-size: 0.62rem !important;
-        }
-
-        .hadis-madalyon-satiri {
+        /* 👑 ÜST SATIR: KENAR PAYLI GÜVENLİ HİZALAMA */
+        .hadis-ust-sirali-alan {
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
             width: 100% !important;
-            padding: 0 8px !important;
-            box-sizing: border-box !important;
-            margin-bottom: 8px !important;
             direction: ltr !important;
             position: relative !important;
             z-index: 3 !important;
+            margin-bottom: 14px !important;
+            padding: 0 12px !important;
+            box-sizing: border-box !important;
         }
 
-        /* 🎯 KUSURSUZ MERKEZLENMİŞ DAİRELER */
+        /* 🎯 ÇİFT HALKALI VARAK MADALYON TASARIMI */
         .hat-rozet {
-            font-family: 'Amiri', serif !important;
-            font-weight: 700 !important;
-            color: #E2B973 !important;
-            background: radial-gradient(circle, #0e301a 0%, #06170c 100%) !important;
-            border: 1.5px solid #E2B973 !important;
+            width: 46px !important;
+            height: 46px !important;
             border-radius: 50% !important;
-            width: 48px !important;
-            height: 48px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.7), inset 0 0 8px rgba(226, 185, 115, 0.3) !important;
+            background: radial-gradient(circle at 45% 40%, #0d2815 0%, #051309 85%, #020904 100%) !important;
+            border: 1.5px solid #E2B973 !important;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.75), 0 0 10px rgba(226, 185, 115, 0.25) !important;
+            display: grid !important;
+            place-items: center !important;
+            position: relative !important;
             flex-shrink: 0 !important;
             user-select: none !important;
             box-sizing: border-box !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /* İçteki İnce Altın Halka */
+        .hat-rozet::after {
+            content: '' !important;
+            position: absolute !important;
+            top: 3px !important;
+            left: 3px !important;
+            right: 3px !important;
+            bottom: 3px !important;
+            border: 1px solid rgba(243, 207, 139, 0.45) !important;
+            border-radius: 50% !important;
+            pointer-events: none !important;
         }
 
         .hat-rozet span {
             display: block !important;
             line-height: 1 !important;
             text-align: center !important;
+            font-family: 'Amiri', serif !important;
+            font-weight: 700 !important;
+            color: #E2B973 !important;
         }
 
+        /* ALLAH LAFZI (SAĞDA) */
         .hat-allah span {
-            font-size: 1.45rem !important;
-            transform: translateY(-2px) !important;
-            text-shadow: 0 0 8px rgba(226, 185, 115, 0.45);
+            font-size: 1.55rem !important;
+            transform: translateY(2px) !important;
+            text-shadow: 0 0 10px rgba(226, 185, 115, 0.55);
         }
 
+        /* MUHAMMED LAFZI (SOLDA) */
         .hat-muhammed span {
             font-size: 1.15rem !important;
-            transform: translateY(-1px) !important;
-            text-shadow: 0 0 8px rgba(226, 185, 115, 0.45);
+            transform: translateY(3px) !important;
+            text-shadow: 0 0 10px rgba(226, 185, 115, 0.55);
+        }
+
+        /* 🏷️ ORTADAKİ BAŞLIK KAPSÜLÜ */
+        .hadis-baslik-sarici {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            padding: 3px 8px !important;
+            background: rgba(5, 18, 9, 0.9) !important;
+            border: 1px solid rgba(226, 185, 115, 0.5) !important;
+            border-radius: 20px !important;
+            box-sizing: border-box !important;
+            flex-shrink: 1 !important;
+            margin: 0 4px !important;
+        }
+
+        .hadis-baslik-sarici span {
+            font-family: 'Cinzel', serif !important;
+            font-size: clamp(0.58rem, 2.3vw, 0.72rem) !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.8px !important;
+            color: #E2B973 !important;
+            text-transform: uppercase !important;
+            white-space: nowrap !important;
+        }
+
+        .hadis-baslik-sarici i {
+            color: #E2B973 !important;
+            font-size: 0.55rem !important;
+        }
+
+        /* Masaüstünde Genişleyen Boyut */
+        @media (min-width: 769px) {
+            .hadis-ust-sirali-alan {
+                padding: 0 20px !important;
+            }
+            .hat-rozet {
+                width: 65px !important;
+                height: 65px !important;
+            }
+            .hat-allah span {
+                font-size: 2.1rem !important;
+                transform: translateY(4px) !important;
+            }
+            .hat-muhammed span {
+                font-size: 1.55rem !important;
+                transform: translateY(5px) !important;
+            }
+            .hadis-baslik-sarici {
+                padding: 6px 16px !important;
+                gap: 6px !important;
+            }
+            .hadis-baslik-sarici span {
+                font-size: 0.85rem !important;
+                letter-spacing: 2px !important;
+            }
         }
 
         /* 📜 HADÎS İÇERİK METİNLERİ */
@@ -726,16 +772,16 @@
             <span class="gul-yaprak"></span>
         </div>
 
-        <!-- 1. Katman: Üst Başlık Rozeti -->
-        <div class="hadis-baslik-sarici">
-            <i class="fa-solid fa-star-and-crescent"></i>
-            <span>Günün Hadîs-i Şerîfi</span>
-            <i class="fa-solid fa-star-and-crescent"></i>
-        </div>
-
-        <!-- 2. Katman: Sağda ALLAH, Solda MUHAMMED Hat Madalyonları -->
-        <div class="hadis-madalyon-satiri">
+        <!-- 👑 ÜST SATIR: SOLDA MUHAMMED - ORTADA BAŞLIK - SAĞDA ALLAH -->
+        <div class="hadis-ust-sirali-alan">
             <div class="hat-rozet hat-muhammed" title="Muhammed Aleyhisselâm"><span>مُحَمَّد</span></div>
+
+            <div class="hadis-baslik-sarici">
+                <i class="fa-solid fa-star-and-crescent"></i>
+                <span>Günün Hadîs-i Şerîfi</span>
+                <i class="fa-solid fa-star-and-crescent"></i>
+            </div>
+
             <div class="hat-rozet hat-allah" title="Allah Celle Celâluhû"><span>اللّٰه</span></div>
         </div>
 
