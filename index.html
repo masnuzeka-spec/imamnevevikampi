@@ -31,7 +31,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,700&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,700&family=Amiri:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -110,23 +110,284 @@
         .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
 
         /* BAŞLIKLAR */
-        header { text-align: center; margin-bottom: 30px; display: flex; flex-direction: column; align-items: center; }
+        header { text-align: center; margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; }
         .header-top-tag { font-size: 0.85rem; color: var(--accent-main); letter-spacing: 3px; text-transform: uppercase; font-weight: 800; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; color: #fff; letter-spacing: 3px; margin-bottom: 15px; text-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 15px rgba(243, 207, 139, 0.3); text-transform: uppercase; line-height: 1.2;}
-        .badge-gonullu { display: inline-block; background: rgba(15, 40, 20, 0.6); backdrop-filter: blur(5px); border: 1.5px solid var(--text-gold); color: var(--text-gold); padding: 8px 30px; border-radius: 30px; font-size: 1rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .header-date { font-size: 1.15rem; color: #fff; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        h1 { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; color: #fff; letter-spacing: 3px; margin-bottom: 15px; text-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 15px rgba(243, 207, 139, 0.3); text-transform: uppercase; line-height: 1.2; }
+        .badge-gonullu { display: inline-block; background: rgba(15, 40, 20, 0.6); backdrop-filter: blur(5px); border: 1.5px solid var(--text-gold); color: var(--text-gold); padding: 8px 30px; border-radius: 30px; font-size: 0.95rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .header-date { font-size: 1.1rem; color: #fff; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
 
         /* ANA SEKMELER */
-        .ana-sekme-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; padding: 0 10px; }
-        .ana-sekme-btn { background: rgba(20, 48, 25, 0.8); backdrop-filter: blur(5px); border: 2px solid var(--text-gold); color: var(--text-gold); padding: 12px 30px; border-radius: 30px; font-family: 'Cinzel', serif; font-size: 1.05rem; cursor: pointer; transition: all 0.3s ease; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .ana-sekme-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; padding: 0 10px; }
+        .ana-sekme-btn { background: rgba(20, 48, 25, 0.8); backdrop-filter: blur(5px); border: 2px solid var(--text-gold); color: var(--text-gold); padding: 12px 28px; border-radius: 30px; font-family: 'Cinzel', serif; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .ana-sekme-btn:hover { transform: translateY(-3px); background: rgba(30, 70, 38, 0.9); }
         .ana-sekme-btn.aktif { background: var(--text-gold); color: #15381a; box-shadow: 0 0 20px rgba(243, 207, 139, 0.5); font-weight: 900; }
 
-        /* İLERLEME ÇUBUĞU */
-        .progress-container { position: relative; z-index: 10; max-width: 800px; margin: 0 auto 40px auto; padding: 20px 30px; background: rgba(15, 38, 20, 0.85); backdrop-filter: blur(10px); border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.4); border: 1px solid rgba(243, 207, 139, 0.3); }
-        .progress-info { display: flex; justify-content: space-between; color: var(--text-gold); font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 12px; font-weight: bold; text-transform: uppercase; }
-        .progress-bar-bg { background-color: rgba(0, 0, 0, 0.5); border-radius: 10px; height: 10px; width: 100%; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);}
-        .progress-bar-fill { background: linear-gradient(90deg, #81c784, var(--text-gold), #fff2cd); height: 100%; width: 0%; border-radius: 10px; transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 0 10px rgba(243, 207, 139, 0.5);}
+        /* ======================================================== */
+        /* 📜 GÜNÜN HADÎSİ & İLERLEME KARTI - NİZAMİ UYUM          */
+        /* ======================================================== */
+        .gunun-hadisi-karti,
+        .progress-container {
+            width: 92% !important;
+            max-width: 580px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            box-sizing: border-box !important;
+        }
+
+        /* 🏛️ GÜNÜN HADÎSİ LEVHASI */
+        .gunun-hadisi-karti {
+            margin-top: 10px !important;
+            margin-bottom: 22px !important;
+            background: radial-gradient(circle at 50% 15%, #133e21 0%, rgba(10, 32, 17, 0.98) 80%, #051409 100%) !important;
+            border: 1.5px solid #E2B973 !important;
+            border-radius: 20px !important;
+            padding: 18px 16px 16px 16px !important;
+            position: relative !important;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(226, 185, 115, 0.12) !important;
+            text-align: center !important;
+            overflow: hidden !important;
+        }
+
+        .gunun-hadisi-karti::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid rgba(226, 185, 115, 0.25);
+            border-radius: 15px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* 🌸 SÜZÜLEN GÜL YAPRAKLARI */
+        .gul-yapraklari {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .gul-yaprak {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, #ff8fa3, #c9184a);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.35;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+            animation: gulSalinimi 10s infinite linear;
+        }
+
+        .gul-yaprak:nth-child(1) { left: 10%; width: 13px; height: 15px; animation-duration: 8.5s; animation-delay: 0s; }
+        .gul-yaprak:nth-child(2) { left: 32%; width: 10px; height: 12px; animation-duration: 11.5s; animation-delay: 2.5s; opacity: 0.25; }
+        .gul-yaprak:nth-child(3) { left: 60%; width: 14px; height: 17px; animation-duration: 9.5s; animation-delay: 1.2s; opacity: 0.32; }
+        .gul-yaprak:nth-child(4) { left: 82%; width: 11px; height: 13px; animation-duration: 12s; animation-delay: 4.5s; opacity: 0.28; }
+        .gul-yaprak:nth-child(5) { left: 46%; width: 9px; height: 11px; animation-duration: 10.5s; animation-delay: 6s; opacity: 0.22; }
+
+        @keyframes gulSalinimi {
+            0% { top: -20px; transform: rotate(0deg) translateX(0); }
+            50% { transform: rotate(180deg) translateX(20px); }
+            100% { top: 105%; transform: rotate(360deg) translateX(-15px); }
+        }
+
+        /* 👑 ÜST KATMAN: BAŞLIK ROZETİ VE SAĞLI SOLLU HATLAR */
+        .hadis-baslik-sarici {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;
+            padding: 3px 14px !important;
+            background: rgba(5, 18, 9, 0.9) !important;
+            border: 1px solid rgba(226, 185, 115, 0.5) !important;
+            border-radius: 20px !important;
+            margin-bottom: 12px !important;
+            position: relative !important;
+            z-index: 3 !important;
+        }
+
+        .hadis-baslik-sarici span {
+            font-family: 'Cinzel', serif !important;
+            font-size: clamp(0.68rem, 2.7vw, 0.76rem) !important;
+            font-weight: 800 !important;
+            letter-spacing: 1.5px !important;
+            color: #E2B973 !important;
+            text-transform: uppercase !important;
+        }
+
+        .hadis-baslik-sarici i {
+            color: #E2B973 !important;
+            font-size: 0.62rem !important;
+        }
+
+        .hadis-madalyon-satiri {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            width: 100% !important;
+            padding: 0 8px !important;
+            box-sizing: border-box !important;
+            margin-bottom: 8px !important;
+            direction: ltr !important;
+            position: relative !important;
+            z-index: 3 !important;
+        }
+
+        /* 🎯 KUSURSUZ MERKEZLENMİŞ DAİRELER */
+        .hat-rozet {
+            font-family: 'Amiri', serif !important;
+            font-weight: 700 !important;
+            color: #E2B973 !important;
+            background: radial-gradient(circle, #0e301a 0%, #06170c 100%) !important;
+            border: 1.5px solid #E2B973 !important;
+            border-radius: 50% !important;
+            width: 48px !important;
+            height: 48px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.7), inset 0 0 8px rgba(226, 185, 115, 0.3) !important;
+            flex-shrink: 0 !important;
+            user-select: none !important;
+            box-sizing: border-box !important;
+        }
+
+        .hat-rozet span {
+            display: block !important;
+            line-height: 1 !important;
+            text-align: center !important;
+        }
+
+        .hat-allah span {
+            font-size: 1.45rem !important;
+            transform: translateY(-2px) !important;
+            text-shadow: 0 0 8px rgba(226, 185, 115, 0.45);
+        }
+
+        .hat-muhammed span {
+            font-size: 1.15rem !important;
+            transform: translateY(-1px) !important;
+            text-shadow: 0 0 8px rgba(226, 185, 115, 0.45);
+        }
+
+        /* 📜 HADÎS İÇERİK METİNLERİ */
+        .hadis-icerik-katmani {
+            position: relative;
+            z-index: 3;
+        }
+
+        .hadis-arapca {
+            font-family: 'Amiri', serif !important;
+            font-size: clamp(1.25rem, 4.5vw, 1.6rem) !important;
+            line-height: 1.85 !important;
+            color: #fff8e7 !important;
+            direction: rtl !important;
+            margin-bottom: 8px !important;
+            padding: 0 6px !important;
+            font-weight: 700 !important;
+            word-break: break-word !important;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.85) !important;
+        }
+
+        .hadis-ayrac {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 6px auto 10px auto;
+            max-width: 180px;
+        }
+
+        .hadis-ayrac .cizgi {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #E2B973, transparent);
+        }
+
+        .hadis-ayrac .nokta {
+            width: 4px;
+            height: 4px;
+            background: #E2B973;
+            transform: rotate(45deg);
+        }
+
+        .hadis-turkce {
+            font-family: 'Lora', serif !important;
+            font-size: clamp(0.92rem, 3.2vw, 1.05rem) !important;
+            line-height: 1.6 !important;
+            color: #FAF5EF !important;
+            font-style: italic !important;
+            margin-bottom: 10px !important;
+            padding: 0 6px !important;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7) !important;
+        }
+
+        .hadis-kaynak {
+            font-size: 0.8rem;
+            color: #E2B973;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            opacity: 0.9;
+        }
+
+        /* 🌿 İLERLEME KARTI */
+        .progress-container {
+            background: radial-gradient(circle at 50% 30%, #0c2916 0%, #06180c 100%) !important;
+            border: 1.5px solid rgba(226, 185, 115, 0.4) !important;
+            border-radius: 18px !important;
+            padding: 14px 18px !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
+            margin-bottom: 30px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+        }
+
+        .progress-bar-bg {
+            background-color: rgba(3, 12, 6, 0.9) !important;
+            border: 1px solid rgba(226, 185, 115, 0.25) !important;
+            border-radius: 10px !important;
+            height: 8px !important;
+            width: 100% !important;
+            overflow: hidden !important;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5) !important;
+            margin: 0 !important;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #b38938 0%, #E2B973 50%, #fff0b8 100%) !important;
+            height: 100% !important;
+            width: 0%;
+            border-radius: 10px !important;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            box-shadow: 0 0 10px rgba(226, 185, 115, 0.5) !important;
+        }
+
+        .progress-info {
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            width: 100% !important;
+            font-family: 'Cinzel', serif !important;
+            font-weight: 700 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .progress-info span:first-child {
+            color: #FAF5EF !important;
+            font-size: clamp(0.72rem, 2.7vw, 0.82rem) !important;
+            letter-spacing: 0.8px !important;
+            white-space: nowrap !important;
+        }
+
+        #progressText {
+            color: #E2B973 !important;
+            font-size: clamp(0.74rem, 2.8vw, 0.85rem) !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.8px !important;
+            white-space: nowrap !important;
+        }
 
         /* ZARİF TIMELINE ÇİZGİSİ */
         .timeline { position: relative; max-width: 1000px; margin: 0 auto; padding: 20px 0; animation: fadeIn 0.8s ease; }
@@ -253,7 +514,7 @@
 
         .modal-header-section { border-bottom: 1px solid rgba(243, 207, 139, 0.2); padding-bottom: 15px; margin-bottom: 25px; text-align: center; }
         .modal-meta { font-size: 1rem; color: var(--text-gold); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif; margin-bottom: 10px; display: block; }
-        .modal-heading { font-size: 2rem; color: #fff; font-weight: 800; margin: 10px 0; font-family: 'Cinzel', serif; line-height: 1.2;}
+        .modal-heading { font-size: 2rem; color: #fff; font-weight: 800; margin: 10px 0; font-family: 'Cinzel', serif; line-height: 1.2; }
         .modal-speaker-name { font-size: 1.15rem; color: var(--text-gold); font-style: italic; }
 
         .kral-sekme-alan { position: relative; width: 100%; }
@@ -268,18 +529,67 @@
         .siralama-iframe { width: 100%; height: 65vh; min-height: 500px; border: none; border-radius: 12px; background: transparent; }
 
         .modal-footer-actions { border-top: 1px solid rgba(243, 207, 139, 0.2); padding-top: 25px; margin-top: 30px; display: flex; justify-content: flex-end; }
-        .btn-complete-toggle { background: var(--text-gold); color: #15381a; padding: 14px 30px; border-radius: 10px; font-size: 1.05rem; font-weight: 900; font-family: 'Cinzel', serif; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 5px 15px rgba(243, 207, 139, 0.3);}
+        .btn-complete-toggle { background: var(--text-gold); color: #15381a; padding: 14px 30px; border-radius: 10px; font-size: 1.05rem; font-weight: 900; font-family: 'Cinzel', serif; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 5px 15px rgba(243, 207, 139, 0.3); }
         .btn-complete-toggle:hover { background: #fff; transform: translateY(-2px); }
 
         #duyuruModal { z-index: 99999; }
-        .duyuru-kutu { background: rgba(20, 48, 25, 0.95); border: 2px solid var(--text-gold); border-radius: 16px; padding: 40px; width: 90%; max-width: 500px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.8);}
+        .duyuru-kutu { background: rgba(20, 48, 25, 0.95); border: 2px solid var(--text-gold); border-radius: 16px; padding: 40px; width: 90%; max-width: 500px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
         .duyuru-baslik { color: var(--text-gold); font-family: 'Cinzel', serif; font-size: 1.6rem; margin-bottom: 20px; border-bottom: 1px dashed rgba(243, 207, 139, 0.3); padding-bottom: 15px; }
-        .btn-duyuru-kapat { background: var(--text-gold); color: #15381a; border: none; padding: 14px; font-weight: 900; font-family: 'Cinzel', serif; font-size: 1.15rem; border-radius: 10px; cursor: pointer; width: 100%; transition: all 0.3s; margin-top:25px;}
+        .btn-duyuru-kapat { background: var(--text-gold); color: #15381a; border: none; padding: 14px; font-weight: 900; font-family: 'Cinzel', serif; font-size: 1.15rem; border-radius: 10px; cursor: pointer; width: 100%; transition: all 0.3s; margin-top:25px; }
 
         /* FOOTER */
-        footer { margin-top: 80px; border-top: 1px solid rgba(243, 207, 139, 0.2); padding-top: 50px; text-align: center; position: relative; z-index: 2;}
-        .yakisikli-sayac { display: inline-block; background: rgba(15, 38, 20, 0.8); backdrop-filter: blur(5px); border: 1px solid var(--text-gold); padding: 15px 30px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-        .yakisikli-sayac-baslik { font-family: 'Cinzel', serif; font-size: 0.95rem; color: #fff; margin-bottom: 12px; display: block; letter-spacing: 2px; }
+        footer { margin-top: 80px; border-top: 1px solid rgba(243, 207, 139, 0.2); padding-top: 50px; text-align: center; position: relative; z-index: 2; }
+        .yakisikli-sayac-yeni {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgba(20, 56, 30, 0.95) 0%, rgba(10, 30, 16, 0.98) 100%);
+            border: 1.5px solid #f3cf8b;
+            border-radius: 18px;
+            padding: 14px 38px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(243, 207, 139, 0.1);
+            min-width: 190px;
+            margin-bottom: 25px;
+        }
+
+        .sayac-etiket {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #d8f3dc;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sayac-canli-isik {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #38ef7d;
+            box-shadow: 0 0 8px #38ef7d;
+            animation: nabiz 2s infinite ease-in-out;
+        }
+
+        @keyframes nabiz {
+            0%, 100% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 14px #38ef7d; }
+        }
+
+        .sayac-rakam {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 18px rgba(243, 207, 139, 0.6), 0 2px 5px rgba(0,0,0,0.8);
+            line-height: 1.1;
+        }
+
         .zarif-bilgi-kutusu { margin: 30px auto; max-width: 750px; padding: 25px 20px; border: 1px dashed rgba(243, 207, 139, 0.4); border-radius: 12px; font-size: 0.95rem; color: #fff; line-height: 1.7; text-align: center; background: rgba(0, 0, 0, 0.3); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .bilgi-baslik-vurgu { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--text-gold); font-weight: 800; text-shadow: 0 2px 5px rgba(0,0,0,0.5); margin-bottom: 10px; letter-spacing: 1px; }
         .zarif-iletisim-alani { margin: 30px 20px 20px; font-size: 1rem; color: #dcebd2; line-height: 1.6; }
@@ -288,142 +598,57 @@
         .telegram-belirgin-link:hover { background: #00a2f2; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6); }
         .footer-copyright { display: block; font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 2px; color: var(--text-gold); font-weight: bold; margin-top: 40px; text-transform: uppercase; opacity: 0.8; }
 
-        /* ======================================================== */
-        /* 📱 AKILLI PWA YÜKLEME BANNERI & IOS REHBER MODALI        */
-        /* ======================================================== */
+        /* PWA VE IOS MODALLARI */
         .pwa-install-banner {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
+            position: fixed; bottom: 20px; left: 50%;
             transform: translateX(-50%) translateY(120%);
-            width: 92%;
-            max-width: 500px;
+            width: 92%; max-width: 500px;
             background: linear-gradient(135deg, rgba(20, 56, 30, 0.98), rgba(8, 26, 14, 0.98));
-            border: 1.5px solid var(--text-gold);
-            border-radius: 20px;
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            z-index: 1000;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(243, 207, 139, 0.3);
+            border: 1.5px solid var(--text-gold); border-radius: 20px; padding: 14px 20px;
+            display: flex; align-items: center; justify-content: space-between; gap: 15px;
+            z-index: 1000; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(243, 207, 139, 0.3);
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             backdrop-filter: blur(10px);
         }
-        .pwa-install-banner.active {
-            transform: translateX(-50%) translateY(0);
-        }
-        .pwa-banner-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .pwa-install-banner.active { transform: translateX(-50%) translateY(0); }
+        .pwa-banner-left { display: flex; align-items: center; gap: 12px; }
         .pwa-app-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            border: 1px solid var(--text-gold);
-            background: #123018;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-gold);
-            font-size: 1.3rem;
-            flex-shrink: 0;
+            width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--text-gold);
+            background: #123018; display: flex; align-items: center; justify-content: center;
+            color: var(--text-gold); font-size: 1.3rem; flex-shrink: 0;
         }
-        .pwa-text-title {
-            font-family: 'Cinzel', serif;
-            font-weight: 800;
-            color: #fff;
-            font-size: 0.95rem;
-            line-height: 1.2;
-        }
-        .pwa-text-desc {
-            font-size: 0.78rem;
-            color: var(--accent-main);
-            font-style: italic;
-        }
+        .pwa-text-title { font-family: 'Cinzel', serif; font-weight: 800; color: #fff; font-size: 0.95rem; line-height: 1.2; }
+        .pwa-text-desc { font-size: 0.78rem; color: var(--accent-main); font-style: italic; }
         .pwa-install-btn {
-            background: var(--text-gold);
-            color: #15381a;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
-            font-size: 0.85rem;
-            cursor: pointer;
-            white-space: nowrap;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background: var(--text-gold); color: #15381a; border: none; padding: 8px 16px;
+            border-radius: 20px; font-family: 'Cinzel', serif; font-weight: 900; font-size: 0.85rem;
+            cursor: pointer; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        .pwa-close-btn {
-            background: transparent;
-            border: none;
-            color: #aaa;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 0 4px;
-        }
+        .pwa-close-btn { background: transparent; border: none; color: #aaa; font-size: 1.2rem; cursor: pointer; padding: 0 4px; }
 
-        /* iOS Yönlendirme Modalı */
         .ios-guide-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
-            z-index: 999999;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 25px;
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px); z-index: 999999; align-items: flex-end;
+            justify-content: center; padding-bottom: 25px;
         }
         .ios-guide-modal.active { display: flex; }
         .ios-guide-card {
             background: linear-gradient(145deg, #183d21, #0a1f11);
-            border: 2px solid var(--text-gold);
-            border-radius: 22px;
-            padding: 25px 22px;
-            width: 92%;
-            max-width: 440px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-            position: relative;
-            animation: slideUp 0.4s ease-out;
+            border: 2px solid var(--text-gold); border-radius: 22px; padding: 25px 22px;
+            width: 92%; max-width: 440px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            position: relative; animation: slideUp 0.4s ease-out;
         }
-        .ios-guide-title {
-            font-family: 'Cinzel', serif;
-            color: var(--text-gold);
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-        .ios-steps {
-            text-align: left;
-            font-size: 0.92rem;
-            color: #FAF5EF;
-            line-height: 1.7;
-            margin-bottom: 20px;
-            padding: 0 10px;
-        }
+        .ios-guide-title { font-family: 'Cinzel', serif; color: var(--text-gold); font-size: 1.25rem; font-weight: 800; margin-bottom: 12px; }
+        .ios-steps { text-align: left; font-size: 0.92rem; color: #FAF5EF; line-height: 1.7; margin-bottom: 20px; padding: 0 10px; }
         .ios-steps li { margin-bottom: 8px; }
-        .ios-icon-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.15);
-            padding: 2px 8px;
-            border-radius: 6px;
-            color: #38ef7d;
-            font-weight: bold;
-        }
+        .ios-icon-badge { display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 6px; color: #38ef7d; font-weight: bold; }
 
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
         /* MOBİL UYUM */
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; line-height: 1.3;}
-            .ana-sekme-container { flex-direction: column; gap: 12px; max-width: 300px; margin: 25px auto;}
+            .ana-sekme-container { flex-direction: column; gap: 12px; max-width: 320px; margin: 20px auto;}
             
             .timeline::after { left: 50%; width: 3px; } 
             
@@ -460,422 +685,6 @@
             .zarif-iletisim-alani { font-size: 0.95rem; }
             .telegram-belirgin-link { display: flex; justify-content: center; margin: 15px auto 0; max-width: 240px; }
         }
-        /* 🏛️ CANLI ZİYARETÇİ SAYAÇ TASARIMI */
-.yakisikli-sayac-yeni {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at center, rgba(20, 56, 30, 0.95) 0%, rgba(10, 30, 16, 0.98) 100%);
-  border: 1.5px solid #f3cf8b;
-  border-radius: 18px;
-  padding: 14px 38px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(243, 207, 139, 0.1);
-  min-width: 190px;
-  margin-bottom: 25px;
-}
-
-.sayac-etiket {
-  font-family: 'Cinzel', serif;
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 3px;
-  color: #d8f3dc;
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.sayac-canli-isik {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #38ef7d;
-  box-shadow: 0 0 8px #38ef7d;
-  animation: nabiz 2s infinite ease-in-out;
-}
-
-@keyframes nabiz {
-  0%, 100% { transform: scale(0.9); opacity: 0.6; }
-  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 14px #38ef7d; }
-}
-
-.sayac-rakam {
-  font-family: 'Cinzel', serif;
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: 2px;
-  text-shadow: 0 0 18px rgba(243, 207, 139, 0.6), 0 2px 5px rgba(0,0,0,0.8);
-  line-height: 1.1;
-}
-/* 🏛️ MOBİL UYUMLU GÜNÜN HADÎSİ LEVHASI */
-.gunun-hadisi-karti {
-    width: 92%;
-    max-width: 680px;
-    margin: 15px auto 30px auto;
-    background: radial-gradient(circle at 50% 15%, #133e21 0%, rgba(10, 32, 17, 0.98) 80%, #051409 100%);
-    border: 1.5px solid #E2B973;
-    border-radius: 18px;
-    padding: 22px 16px 18px 16px;
-    position: relative;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(226, 185, 115, 0.12);
-    text-align: center;
-    box-sizing: border-box;
-}
-
-.gunun-hadisi-karti::before {
-    content: '';
-    position: absolute;
-    top: 5px; left: 5px; right: 5px; bottom: 5px;
-    border: 1px solid rgba(226, 185, 115, 0.25);
-    border-radius: 13px;
-    pointer-events: none;
-}
-
-.hadis-baslik-sarici {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 3px 14px;
-    background: rgba(5, 18, 9, 0.85);
-    border: 1px solid #E2B973;
-    border-radius: 20px;
-    margin-bottom: 14px;
-}
-
-.hadis-baslik-sarici span {
-    font-family: 'Cinzel', serif;
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: #E2B973;
-    text-transform: uppercase;
-}
-
-.hadis-baslik-sarici i {
-    color: #E2B973;
-    font-size: 0.65rem;
-}
-
-/* Mobilde taşmayan esnek Arapça font */
-.hadis-arapca {
-    font-family: 'Amiri', serif;
-    font-size: clamp(1.25rem, 4.5vw, 1.6rem);
-    line-height: 1.8;
-    color: #fff8e7;
-    direction: rtl;
-    margin-bottom: 10px;
-    padding: 0 5px;
-    font-weight: 700;
-    word-break: break-word;
-}
-
-.hadis-ayrac {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 8px auto 12px auto;
-    max-width: 200px;
-}
-
-.hadis-ayrac .cizgi {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #E2B973, transparent);
-}
-
-.hadis-ayrac .nokta {
-    width: 4px;
-    height: 4px;
-    background: #E2B973;
-    transform: rotate(45deg);
-}
-
-/* Mobilde rahat okunan Türkçe font */
-.hadis-turkce {
-    font-family: 'Lora', serif;
-    font-size: clamp(0.92rem, 3.2vw, 1.05rem);
-    line-height: 1.6;
-    color: #FAF5EF;
-    font-style: italic;
-    margin-bottom: 12px;
-    padding: 0 6px;
-}
-
-.hadis-kaynak {
-    font-size: 0.8rem;
-    color: #E2B973;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    opacity: 0.9;
-}
-/* 🏛️ GÜNÜN HADÎSİ - ZÜMRÜT & ALTIN KART */
-.gunun-hadisi-karti {
-    width: 92%;
-    max-width: 680px;
-    margin: 15px auto 30px auto;
-    background: radial-gradient(circle at 50% 15%, #133e21 0%, rgba(10, 32, 17, 0.98) 80%, #051409 100%);
-    border: 1.5px solid #E2B973;
-    border-radius: 20px;
-    padding: 20px 16px 18px 16px;
-    position: relative;
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(226, 185, 115, 0.12);
-    text-align: center;
-    box-sizing: border-box;
-    overflow: hidden; /* Gül yaprakları kartın dışına asla taşmaz */
-}
-
-.gunun-hadisi-karti::before {
-    content: '';
-    position: absolute;
-    top: 5px; left: 5px; right: 5px; bottom: 5px;
-    border: 1px solid rgba(226, 185, 115, 0.25);
-    border-radius: 15px;
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* 🌸 DÖKÜLEN GÜL YAPRAKLARI (SAF CSS) */
-.gul-yapraklari {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.gul-yaprak {
-    position: absolute;
-    background: radial-gradient(circle at 30% 30%, #ff8fa3, #c9184a);
-    border-radius: 50% 0 50% 50%;
-    opacity: 0.35;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
-    animation: gulSalinimi 10s infinite linear;
-}
-
-.gul-yaprak:nth-child(1) { left: 10%; width: 13px; height: 15px; animation-duration: 8.5s; animation-delay: 0s; }
-.gul-yaprak:nth-child(2) { left: 32%; width: 10px; height: 12px; animation-duration: 11.5s; animation-delay: 2.5s; opacity: 0.25; }
-.gul-yaprak:nth-child(3) { left: 60%; width: 14px; height: 17px; animation-duration: 9.5s; animation-delay: 1.2s; opacity: 0.32; }
-.gul-yaprak:nth-child(4) { left: 82%; width: 11px; height: 13px; animation-duration: 12s; animation-delay: 4.5s; opacity: 0.28; }
-.gul-yaprak:nth-child(5) { left: 46%; width: 9px; height: 11px; animation-duration: 10.5s; animation-delay: 6s; opacity: 0.22; }
-
-@keyframes gulSalinimi {
-    0% {
-        top: -20px;
-        transform: rotate(0deg) translateX(0);
-    }
-    50% {
-        transform: rotate(180deg) translateX(20px);
-    }
-    100% {
-        top: 105%;
-        transform: rotate(360deg) translateX(-15px);
-    }
-}
-
-/* 👑 ÜST BAŞLIK ALANI */
-.hadis-ust-baslik-alani {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    position: relative;
-    z-index: 3;
-    margin-bottom: 16px;
-    padding: 0 2px;
-    direction: ltr !important;
-}
-
-/* 🎯 GENİŞLETİLMİŞ VE KUSURSUZ MERKEZLENMİŞ HAT DAİRELERİ */
-.hat-rozet {
-    font-family: 'Amiri', serif !important;
-    font-weight: 700;
-    color: #E2B973 !important;
-    background: radial-gradient(circle, #0e301a 0%, #06170c 100%) !important;
-    border: 1.5px solid #E2B973 !important;
-    border-radius: 50% !important;
-    /* Daireyi 48px yaparak taşma hissini bitiriyoruz */
-    width: 48px !important;
-    height: 48px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.7), inset 0 0 8px rgba(226, 185, 115, 0.25) !important;
-    flex-shrink: 0;
-    user-select: none;
-    box-sizing: border-box !important;
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
-.hat-rozet span {
-    display: block !important;
-    line-height: 1 !important;
-    text-align: center !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* ALLAH LAFZI (SAĞDA) - Daire içine ferahça oturur */
-.hat-allah span {
-    font-size: 1.35rem !important;
-    transform: translateY(-2px) !important;
-    text-shadow: 0 0 8px rgba(226, 185, 115, 0.4);
-}
-
-/* MUHAMMED LAFZI (SOLDA) - Daire içine ferahça oturur */
-.hat-muhammed span {
-    font-size: 1.05rem !important;
-    transform: translateY(-1px) !important;
-    text-shadow: 0 0 8px rgba(226, 185, 115, 0.4);
-}
-
-/* Ortadaki Hadis Başlığı Rozeti */
-.hadis-baslik-sarici {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px;
-    background: rgba(5, 18, 9, 0.85);
-    border: 1px solid #E2B973;
-    border-radius: 20px;
-}
-
-.hadis-baslik-sarici span {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.65rem, 2.7vw, 0.76rem);
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    color: #E2B973;
-    text-transform: uppercase;
-}
-
-/* 📜 HADÎS İÇERİK METİNLERİ */
-.hadis-icerik-katmani {
-    position: relative;
-    z-index: 3;
-}
-
-.hadis-arapca {
-    font-family: 'Amiri', serif;
-    font-size: clamp(1.25rem, 4.5vw, 1.6rem);
-    line-height: 1.85;
-    color: #fff8e7;
-    direction: rtl;
-    margin-bottom: 10px;
-    padding: 0 4px;
-    font-weight: 700;
-    word-break: break-word;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.85);
-}
-
-.hadis-ayrac {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 8px auto 12px auto;
-    max-width: 190px;
-}
-
-.hadis-ayrac .cizgi {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #E2B973, transparent);
-}
-
-.hadis-ayrac .nokta {
-    width: 4px;
-    height: 4px;
-    background: #E2B973;
-    transform: rotate(45deg);
-}
-
-.hadis-turkce {
-    font-family: 'Lora', serif;
-    font-size: clamp(0.92rem, 3.2vw, 1.05rem);
-    line-height: 1.6;
-    color: #FAF5EF;
-    font-style: italic;
-    margin-bottom: 12px;
-    padding: 0 6px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
-}
-
-.hadis-kaynak {
-    font-size: 0.8rem;
-    color: #E2B973;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    opacity: 0.9;
-}
-/* 🌿 BAHÇE İLERLEME KARTI (MOBİL UYUMLU) */
-.bahce-ilerleme-karti {
-    width: 92%;
-    max-width: 680px;
-    margin: 0 auto 30px auto;
-    background: radial-gradient(circle at 50% 30%, #0c2916 0%, #06180c 100%);
-    border: 1.5px solid rgba(226, 185, 115, 0.4);
-    border-radius: 18px;
-    padding: 16px 18px;
-    box-sizing: border-box;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-}
-
-/* Üstteki İlerleme Çubuğu */
-.ilerleme-cubuk-arkaplan {
-    width: 100%;
-    height: 9px;
-    background: rgba(3, 12, 6, 0.9);
-    border: 1px solid rgba(226, 185, 115, 0.25);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 12px;
-}
-
-.ilerleme-cubuk-dolu {
-    height: 100%;
-    background: linear-gradient(90deg, #b38938 0%, #E2B973 50%, #fff0b8 100%);
-    border-radius: 10px;
-    transition: width 0.6s ease-in-out;
-    box-shadow: 0 0 10px rgba(226, 185, 115, 0.5);
-}
-
-/* Alttaki Bilgi Satırı */
-.ilerleme-metin-satiri {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Cinzel', serif;
-    gap: 10px;
-}
-
-.ilerleme-etiket {
-    color: #FAF5EF;
-    font-size: clamp(0.72rem, 2.8vw, 0.84rem);
-    font-weight: 700;
-    letter-spacing: 1px;
-    opacity: 0.9;
-}
-
-.ilerleme-deger {
-    color: #E2B973;
-    font-size: clamp(0.75rem, 2.9vw, 0.88rem);
-    font-weight: 800;
-    letter-spacing: 1px;
-    white-space: nowrap;
-}
     </style>
 </head>
 <body>
@@ -904,60 +713,60 @@
         <button class="ana-sekme-btn aktif" onclick="anaSekmeDegistir('dersler')">📜 Kamp Dersleri</button>
         <button class="ana-sekme-btn" onclick="anaSekmeDegistir('denemeler')">📝 Değerlendirme Sınavları</button>
     </div>
-<!-- 📜 GÜNÜN HADÎS-İ ŞERÎFİ (ALLAH - MUHAMMED HATLI & GÜL YAPRAKLI) -->
-<div class="gunun-hadisi-karti">
-    
-    <!-- Süzülen Gül Yaprakları Katmanı -->
-    <div class="gul-yapraklari">
-        <span class="gul-yaprak"></span>
-        <span class="gul-yaprak"></span>
-        <span class="gul-yaprak"></span>
-        <span class="gul-yaprak"></span>
-        <span class="gul-yaprak"></span>
-    </div>
 
-    <!-- Üst Satır: Sağda ALLAH, Ortada Başlık, Solda MUHAMMED -->
-    <!-- Üst Satır: Ekrana bakınca SAĞDA ALLAH, SOLDA MUHAMMED -->
-<div class="hadis-ust-baslik-alani">
-    <div class="hat-rozet hat-muhammed" title="Muhammed Aleyhisselâm"><span>مُحَمَّد</span></div>
-
-    <div class="hadis-baslik-sarici">
-        <i class="fa-solid fa-star-and-crescent"></i>
-        <span>Günün Hadîs-i Şerîfi</span>
-        <i class="fa-solid fa-star-and-crescent"></i>
-    </div>
-
-    <div class="hat-rozet hat-allah" title="Allah Celle Celâluhû"><span>اللّٰه</span></div>
-</div>
-
-    <!-- Metin Katmanı -->
-    <div class="hadis-icerik-katmani">
-        <div class="hadis-arapca" id="hadisArapca">...</div>
-
-        <div class="hadis-ayrac">
-            <span class="cizgi"></span>
-            <span class="nokta"></span>
-            <span class="cizgi"></span>
+    <!-- 📜 GÜNÜN HADÎS-İ ŞERÎFİ (ALLAH - MUHAMMED HATLI & GÜL YAPRAKLI) -->
+    <div class="gunun-hadisi-karti">
+        
+        <!-- Süzülen Gül Yaprakları Katmanı -->
+        <div class="gul-yapraklari">
+            <span class="gul-yaprak"></span>
+            <span class="gul-yaprak"></span>
+            <span class="gul-yaprak"></span>
+            <span class="gul-yaprak"></span>
+            <span class="gul-yaprak"></span>
         </div>
 
-        <div class="hadis-turkce" id="hadisTurkce">...</div>
-
-        <div class="hadis-kaynak">
-            <i class="fa-solid fa-book-open"></i> <span>Riyâzü’s-Sâlihîn</span>
+        <!-- 1. Katman: Üst Başlık Rozeti -->
+        <div class="hadis-baslik-sarici">
+            <i class="fa-solid fa-star-and-crescent"></i>
+            <span>Günün Hadîs-i Şerîfi</span>
+            <i class="fa-solid fa-star-and-crescent"></i>
         </div>
+
+        <!-- 2. Katman: Sağda ALLAH, Solda MUHAMMED Hat Madalyonları -->
+        <div class="hadis-madalyon-satiri">
+            <div class="hat-rozet hat-muhammed" title="Muhammed Aleyhisselâm"><span>مُحَمَّد</span></div>
+            <div class="hat-rozet hat-allah" title="Allah Celle Celâluhû"><span>اللّٰه</span></div>
+        </div>
+
+        <!-- 3. Katman: Metin Alanı -->
+        <div class="hadis-icerik-katmani">
+            <div class="hadis-arapca" id="hadisArapca">Yükleniyor...</div>
+
+            <div class="hadis-ayrac">
+                <span class="cizgi"></span>
+                <span class="nokta"></span>
+                <span class="cizgi"></span>
+            </div>
+
+            <div class="hadis-turkce" id="hadisTurkce">...</div>
+
+            <div class="hadis-kaynak">
+                <i class="fa-solid fa-book-open"></i> <span>Riyâzü’s-Sâlihîn</span>
+            </div>
+        </div>
+
     </div>
 
-</div>
-   <!-- 1. SEKME: DERSLER -->
+    <!-- 1. SEKME: DERSLER -->
     <div id="dersler-alan">
+        <!-- İLERLEME KARTI (ÇUBUK ÜSTTE, BİLGİLER ALTTA) -->
         <div class="progress-container">
-            <!-- 1. İlerleme Çubuğu Üstte -->
-            <div class="progress-bar-bg" style="margin-bottom: 12px;">
+            <div class="progress-bar-bg">
                 <div class="progress-bar-fill" id="progressBar"></div>
             </div>
-            <!-- 2. Bilgiler ve Yüzde Altta -->
             <div class="progress-info">
-                <span>BAHÇE İLERLEME DURUMU</span>
+                <span>KAMP İSTİFÂDE SEYRİ</span>
                 <span id="progressText">%0 TAMAMLANDI</span>
             </div>
         </div>
@@ -971,13 +780,13 @@
 
     <footer>
         <div class="yakisikli-sayac-yeni">
-    <span class="sayac-etiket">
-        <span class="sayac-canli-isik"></span> TOPLAM ZİYARETÇİ 
-    </span>
-    <span class="sayac-rakam" id="canliSayacRakam">
-        <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.2rem; color: #f3cf8b;"></i>
-    </span>
-</div>
+            <span class="sayac-etiket">
+                <span class="sayac-canli-isik"></span> TOPLAM ZİYARETÇİ 
+            </span>
+            <span class="sayac-rakam" id="canliSayacRakam">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.2rem; color: #f3cf8b;"></i>
+            </span>
+        </div>
 
         <div class="zarif-bilgi-kutusu">
             <div class="bilgi-baslik-vurgu">Önemli Bilgilendirme</div>
@@ -1070,7 +879,6 @@
 </div>
 
 <script>
-    // 🛡️ GÜVENLİ VE HIZLI: Google adresi gizlendi, doğrudan Vercel Serverless Cache kullanılıyor
     const API_URL = "/api/veri";
 
     const lessonsData = [
@@ -1380,9 +1188,7 @@
         sessionStorage.setItem('nevevi_niyet_okundu', 'true');
     }
 
-    /* ======================================================== */
-    /* 📱 PWA YÜKLEME VE AKILLI REHBER MANTIĞI                  */
-    /* ======================================================== */
+    /* PWA VE REHBER MANTIĞI */
     const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
@@ -1430,20 +1236,128 @@
         dismissPwaBanner();
     }
 
+    // 🌿 RİYÂZÜ'S-SÂLİHÎN'DEN 20 HİKMETLİ HADÎS (NUMARASIZ)
+    const riyazusSalihinHavuzu = [
+        {
+            arapca: "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
+            turkce: "«Ameller ancak niyetlere göredir; herkesin niyeti ne ise eline geçecek olan odur.»"
+        },
+        {
+            arapca: "الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا",
+            turkce: "«Mü’min mü’min için, parçaları birbirini destekleyen sağlam bir bina gibidir.»"
+        },
+        {
+            arapca: "الطُّهُورُ شَطْرُ الإِيمَانِ، وَالْحَمْدُ لِلَّهِ تَمْلأُ الْمِيزَانَ",
+            turkce: "«Temizlik imanın yarısıdır. Elhamdülillâh mizanı doldurur.»"
+        },
+        {
+            arapca: "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ",
+            turkce: "«Kim ilim tahsil etmek için bir yola girerse, Allah ona cennete giden yolu kolaylaştırır.»"
+        },
+        {
+            arapca: "اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ، وَأَتْبِعِ السَّيِّئَةَ الْحَسَنَةَ تَمْحُهَا",
+            turkce: "«Nerede olursan ol Allah’a karşı gelmekten sakın; kötülüğün peşinden hemen bir iyilik yap ki onu silsin.»"
+        },
+        {
+            arapca: "لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
+            turkce: "«Sizden biriniz, kendisi için istediğini din kardeşi için de istemedikçe kâmil manada iman etmiş olamaz.»"
+        },
+        {
+            arapca: "مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِهِ",
+            turkce: "«Bir hayra vesile olan kimse, o hayrı bizzat işlemiş gibi ecir kazanır.»"
+        },
+        {
+            arapca: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+            turkce: "«Allah’a ve ahiret gününe inanan kimse, ya hayır söylesin ya da sussun.»"
+        },
+        {
+            arapca: "الدِّينُ النَّصِيحَةُ",
+            turkce: "«Din, samimiyettir (nasihattir).»"
+        },
+        {
+            arapca: "الصَّبْرُ ضِيَاءٌ",
+            turkce: "«Sabır, insanı aydınlatan ışıktır.»"
+        },
+        {
+            arapca: "كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ: سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+            turkce: "«Dile hafif, mizanda ağır iki kelime vardır: Sübhânallâhi ve bi-hamdihî, Sübhânallâhi'l-azîm.»"
+        },
+        {
+            arapca: "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
+            turkce: "«Müslüman, elinden ve dilinden diğer Müslümanların güvende olduğu kimsedir.»"
+        },
+        {
+            arapca: "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
+            turkce: "«Kardeşinin yüzüne tebessüm etmen bir sadakadır.»"
+        },
+        {
+            arapca: "إِنَّ اللَّهَ رَفِيقٌ يُحِبُّ الرِّفْقَ فِي الأَمْرِ كُلِّهِ",
+            turkce: "«Şüphesiz Allah şefkat sahibidir ve her işte nezaketi, yumuşaklığı sever.»"
+        },
+        {
+            arapca: "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلاَّ عِزًّا",
+            turkce: "«Sadaka maldan hiçbir şey eksiltmez. Allah, affeden kulunun ancak izzet ve şerefini artırır.»"
+        },
+        {
+            arapca: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+            turkce: "«Sizin en hayırlınız, Kur'ân-ı Kerîm'i öğrenen ve öğretendir.»"
+        },
+        {
+            arapca: "احْفَظِ اللَّهَ يَحْفَظْكَ، احْفَظِ اللَّهَ تَجِدْهُ تُجَاهَكَ",
+            turkce: "«Sen Allah’ın hudutlarını gözet ki, Allah da seni gözetsin; O'nu daima yanında bulasın.»"
+        },
+        {
+            arapca: "الرَّجُلُ عَلَى دِينِ خَلِيلِهِ، فَلْيَنْظُرْ أَحَدُكُمْ مَنْ يُخَالِلُ",
+            turkce: "«Kişi dostunun dini üzeredir. Bu yüzden her biriniz kiminle dostluk ettiğine iyi baksın.»"
+        },
+        {
+            arapca: "أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ",
+            turkce: "«Allah katında amellerin en sevimlisi, az da olsa devamlı olanıdır.»"
+        },
+        {
+            arapca: "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ",
+            turkce: "«Şüphesiz Allah, sizden birinizin yaptığı işi sağlam ve güzel yapmasını sever.»"
+        }
+    ];
+
+    function gununHadisiniGoster() {
+        const bugun = new Date();
+        const baslangic = new Date(bugun.getFullYear(), 0, 0);
+        const gunSayisi = Math.floor((bugun - baslangic) / (1000 * 60 * 60 * 24));
+        const index = gunSayisi % riyazusSalihinHavuzu.length;
+        const h = riyazusSalihinHavuzu[index];
+
+        const arapcaEl = document.getElementById('hadisArapca');
+        const turkceEl = document.getElementById('hadisTurkce');
+        if (arapcaEl && turkceEl) {
+            arapcaEl.innerText = h.arapca;
+            turkceEl.innerText = h.turkce;
+        }
+    }
+
+    async function canliZiyaretciGetir() {
+        try {
+            const res = await fetch('/api/ziyaretci');
+            const data = await res.json();
+            const rakamAlani = document.getElementById('canliSayacRakam');
+            if (data && data.visitors !== undefined) {
+                rakamAlani.innerText = Number(data.visitors).toLocaleString('tr-TR');
+            } else {
+                rakamAlani.innerText = "0";
+            }
+        } catch (e) {
+            document.getElementById('canliSayacRakam').innerText = "—";
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-    // 🚀 1. BEKLEMEDEN ANINDA ÇİZ: Sayfa açıldığı salise dersleri ve sınavları ekrana basar
-    renderDersler();
-    renderDenemeler();
+        // 1. ANINDA ÇİZ: Dersleri, sınavları ve günün hadisini basar
+        renderDersler();
+        renderDenemeler();
+        gununHadisiniGoster();
 
-    // 👁️ Canlı ziyaretçi sayısını Vercel'den çek:
-    canliZiyaretciGetir();
-    // 🌿 Günün hadisi ilk anda çizilsin
-    gununHadisiniGoster();
-
-    // 🌐 2. ARKA PLANDA ÇEK: Google Sheets'ten güncel notlar gelince sessizce tazeler
-    fetchData();
-
-        // 🌐 2. ARKA PLANDA ÇEK: Vercel önbelleğinden veya Google'dan sessizce tazeler
+        // 2. CANLI VERİLER: Ziyaretçi sayacı ve Google Sheets güncellemeleri
+        canliZiyaretciGetir();
         fetchData();
 
         if (sessionStorage.getItem('nevevi_niyet_okundu') === 'true') {
@@ -1463,122 +1377,8 @@
             event.target.classList.remove('active');
         }
     };
-    async function canliZiyaretciGetir() {
-    try {
-        const res = await fetch('/api/ziyaretci');
-        const data = await res.json();
-        const rakamAlani = document.getElementById('canliSayacRakam');
-        if (data && data.visitors !== undefined) {
-            rakamAlani.innerText = Number(data.visitors).toLocaleString('tr-TR');
-        } else {
-            rakamAlani.innerText = "0";
-        }
-    } catch (e) {
-        document.getElementById('canliSayacRakam').innerText = "—";
-    }
-}
-// 🌿 RİYÂZÜ'S-SÂLİHÎN'DEN 20 HİKMETLİ HADÎS (NUMARASIZ)
-const riyazusSalihinHavuzu = [
-    {
-        arapca: "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
-        turkce: "«Ameller ancak niyetlere göredir; herkesin niyeti ne ise eline geçecek olan odur.»"
-    },
-    {
-        arapca: "الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا",
-        turkce: "«Mü’min mü’min için, parçaları birbirini destekleyen sağlam bir bina gibidir.»"
-    },
-    {
-        arapca: "الطُّهُورُ شَطْرُ الإِيمَانِ، وَالْحَمْدُ لِلَّهِ تَمْلأُ الْمِيزَانَ",
-        turkce: "«Temizlik imanın yarısıdır. Elhamdülillâh mizanı doldurur.»"
-    },
-    {
-        arapca: "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ",
-        turkce: "«Kim ilim tahsil etmek için bir yola girerse, Allah ona cennete giden yolu kolaylaştırır.»"
-    },
-    {
-        arapca: "اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ، وَأَتْبِعِ السَّيِّئَةَ الْحَسَنَةَ تَمْحُهَا",
-        turkce: "«Nerede olursan ol Allah’a karşı gelmekten sakın; kötülüğün peşinden hemen bir iyilik yap ki onu silsin.»"
-    },
-    {
-        arapca: "لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
-        turkce: "«Sizden biriniz, kendisi için istediğini din kardeşi için de istemedikçe kâmil manada iman etmiş olamaz.»"
-    },
-    {
-        arapca: "مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِهِ",
-        turkce: "«Bir hayra vesile olan kimse, o hayrı bizzat işlemiş gibi ecir kazanır.»"
-    },
-    {
-        arapca: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
-        turkce: "«Allah’a ve ahiret gününe inanan kimse, ya hayır söylesin ya da sussun.»"
-    },
-    {
-        arapca: "الدِّينُ النَّصِيحَةُ",
-        turkce: "«Din, samimiyettir (nasihattir).»"
-    },
-    {
-        arapca: "الصَّبْرُ ضِيَاءٌ",
-        turkce: "«Sabır, insanı aydınlatan ışıktır.»"
-    },
-    {
-        arapca: "كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ: سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
-        turkce: "«Dile hafif, mizanda ağır iki kelime vardır: Sübhânallâhi ve bi-hamdihî, Sübhânallâhi'l-azîm.»"
-    },
-    {
-        arapca: "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
-        turkce: "«Müslüman, elinden ve dilinden diğer Müslümanların güvende olduğu kimsedir.»"
-    },
-    {
-        arapca: "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
-        turkce: "«Kardeşinin yüzüne tebessüm etmen bir sadakadır.»"
-    },
-    {
-        arapca: "إِنَّ اللَّهَ رَفِيقٌ يُحِبُّ الرِّفْقَ فِي الأَمْرِ كُلِّهِ",
-        turkce: "«Şüphesiz Allah şefkat sahibidir ve her işte nezaketi, yumuşaklığı sever.»"
-    },
-    {
-        arapca: "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلاَّ عِزًّا",
-        turkce: "«Sadaka maldan hiçbir şey eksiltmez. Allah, affeden kulunun ancak izzet ve şerefini artırır.»"
-    },
-    {
-        arapca: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
-        turkce: "«Sizin en hayırlınız, Kur'ân-ı Kerîm'i öğrenen ve öğretendir.»"
-    },
-    {
-        arapca: "احْفَظِ اللَّهَ يَحْفَظْكَ، احْفَظِ اللَّهَ تَجِدْهُ تُجَاهَكَ",
-        turkce: "«Sen Allah’ın hudutlarını gözet ki, Allah da seni gözetsin; O'nu daima yanında bulasın.»"
-    },
-    {
-        arapca: "الرَّجُلُ عَلَى دِينِ خَلِيلِهِ، فَلْيَنْظُرْ أَحَدُكُمْ مَنْ يُخَالِلُ",
-        turkce: "«Kişi dostunun dini üzeredir. Bu yüzden her biriniz kiminle dostluk ettiğine iyi baksın.»"
-    },
-    {
-        arapca: "أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ",
-        turkce: "«Allah katında amellerin en sevimlisi, az da olsa devamlı olanıdır.»"
-    },
-    {
-        arapca: "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ",
-        turkce: "«Şüphesiz Allah, sizden birinizin yaptığı işi sağlam ve güzel yapmasını sever.»"
-    }
-];
-
-function gununHadisiniGoster() {
-    const bugun = new Date();
-    const baslangic = new Date(bugun.getFullYear(), 0, 0);
-    const gunSayisi = Math.floor((bugun - baslangic) / (1000 * 60 * 60 * 24));
-    
-    // Güne göre otomatik seçim
-    const index = gunSayisi % riyazusSalihinHavuzu.length;
-    const h = riyazusSalihinHavuzu[index];
-
-    const arapcaEl = document.getElementById('hadisArapca');
-    const turkceEl = document.getElementById('hadisTurkce');
-    
-    if (arapcaEl && turkceEl) {
-        arapcaEl.innerText = h.arapca;
-        turkceEl.innerText = h.turkce;
-    }
-}
 </script>
+
 <!-- Vercel Web Analytics Takip Betiği -->
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
