@@ -1,37 +1,25 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <!-- Sosyal Medya & Önizleme Başlıkları (Open Graph) -->
-<title>İmâm Nevevî Kampı</title>
-<meta name="title" content="İmâm Nevevî Kampı">
-<meta name="description" content="Büyüklerin Ayak İzleri: İmâm Nevevî Kampı Gönüllü Platformu">
-
-<!-- WhatsApp, Telegram, Facebook Önizleme -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="İmâm Nevevî Kampı">
-<meta property="og:description" content="Büyüklerin Ayak İzleri: İmâm Nevevî Kampı Gönüllü Platformu">
-<meta property="og:image" content="https://imamnevevikampi.vercel.app//icon-512.png">
-
-<!-- Twitter Önizleme -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="İmâm Nevevî Kampı">
-<meta name="twitter:description" content="Büyüklerin Ayak İzleri: İmâm Nevevî Kampı Gönüllü Platformu">
-<meta name="twitter:image" content="https://imamnevevikampi.vercel.app//icon-512.png">
-<!-- PWA & İkon Bağlantıları -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#15381a">
-
-<!-- iOS (iPhone/iPad) İçin -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Nevevî Kampı">
-<link rel="apple-touch-icon" href="icon-192.png">
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>İMÂM NEVEVÎ KAMPI | GÖNÜLLÜ PLATFORMU</title>
+    <title>İmâm Nevevî Kampı | Gönüllü Platformu</title>
     
-    <!-- PWA & Mobil Ana Ekran Tanımları -->
+    <!-- Sosyal Medya & Önizleme Başlıkları (Open Graph) -->
+    <meta name="title" content="İmâm Nevevî Kampı">
+    <meta name="description" content="Büyüklerin Ayak İzleri: İmâm Nevevî Kampı Gönüllü Platformu">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="İmâm Nevevî Kampı">
+    <meta property="og:description" content="Büyüklerin Ayak İzleri: İmâm Nevevî Kampı Gönüllü Platformu">
+    <meta property="og:image" content="https://imamnevevikampi.vercel.app/icon-512.png">
+
+    <!-- Twitter Önizleme -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="İmâm Nevevî Kampı">
+    <meta name="twitter:description" content="Büyüklerin Ayak İzleri: İmâm Nevevî Kampı Gönüllü Platformu">
+    <meta name="twitter:image" content="https://imamnevevikampi.vercel.app/icon-512.png">
+
+    <!-- PWA & İkon Bağlantıları -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#15381a">
     
@@ -617,7 +605,8 @@
 </div>
 
 <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbxemdQxu8xlRiBWtfBlOGc5VD3uKKDfweXdPA_pFwHQzTyD0DVP_DLWkUBZ2QHLpCe_/exec";
+    // 🛡️ GÜVENLİ VE HIZLI: Google adresi gizlendi, doğrudan Vercel Serverless Cache kullanılıyor
+    const API_URL = "/api/veri";
 
     const lessonsData = [
         { id: "1", num: "1. BÖLÜM", date: "21 Eylül Pazartesi", speaker: "Muhammed Emin Yıldırım", title: "Bir Siyer Âlimi Olarak İmâm Nevevî" },
@@ -932,14 +921,12 @@
     const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
-    // Service Worker Kaydı
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW Hatası:', err));
         });
     }
 
-    // Android / Chrome İndirme Olayı
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
@@ -969,7 +956,7 @@
         } else if (isIos()) {
             document.getElementById('iosGuideModal').classList.add('active');
         } else {
-            alert('Tarayıcınızın ayarlar (üç nokta) menüsünden "Uygulamayı Yükle" veya "Ana Ekrana Ekle"yi seçebilirsiniz.');
+            alert('Tarayıcınızın ayarlar menüsünden "Uygulamayı Yükle" veya "Ana Ekrana Ekle"yi seçebilirsiniz.');
         }
     }
 
@@ -979,24 +966,24 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-    // 🚀 1. BEKLEMEDEN ANINDA ÇİZ: Sayfa açıldığı salise dersleri ve sınavları ekrana basar
-    renderDersler();
-    renderDenemeler();
+        // 🚀 1. BEKLEMEDEN ANINDA ÇİZ: Sayfa açıldığı salise dersleri ve sınavları ekrana basar
+        renderDersler();
+        renderDenemeler();
 
-    // 🌐 2. ARKA PLANDA ÇEK: Google Sheets'ten güncel notlar gelince sessizce tazeler
-    fetchData();
+        // 🌐 2. ARKA PLANDA ÇEK: Vercel önbelleğinden veya Google'dan sessizce tazeler
+        fetchData();
 
-    if (sessionStorage.getItem('nevevi_niyet_okundu') === 'true') {
-        document.getElementById('welcomeModal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    } else {
-        document.body.style.overflow = 'hidden';
-    }
+        if (sessionStorage.getItem('nevevi_niyet_okundu') === 'true') {
+            document.getElementById('welcomeModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        } else {
+            document.body.style.overflow = 'hidden';
+        }
 
-    if (isIos() && !isStandalone() && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
-        setTimeout(showPwaBanner, 2000);
-    }
-});
+        if (isIos() && !isStandalone() && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
+            setTimeout(showPwaBanner, 2000);
+        }
+    });
 
     window.onclick = function(event) {
         if (event.target.classList.contains('modal-overlay')) {
