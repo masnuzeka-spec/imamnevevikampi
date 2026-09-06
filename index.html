@@ -511,6 +511,320 @@
   text-shadow: 0 0 18px rgba(243, 207, 139, 0.6), 0 2px 5px rgba(0,0,0,0.8);
   line-height: 1.1;
 }
+/* 🏛️ MOBİL UYUMLU GÜNÜN HADÎSİ LEVHASI */
+.gunun-hadisi-karti {
+    width: 92%;
+    max-width: 680px;
+    margin: 15px auto 30px auto;
+    background: radial-gradient(circle at 50% 15%, #133e21 0%, rgba(10, 32, 17, 0.98) 80%, #051409 100%);
+    border: 1.5px solid #E2B973;
+    border-radius: 18px;
+    padding: 22px 16px 18px 16px;
+    position: relative;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(226, 185, 115, 0.12);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.gunun-hadisi-karti::before {
+    content: '';
+    position: absolute;
+    top: 5px; left: 5px; right: 5px; bottom: 5px;
+    border: 1px solid rgba(226, 185, 115, 0.25);
+    border-radius: 13px;
+    pointer-events: none;
+}
+
+.hadis-baslik-sarici {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 3px 14px;
+    background: rgba(5, 18, 9, 0.85);
+    border: 1px solid #E2B973;
+    border-radius: 20px;
+    margin-bottom: 14px;
+}
+
+.hadis-baslik-sarici span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #E2B973;
+    text-transform: uppercase;
+}
+
+.hadis-baslik-sarici i {
+    color: #E2B973;
+    font-size: 0.65rem;
+}
+
+/* Mobilde taşmayan esnek Arapça font */
+.hadis-arapca {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.25rem, 4.5vw, 1.6rem);
+    line-height: 1.8;
+    color: #fff8e7;
+    direction: rtl;
+    margin-bottom: 10px;
+    padding: 0 5px;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.hadis-ayrac {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px auto 12px auto;
+    max-width: 200px;
+}
+
+.hadis-ayrac .cizgi {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #E2B973, transparent);
+}
+
+.hadis-ayrac .nokta {
+    width: 4px;
+    height: 4px;
+    background: #E2B973;
+    transform: rotate(45deg);
+}
+
+/* Mobilde rahat okunan Türkçe font */
+.hadis-turkce {
+    font-family: 'Lora', serif;
+    font-size: clamp(0.92rem, 3.2vw, 1.05rem);
+    line-height: 1.6;
+    color: #FAF5EF;
+    font-style: italic;
+    margin-bottom: 12px;
+    padding: 0 6px;
+}
+
+.hadis-kaynak {
+    font-size: 0.8rem;
+    color: #E2B973;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0.9;
+}
+/* 🏛️ GÜNÜN HADÎSİ - ZÜMRÜT & ALTIN KART */
+.gunun-hadisi-karti {
+    width: 92%;
+    max-width: 680px;
+    margin: 15px auto 30px auto;
+    background: radial-gradient(circle at 50% 15%, #133e21 0%, rgba(10, 32, 17, 0.98) 80%, #051409 100%);
+    border: 1.5px solid #E2B973;
+    border-radius: 20px;
+    padding: 20px 16px 18px 16px;
+    position: relative;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(226, 185, 115, 0.12);
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden; /* Gül yaprakları kartın dışına asla taşmaz */
+}
+
+.gunun-hadisi-karti::before {
+    content: '';
+    position: absolute;
+    top: 5px; left: 5px; right: 5px; bottom: 5px;
+    border: 1px solid rgba(226, 185, 115, 0.25);
+    border-radius: 15px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* 🌸 DÖKÜLEN GÜL YAPRAKLARI (SAF CSS) */
+.gul-yapraklari {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.gul-yaprak {
+    position: absolute;
+    background: radial-gradient(circle at 30% 30%, #ff8fa3, #c9184a);
+    border-radius: 50% 0 50% 50%;
+    opacity: 0.35;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    animation: gulSalinimi 10s infinite linear;
+}
+
+.gul-yaprak:nth-child(1) { left: 10%; width: 13px; height: 15px; animation-duration: 8.5s; animation-delay: 0s; }
+.gul-yaprak:nth-child(2) { left: 32%; width: 10px; height: 12px; animation-duration: 11.5s; animation-delay: 2.5s; opacity: 0.25; }
+.gul-yaprak:nth-child(3) { left: 60%; width: 14px; height: 17px; animation-duration: 9.5s; animation-delay: 1.2s; opacity: 0.32; }
+.gul-yaprak:nth-child(4) { left: 82%; width: 11px; height: 13px; animation-duration: 12s; animation-delay: 4.5s; opacity: 0.28; }
+.gul-yaprak:nth-child(5) { left: 46%; width: 9px; height: 11px; animation-duration: 10.5s; animation-delay: 6s; opacity: 0.22; }
+
+@keyframes gulSalinimi {
+    0% {
+        top: -20px;
+        transform: rotate(0deg) translateX(0);
+    }
+    50% {
+        transform: rotate(180deg) translateX(20px);
+    }
+    100% {
+        top: 105%;
+        transform: rotate(360deg) translateX(-15px);
+    }
+}
+
+/* 👑 ÜST BAŞLIK ALANI */
+.hadis-ust-baslik-alani {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    position: relative;
+    z-index: 3;
+    margin-bottom: 14px;
+    padding: 0 4px;
+    direction: ltr !important; /* Sağı solu karıştırmasın diye sabitledik */
+}
+
+/* 🎯 TAM MATEMATİKSEL ORTALANMIŞ DAİRELER */
+.hat-rozet {
+    font-family: 'Amiri', serif !important;
+    font-weight: 700;
+    color: #E2B973 !important;
+    background: radial-gradient(circle, #0e301a 0%, #06170c 100%) !important;
+    border: 1.5px solid #E2B973 !important;
+    border-radius: 50% !important;
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.7), inset 0 0 6px rgba(226, 185, 115, 0.25) !important;
+    flex-shrink: 0;
+    user-select: none;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.hat-rozet span {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ALLAH LAFZI (SAĞDA) */
+.hat-allah span {
+    font-size: 1.45rem !important;
+    transform: translateY(-2px) !important; /* Tam çemberin göbeğine hizalar */
+    text-shadow: 0 0 8px rgba(226, 185, 115, 0.4);
+}
+
+/* MUHAMMED LAFZI (SOLDA) */
+.hat-muhammed span {
+    font-size: 1.15rem !important;
+    transform: translateY(-1px) !important; /* Tam merkeze kilitler */
+    text-shadow: 0 0 8px rgba(226, 185, 115, 0.4);
+}
+
+.hadis-baslik-sarici {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 14px;
+    background: rgba(5, 18, 9, 0.85);
+    border: 1px solid #E2B973;
+    border-radius: 20px;
+}
+
+.hadis-baslik-sarici span {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.7rem, 2.7vw, 0.78rem);
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #E2B973;
+    text-transform: uppercase;
+}
+
+.hadis-baslik-sarici i {
+    color: #E2B973;
+    font-size: 0.65rem;
+}
+
+/* 📜 HADÎS İÇERİK METİNLERİ */
+.hadis-icerik-katmani {
+    position: relative;
+    z-index: 3;
+}
+
+.hadis-arapca {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.25rem, 4.5vw, 1.6rem);
+    line-height: 1.85;
+    color: #fff8e7;
+    direction: rtl;
+    margin-bottom: 10px;
+    padding: 0 4px;
+    font-weight: 700;
+    word-break: break-word;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.85);
+}
+
+.hadis-ayrac {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px auto 12px auto;
+    max-width: 190px;
+}
+
+.hadis-ayrac .cizgi {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #E2B973, transparent);
+}
+
+.hadis-ayrac .nokta {
+    width: 4px;
+    height: 4px;
+    background: #E2B973;
+    transform: rotate(45deg);
+}
+
+.hadis-turkce {
+    font-family: 'Lora', serif;
+    font-size: clamp(0.92rem, 3.2vw, 1.05rem);
+    line-height: 1.6;
+    color: #FAF5EF;
+    font-style: italic;
+    margin-bottom: 12px;
+    padding: 0 6px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+}
+
+.hadis-kaynak {
+    font-size: 0.8rem;
+    color: #E2B973;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0.9;
+}
     </style>
 </head>
 <body>
@@ -539,7 +853,50 @@
         <button class="ana-sekme-btn aktif" onclick="anaSekmeDegistir('dersler')">📜 Kamp Dersleri</button>
         <button class="ana-sekme-btn" onclick="anaSekmeDegistir('denemeler')">📝 Değerlendirme Sınavları</button>
     </div>
+<!-- 📜 GÜNÜN HADÎS-İ ŞERÎFİ (ALLAH - MUHAMMED HATLI & GÜL YAPRAKLI) -->
+<div class="gunun-hadisi-karti">
+    
+    <!-- Süzülen Gül Yaprakları Katmanı -->
+    <div class="gul-yapraklari">
+        <span class="gul-yaprak"></span>
+        <span class="gul-yaprak"></span>
+        <span class="gul-yaprak"></span>
+        <span class="gul-yaprak"></span>
+        <span class="gul-yaprak"></span>
+    </div>
 
+    <!-- Üst Satır: Sağda ALLAH, Ortada Başlık, Solda MUHAMMED -->
+    <!-- Üst Satır: Ekrana bakınca SAĞDA ALLAH, SOLDA MUHAMMED -->
+<div class="hadis-ust-baslik-alani">
+    <div class="hat-rozet hat-muhammed" title="Muhammed Aleyhisselâm"><span>مُحَمَّد</span></div>
+
+    <div class="hadis-baslik-sarici">
+        <i class="fa-solid fa-star-and-crescent"></i>
+        <span>Günün Hadîs-i Şerîfi</span>
+        <i class="fa-solid fa-star-and-crescent"></i>
+    </div>
+
+    <div class="hat-rozet hat-allah" title="Allah Celle Celâluhû"><span>اللّٰه</span></div>
+</div>
+
+    <!-- Metin Katmanı -->
+    <div class="hadis-icerik-katmani">
+        <div class="hadis-arapca" id="hadisArapca">...</div>
+
+        <div class="hadis-ayrac">
+            <span class="cizgi"></span>
+            <span class="nokta"></span>
+            <span class="cizgi"></span>
+        </div>
+
+        <div class="hadis-turkce" id="hadisTurkce">...</div>
+
+        <div class="hadis-kaynak">
+            <i class="fa-solid fa-book-open"></i> <span>Riyâzü’s-Sâlihîn</span>
+        </div>
+    </div>
+
+</div>
     <!-- 1. SEKME: DERSLER -->
     <div id="dersler-alan">
         <div class="progress-container">
@@ -1027,6 +1384,8 @@
 
     // 👁️ Canlı ziyaretçi sayısını Vercel'den çek:
     canliZiyaretciGetir();
+    // 🌿 Günün hadisi ilk anda çizilsin
+    gununHadisiniGoster();
 
     // 🌐 2. ARKA PLANDA ÇEK: Google Sheets'ten güncel notlar gelince sessizce tazeler
     fetchData();
@@ -1063,6 +1422,107 @@
         }
     } catch (e) {
         document.getElementById('canliSayacRakam').innerText = "—";
+    }
+}
+// 🌿 RİYÂZÜ'S-SÂLİHÎN'DEN 20 HİKMETLİ HADÎS (NUMARASIZ)
+const riyazusSalihinHavuzu = [
+    {
+        arapca: "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
+        turkce: "«Ameller ancak niyetlere göredir; herkesin niyeti ne ise eline geçecek olan odur.»"
+    },
+    {
+        arapca: "الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا",
+        turkce: "«Mü’min mü’min için, parçaları birbirini destekleyen sağlam bir bina gibidir.»"
+    },
+    {
+        arapca: "الطُّهُورُ شَطْرُ الإِيمَانِ، وَالْحَمْدُ لِلَّهِ تَمْلأُ الْمِيزَانَ",
+        turkce: "«Temizlik imanın yarısıdır. Elhamdülillâh mizanı doldurur.»"
+    },
+    {
+        arapca: "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ",
+        turkce: "«Kim ilim tahsil etmek için bir yola girerse, Allah ona cennete giden yolu kolaylaştırır.»"
+    },
+    {
+        arapca: "اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ، وَأَتْبِعِ السَّيِّئَةَ الْحَسَنَةَ تَمْحُهَا",
+        turkce: "«Nerede olursan ol Allah’a karşı gelmekten sakın; kötülüğün peşinden hemen bir iyilik yap ki onu silsin.»"
+    },
+    {
+        arapca: "لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
+        turkce: "«Sizden biriniz, kendisi için istediğini din kardeşi için de istemedikçe kâmil manada iman etmiş olamaz.»"
+    },
+    {
+        arapca: "مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِهِ",
+        turkce: "«Bir hayra vesile olan kimse, o hayrı bizzat işlemiş gibi ecir kazanır.»"
+    },
+    {
+        arapca: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+        turkce: "«Allah’a ve ahiret gününe inanan kimse, ya hayır söylesin ya da sussun.»"
+    },
+    {
+        arapca: "الدِّينُ النَّصِيحَةُ",
+        turkce: "«Din, samimiyettir (nasihattir).»"
+    },
+    {
+        arapca: "الصَّبْرُ ضِيَاءٌ",
+        turkce: "«Sabır, insanı aydınlatan ışıktır.»"
+    },
+    {
+        arapca: "كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ: سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+        turkce: "«Dile hafif, mizanda ağır iki kelime vardır: Sübhânallâhi ve bi-hamdihî, Sübhânallâhi'l-azîm.»"
+    },
+    {
+        arapca: "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
+        turkce: "«Müslüman, elinden ve dilinden diğer Müslümanların güvende olduğu kimsedir.»"
+    },
+    {
+        arapca: "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
+        turkce: "«Kardeşinin yüzüne tebessüm etmen bir sadakadır.»"
+    },
+    {
+        arapca: "إِنَّ اللَّهَ رَفِيقٌ يُحِبُّ الرِّفْقَ فِي الأَمْرِ كُلِّهِ",
+        turkce: "«Şüphesiz Allah şefkat sahibidir ve her işte nezaketi, yumuşaklığı sever.»"
+    },
+    {
+        arapca: "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلاَّ عِزًّا",
+        turkce: "«Sadaka maldan hiçbir şey eksiltmez. Allah, affeden kulunun ancak izzet ve şerefini artırır.»"
+    },
+    {
+        arapca: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+        turkce: "«Sizin en hayırlınız, Kur'ân-ı Kerîm'i öğrenen ve öğretendir.»"
+    },
+    {
+        arapca: "احْفَظِ اللَّهَ يَحْفَظْكَ، احْفَظِ اللَّهَ تَجِدْهُ تُجَاهَكَ",
+        turkce: "«Sen Allah’ın hudutlarını gözet ki, Allah da seni gözetsin; O'nu daima yanında bulasın.»"
+    },
+    {
+        arapca: "الرَّجُلُ عَلَى دِينِ خَلِيلِهِ، فَلْيَنْظُرْ أَحَدُكُمْ مَنْ يُخَالِلُ",
+        turkce: "«Kişi dostunun dini üzeredir. Bu yüzden her biriniz kiminle dostluk ettiğine iyi baksın.»"
+    },
+    {
+        arapca: "أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ",
+        turkce: "«Allah katında amellerin en sevimlisi, az da olsa devamlı olanıdır.»"
+    },
+    {
+        arapca: "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ",
+        turkce: "«Şüphesiz Allah, sizden birinizin yaptığı işi sağlam ve güzel yapmasını sever.»"
+    }
+];
+
+function gununHadisiniGoster() {
+    const bugun = new Date();
+    const baslangic = new Date(bugun.getFullYear(), 0, 0);
+    const gunSayisi = Math.floor((bugun - baslangic) / (1000 * 60 * 60 * 24));
+    
+    // Güne göre otomatik seçim
+    const index = gunSayisi % riyazusSalihinHavuzu.length;
+    const h = riyazusSalihinHavuzu[index];
+
+    const arapcaEl = document.getElementById('hadisArapca');
+    const turkceEl = document.getElementById('hadisTurkce');
+    
+    if (arapcaEl && turkceEl) {
+        arapcaEl.innerText = h.arapca;
+        turkceEl.innerText = h.turkce;
     }
 }
 </script>
