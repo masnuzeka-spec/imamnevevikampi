@@ -460,6 +460,57 @@
             .zarif-iletisim-alani { font-size: 0.95rem; }
             .telegram-belirgin-link { display: flex; justify-content: center; margin: 15px auto 0; max-width: 240px; }
         }
+        /* 🏛️ CANLI ZİYARETÇİ SAYAÇ TASARIMI */
+.yakisikli-sayac-yeni {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(20, 56, 30, 0.95) 0%, rgba(10, 30, 16, 0.98) 100%);
+  border: 1.5px solid #f3cf8b;
+  border-radius: 18px;
+  padding: 14px 38px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(243, 207, 139, 0.1);
+  min-width: 190px;
+  margin-bottom: 25px;
+}
+
+.sayac-etiket {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #d8f3dc;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sayac-canli-isik {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #38ef7d;
+  box-shadow: 0 0 8px #38ef7d;
+  animation: nabiz 2s infinite ease-in-out;
+}
+
+@keyframes nabiz {
+  0%, 100% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 14px #38ef7d; }
+}
+
+.sayac-rakam {
+  font-family: 'Cinzel', serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  text-shadow: 0 0 18px rgba(243, 207, 139, 0.6), 0 2px 5px rgba(0,0,0,0.8);
+  line-height: 1.1;
+}
     </style>
 </head>
 <body>
@@ -509,10 +560,14 @@
     </div>
 
     <footer>
-        <div class="yakisikli-sayac">
-            <span class="yakisikli-sayac-baslik">👁️ TOPLAM ZİYARETÇİ</span>
-            <img src="https://api.visitorbadge.io/api/visitors?path=imam-nevevi-kampi-2026-v9&label=Ziyaret&labelColor=%2315381a&countColor=%23f3cf8b" alt="Ziyaretçi Sayacı" style="display: block; margin: 0 auto; border-radius: 4px;">
-        </div>
+        <div class="yakisikli-sayac-yeni">
+    <span class="sayac-etiket">
+        <span class="sayac-canli-isik"></span> TOPLAM ZİYARETÇİ 
+    </span>
+    <span class="sayac-rakam" id="canliSayacRakam">
+        <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.2rem; color: #f3cf8b;"></i>
+    </span>
+</div>
 
         <div class="zarif-bilgi-kutusu">
             <div class="bilgi-baslik-vurgu">Önemli Bilgilendirme</div>
@@ -966,9 +1021,15 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        // 🚀 1. BEKLEMEDEN ANINDA ÇİZ: Sayfa açıldığı salise dersleri ve sınavları ekrana basar
-        renderDersler();
-        renderDenemeler();
+    // 🚀 1. BEKLEMEDEN ANINDA ÇİZ: Sayfa açıldığı salise dersleri ve sınavları ekrana basar
+    renderDersler();
+    renderDenemeler();
+
+    // 👁️ Canlı ziyaretçi sayısını Vercel'den çek:
+    canliZiyaretciGetir();
+
+    // 🌐 2. ARKA PLANDA ÇEK: Google Sheets'ten güncel notlar gelince sessizce tazeler
+    fetchData();
 
         // 🌐 2. ARKA PLANDA ÇEK: Vercel önbelleğinden veya Google'dan sessizce tazeler
         fetchData();
@@ -990,7 +1051,22 @@
             event.target.classList.remove('active');
         }
     };
+    async function canliZiyaretciGetir() {
+    try {
+        const res = await fetch('/api/ziyaretci');
+        const data = await res.json();
+        const rakamAlani = document.getElementById('canliSayacRakam');
+        if (data && data.visitors !== undefined) {
+            rakamAlani.innerText = Number(data.visitors).toLocaleString('tr-TR');
+        } else {
+            rakamAlani.innerText = "0";
+        }
+    } catch (e) {
+        document.getElementById('canliSayacRakam').innerText = "—";
+    }
+}
 </script>
-
+<!-- Vercel Web Analytics Takip Betiği -->
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
