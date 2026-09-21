@@ -731,30 +731,7 @@
             .zarif-iletisim-alani { font-size: 0.95rem; }
             .telegram-belirgin-link { display: flex; justify-content: center; margin: 15px auto 0; max-width: 240px; }
         }
-        // 📑 APPSHEET / MODAL İÇİ DERS SEKMELERİNİ ÇALIŞTIRICI
-function dersTabAc(btn, panelId) {
-    const kapsayici = btn.closest('.ders-icerik-kapsayici');
-    if (!kapsayici) return;
-
-    // Tüm butonların aktifliğini kaldır
-    kapsayici.querySelectorAll('.ders-tab-btn').forEach(b => {
-        b.classList.remove('aktif');
-    });
-
-    // Tüm panelleri gizle
-    kapsayici.querySelectorAll('.ders-tab-panel').forEach(p => {
-        p.classList.remove('aktif');
-        p.style.display = 'none';
-    });
-
-    // Tıklanan butonu ve hedef paneli aç
-    btn.classList.add('aktif');
-    const hedef = kapsayici.querySelector('#' + panelId);
-    if (hedef) {
-        hedef.classList.add('aktif');
-        hedef.style.display = 'block';
-    }
-}
+        
     </style>
 </head>
 <body>
