@@ -116,9 +116,32 @@
         .badge-gonullu { display: inline-block; background: rgba(15, 40, 20, 0.6); backdrop-filter: blur(5px); border: 1.5px solid var(--text-gold); color: var(--text-gold); padding: 8px 30px; border-radius: 30px; font-size: 0.95rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .header-date { font-size: 1.1rem; color: #fff; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
 
-        /* ANA SEKMELER */
-        .ana-sekme-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; padding: 0 10px; }
-        .ana-sekme-btn { background: rgba(20, 48, 25, 0.8); backdrop-filter: blur(5px); border: 2px solid var(--text-gold); color: var(--text-gold); padding: 12px 28px; border-radius: 30px; font-family: 'Cinzel', serif; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        /* 👑 ANA SEKMELER (DİKEY NİZAMİ DİZİLİM) */
+        .ana-sekme-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 12px; 
+            margin-bottom: 30px; 
+            padding: 0 10px; 
+        }
+        .ana-sekme-btn { 
+            width: 100%; 
+            max-width: 320px; 
+            background: rgba(20, 48, 25, 0.8); 
+            backdrop-filter: blur(5px); 
+            border: 2px solid var(--text-gold); 
+            color: var(--text-gold); 
+            padding: 14px 20px; 
+            border-radius: 30px; 
+            font-family: 'Cinzel', serif; 
+            font-size: 1rem; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            font-weight: bold; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+            text-align: center;
+        }
         .ana-sekme-btn:hover { transform: translateY(-3px); background: rgba(30, 70, 38, 0.9); }
         .ana-sekme-btn.aktif { background: var(--text-gold); color: #15381a; box-shadow: 0 0 20px rgba(243, 207, 139, 0.5); font-weight: 900; }
 
@@ -219,7 +242,6 @@
             margin: 0 !important;
         }
 
-        /* İçteki İnce Altın Halka */
         .hat-rozet::after {
             content: '' !important;
             position: absolute !important;
@@ -241,21 +263,9 @@
             color: #E2B973 !important;
         }
 
-        /* ALLAH LAFZI (SAĞDA) */
-        .hat-allah span {
-            font-size: 1.55rem !important;
-            transform: translateY(2px) !important;
-            text-shadow: 0 0 10px rgba(226, 185, 115, 0.55);
-        }
+        .hat-allah span { font-size: 1.55rem !important; transform: translateY(2px) !important; text-shadow: 0 0 10px rgba(226, 185, 115, 0.55); }
+        .hat-muhammed span { font-size: 1.15rem !important; transform: translateY(3px) !important; text-shadow: 0 0 10px rgba(226, 185, 115, 0.55); }
 
-        /* MUHAMMED LAFZI (SOLDA) */
-        .hat-muhammed span {
-            font-size: 1.15rem !important;
-            transform: translateY(3px) !important;
-            text-shadow: 0 0 10px rgba(226, 185, 115, 0.55);
-        }
-
-        /* 🏷️ ORTADAKİ BAŞLIK KAPSÜLÜ */
         .hadis-baslik-sarici {
             display: inline-flex !important;
             align-items: center !important;
@@ -280,275 +290,124 @@
             white-space: nowrap !important;
         }
 
-        .hadis-baslik-sarici i {
-            color: #E2B973 !important;
-            font-size: 0.55rem !important;
-        }
+        .hadis-baslik-sarici i { color: #E2B973 !important; font-size: 0.55rem !important; }
 
-        /* Masaüstünde Genişleyen Boyut */
         @media (min-width: 769px) {
-            .hadis-ust-sirali-alan {
-                padding: 0 20px !important;
-            }
-            .hat-rozet {
-                width: 65px !important;
-                height: 65px !important;
-            }
-            .hat-allah span {
-                font-size: 2.1rem !important;
-                transform: translateY(4px) !important;
-            }
-            .hat-muhammed span {
-                font-size: 1.55rem !important;
-                transform: translateY(5px) !important;
-            }
-            .hadis-baslik-sarici {
-                padding: 6px 16px !important;
-                gap: 6px !important;
-            }
-            .hadis-baslik-sarici span {
-                font-size: 0.85rem !important;
-                letter-spacing: 2px !important;
-            }
+            .hadis-ust-sirali-alan { padding: 0 20px !important; }
+            .hat-rozet { width: 65px !important; height: 65px !important; }
+            .hat-allah span { font-size: 2.1rem !important; transform: translateY(4px) !important; }
+            .hat-muhammed span { font-size: 1.55rem !important; transform: translateY(5px) !important; }
+            .hadis-baslik-sarici { padding: 6px 16px !important; gap: 6px !important; }
+            .hadis-baslik-sarici span { font-size: 0.85rem !important; letter-spacing: 2px !important; }
         }
 
         /* 📜 HADÎS İÇERİK METİNLERİ */
-        .hadis-icerik-katmani {
-            position: relative;
-            z-index: 3;
-        }
+        .hadis-icerik-katmani { position: relative; z-index: 3; }
 
         .hadis-arapca {
-            font-family: 'Amiri', serif !important;
-            font-size: clamp(1.25rem, 4.5vw, 1.6rem) !important;
-            line-height: 1.85 !important;
-            color: #fff8e7 !important;
-            direction: rtl !important;
-            margin-bottom: 8px !important;
-            padding: 0 6px !important;
-            font-weight: 700 !important;
-            word-break: break-word !important;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.85) !important;
+            font-family: 'Amiri', serif !important; font-size: clamp(1.25rem, 4.5vw, 1.6rem) !important; line-height: 1.85 !important;
+            color: #fff8e7 !important; direction: rtl !important; margin-bottom: 8px !important; padding: 0 6px !important;
+            font-weight: 700 !important; word-break: break-word !important; text-shadow: 0 2px 6px rgba(0,0,0,0.85) !important;
         }
 
-        .hadis-ayrac {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 6px auto 10px auto;
-            max-width: 180px;
-        }
-
-        .hadis-ayrac .cizgi {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #E2B973, transparent);
-        }
-
-        .hadis-ayrac .nokta {
-            width: 4px;
-            height: 4px;
-            background: #E2B973;
-            transform: rotate(45deg);
-        }
+        .hadis-ayrac { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 6px auto 10px auto; max-width: 180px; }
+        .hadis-ayrac .cizgi { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #E2B973, transparent); }
+        .hadis-ayrac .nokta { width: 4px; height: 4px; background: #E2B973; transform: rotate(45deg); }
 
         .hadis-turkce {
-            font-family: 'Lora', serif !important;
-            font-size: clamp(0.92rem, 3.2vw, 1.05rem) !important;
-            line-height: 1.6 !important;
-            color: #FAF5EF !important;
-            font-style: italic !important;
-            margin-bottom: 10px !important;
-            padding: 0 6px !important;
+            font-family: 'Lora', serif !important; font-size: clamp(0.92rem, 3.2vw, 1.05rem) !important; line-height: 1.6 !important;
+            color: #FAF5EF !important; font-style: italic !important; margin-bottom: 10px !important; padding: 0 6px !important;
             text-shadow: 0 1px 3px rgba(0,0,0,0.7) !important;
         }
 
-        .hadis-kaynak {
-            font-size: 0.8rem;
-            color: #E2B973;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            opacity: 0.9;
-        }
+        .hadis-kaynak { font-size: 0.8rem; color: #E2B973; font-weight: 600; letter-spacing: 0.5px; display: inline-flex; align-items: center; gap: 5px; opacity: 0.9; }
 
         /* 🌿 İLERLEME KARTI */
         .progress-container {
             background: radial-gradient(circle at 50% 30%, #0c2916 0%, #06180c 100%) !important;
-            border: 1.5px solid rgba(226, 185, 115, 0.4) !important;
-            border-radius: 18px !important;
-            padding: 14px 18px !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
-            margin-bottom: 30px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 10px !important;
+            border: 1.5px solid rgba(226, 185, 115, 0.4) !important; border-radius: 18px !important;
+            padding: 14px 18px !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
+            margin-bottom: 30px !important; display: flex !important; flex-direction: column !important; gap: 10px !important;
         }
+        .progress-bar-bg { background-color: rgba(3, 12, 6, 0.9) !important; border: 1px solid rgba(226, 185, 115, 0.25) !important; border-radius: 10px !important; height: 8px !important; width: 100% !important; overflow: hidden !important; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5) !important; margin: 0 !important; }
+        .progress-bar-fill { background: linear-gradient(90deg, #b38938 0%, #E2B973 50%, #fff0b8 100%) !important; height: 100% !important; width: 0%; border-radius: 10px !important; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1) !important; box-shadow: 0 0 10px rgba(226, 185, 115, 0.5) !important; }
+        .progress-info { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; width: 100% !important; font-family: 'Cinzel', serif !important; font-weight: 700 !important; margin: 0 !important; padding: 0 !important; }
+        .progress-info span:first-child { color: #FAF5EF !important; font-size: clamp(0.72rem, 2.7vw, 0.82rem) !important; letter-spacing: 0.8px !important; white-space: nowrap !important; }
+        #progressText { color: #E2B973 !important; font-size: clamp(0.74rem, 2.8vw, 0.85rem) !important; font-weight: 800 !important; letter-spacing: 0.8px !important; white-space: nowrap !important; }
 
-        .progress-bar-bg {
-            background-color: rgba(3, 12, 6, 0.9) !important;
-            border: 1px solid rgba(226, 185, 115, 0.25) !important;
-            border-radius: 10px !important;
-            height: 8px !important;
-            width: 100% !important;
-            overflow: hidden !important;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5) !important;
-            margin: 0 !important;
+        /* 📖 OKUMA TAKVİMİ TASARIMI */
+        .okuma-liste-alani { display: flex; flex-direction: column; gap: 14px; max-width: 800px; margin: 0 auto; padding-bottom: 30px; }
+        .okuma-satir {
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(11, 38, 20, 0.6); border: 1px solid rgba(226, 185, 115, 0.3);
+            border-radius: 16px; padding: 16px 20px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden;
         }
+        .okuma-satir:hover { background: rgba(226, 185, 115, 0.1); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+        
+        /* 🍁 OKUMA TAKVİMİ - SONBAHAR KIZILI TAMAMLANDI EFEKTİ */
+        .okuma-satir.tamamlandi { background: linear-gradient(135deg, var(--autumn-leaf-1), var(--autumn-leaf-2)); border-color: #e67d63; box-shadow: 0 10px 25px rgba(97, 30, 10, 0.5); }
+        .okuma-satir.tamamlandi::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: #e67d63; }
 
-        .progress-bar-fill {
-            background: linear-gradient(90deg, #b38938 0%, #E2B973 50%, #fff0b8 100%) !important;
-            height: 100% !important;
-            width: 0%;
-            border-radius: 10px !important;
-            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            box-shadow: 0 0 10px rgba(226, 185, 115, 0.5) !important;
+        .okuma-sol { display: flex; align-items: center; gap: 18px; }
+        .okuma-gun-rozet {
+            width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
+            background: radial-gradient(circle, #0e301a 0%, #06170c 100%); border: 2px solid #E2B973; color: #E2B973;
+            display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-weight: 900; font-size: 1.2rem; transition: all 0.3s;
         }
+        .okuma-satir.tamamlandi .okuma-gun-rozet { background: rgba(255, 255, 255, 0.15); color: #fff; border-color: #fff; box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+        
+        .okuma-bilgi { display: flex; flex-direction: column; gap: 4px; }
+        .okuma-tarih { color: #FAF5EF; font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; }
+        .okuma-hicri { color: #a5d6a7; font-size: 0.85rem; font-style: italic; }
+        
+        .okuma-sag { text-align: right; display: flex; flex-direction: column; justify-content: center; }
+        .okuma-aralik { color: #E2B973; font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 900; }
+        
+        .okuma-satir.tamamlandi .okuma-aralik { color: #f8c2b5; opacity: 0.9; text-decoration: line-through; }
+        .okuma-satir.tamamlandi .okuma-tarih { color: #fff; }
+        .okuma-satir.tamamlandi .okuma-hicri { color: #f8c2b5; }
+        .okuma-satir.tamamlandi .okuma-etiket { color: #f8c2b5; }
 
-        .progress-info {
-            display: flex !important;
-            flex-direction: row !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            width: 100% !important;
-            font-family: 'Cinzel', serif !important;
-            font-weight: 700 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
-        .progress-info span:first-child {
-            color: #FAF5EF !important;
-            font-size: clamp(0.72rem, 2.7vw, 0.82rem) !important;
-            letter-spacing: 0.8px !important;
-            white-space: nowrap !important;
-        }
-
-        #progressText {
-            color: #E2B973 !important;
-            font-size: clamp(0.74rem, 2.8vw, 0.85rem) !important;
-            font-weight: 800 !important;
-            letter-spacing: 0.8px !important;
-            white-space: nowrap !important;
-        }
+        .okuma-etiket { color: #dcebd2; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
 
         /* ZARİF TIMELINE ÇİZGİSİ */
         .timeline { position: relative; max-width: 1000px; margin: 0 auto; padding: 20px 0; animation: fadeIn 0.8s ease; }
-        .timeline::after { 
-            content: ''; position: absolute; width: 4px; background-color: var(--line-color); 
-            top: 20px; bottom: 0; left: 50%; transform: translateX(-50%); 
-            border-radius: 2px; box-shadow: 0 0 15px var(--line-color); z-index: 0; 
-        }
-        
+        .timeline::after { content: ''; position: absolute; width: 4px; background-color: var(--line-color); top: 20px; bottom: 0; left: 50%; transform: translateX(-50%); border-radius: 2px; box-shadow: 0 0 15px var(--line-color); z-index: 0; }
         .container-box { padding: 10px 40px; position: relative; width: 50%; box-sizing: border-box; z-index: 2; margin-bottom: 20px; }
-        
-        .container-box::before {
-            content: ''; position: absolute; width: 35px; height: 2px; background-color: var(--line-color);
-            top: 50%; transform: translateY(-50%); z-index: 0;
-        }
-        .left::before { right: 5px; } 
-        .right::before { left: 5px; }
-
-        .container-box::after { 
-            content: ''; position: absolute; width: 16px; height: 16px; 
-            background-color: var(--bg-center); border: 2px solid var(--text-gold); 
-            top: 50%; transform: translateY(-50%); border-radius: 50%; 
-            z-index: 1; transition: all 0.4s ease; box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-        .left::after { right: -8px; }
-        .right::after { left: -8px; }
-
+        .container-box::before { content: ''; position: absolute; width: 35px; height: 2px; background-color: var(--line-color); top: 50%; transform: translateY(-50%); z-index: 0; }
+        .left::before { right: 5px; } .right::before { left: 5px; }
+        .container-box::after { content: ''; position: absolute; width: 16px; height: 16px; background-color: var(--bg-center); border: 2px solid var(--text-gold); top: 50%; transform: translateY(-50%); border-radius: 50%; z-index: 1; transition: all 0.4s ease; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        .left::after { right: -8px; } .right::after { left: -8px; }
         .container-box:hover::after { transform: translateY(-50%) scale(1.4); background-color: var(--text-gold); box-shadow: 0 0 15px var(--text-gold); }
         .left { left: 0; } .right { left: 50%; }
-
         .container-box.dolu-kutu::after { background-color: var(--text-gold); box-shadow: 0 0 15px var(--text-gold); }
         .container-box.dolu-kutu .content { border-color: rgba(243, 207, 139, 0.7); }
         .container-box.completed::after { background-color: #81c784 !important; border-color: #fff !important; box-shadow: 0 0 15px #81c784 !important; }
 
         /* YAPRAK FORMUNDA KARTLAR */
-        .content { 
-            padding: 25px 30px; 
-            background-color: var(--card-bg); 
-            backdrop-filter: blur(8px);
-            position: relative; 
-            border: 1px solid rgba(243, 207, 139, 0.2); 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.05); 
-            transition: all 0.3s ease; 
-            cursor: pointer; 
-            text-align: left;
-            z-index: 2;
-        }
-
-        .container-box.completed .content {
-            background: linear-gradient(135deg, var(--autumn-leaf-1), var(--autumn-leaf-2));
-            border-color: #e67d63;
-            box-shadow: 0 15px 35px rgba(97, 30, 10, 0.6), inset 0 0 20px rgba(255,255,255,0.1);
-        }
-
-        .left .content { border-radius: 50px 10px 50px 10px; }
-        .right .content { border-radius: 10px 50px 10px 50px; }
-
-        .content:hover { 
-            transform: translateY(-5px); 
-            border-color: var(--text-gold); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
-        }
-
+        .content { padding: 25px 30px; background-color: var(--card-bg); backdrop-filter: blur(8px); position: relative; border: 1px solid rgba(243, 207, 139, 0.2); box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.05); transition: all 0.3s ease; cursor: pointer; text-align: left; z-index: 2; }
+        .container-box.completed .content { background: linear-gradient(135deg, var(--autumn-leaf-1), var(--autumn-leaf-2)); border-color: #e67d63; box-shadow: 0 15px 35px rgba(97, 30, 10, 0.6), inset 0 0 20px rgba(255,255,255,0.1); }
+        .left .content { border-radius: 50px 10px 50px 10px; } .right .content { border-radius: 10px 50px 10px 50px; }
+        .content:hover { transform: translateY(-5px); border-color: var(--text-gold); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
         .badge { display: inline-block; background: rgba(243, 207, 139, 0.15); border: 1px solid var(--text-gold); color: var(--text-gold); padding: 6px 18px; border-radius: 25px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 0.9rem; margin-bottom: 12px; letter-spacing: 1px; }
         .container-box.completed .badge { background: rgba(255, 255, 255, 0.15); border-color: #fff; color: #fff; }
         .badge.deneme-badge { border-color: #e74c3c; color: #ff9e93; background: rgba(231, 76, 60, 0.15); }
         .container-box.completed .badge.deneme-badge { color: #fff; border-color: #fff; }
-
         .content h3 { margin: 0 0 8px 0; font-size: 1.3rem; color: #fff; line-height: 1.35; font-weight: 800; font-family: 'Cinzel', serif; text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
         .speaker-text { font-size: 0.95rem; color: var(--text-gold); font-style: italic; display: block; margin-bottom: 8px; font-weight: 600; }
         .container-box.completed .speaker-text { color: #f8c2b5; }
-        
         .card-footer { display: flex; justify-content: flex-end; align-items: center; font-size: 0.9rem; margin-top: 15px; border-top: 1px dashed rgba(243, 207, 139, 0.3); padding-top: 15px; }
         .card-status { font-size: 0.95rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
 
         /* NİYET POPUP */
-        #welcomeModal {
-            position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%;
-            background-color: var(--modal-overlay); backdrop-filter: blur(15px);
-            display: flex; align-items: center; justify-content: center; padding: 15px;
-        }
-
-        .welcome-content {
-            background: linear-gradient(145deg, #183d21 0%, #0a1f11 100%);
-            padding: 50px 40px; border: 2px solid var(--text-gold); border-radius: 20px;
-            text-align: center; max-width: 650px; width: 100%;
-            box-shadow: 0 20px 80px rgba(0,0,0,1); animation: zoomIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .welcome-title {
-            font-family: 'Cinzel', serif; color: var(--text-gold); font-size: 1.8rem; font-weight: 900;
-            margin-bottom: 20px; border-bottom: 1px dashed rgba(243, 207, 139, 0.4); padding-bottom: 15px;
-            line-height: 1.3;
-        }
-
-        .arabic-text {
-            font-family: 'Amiri', serif; font-size: 2.8rem; color: #fff; line-height: 1.6;
-            margin: 25px 0 15px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.6);
-        }
-
-        .turkish-text {
-            font-style: italic; color: #d1bfae; font-size: 1.15rem; margin-bottom: 30px; font-weight: 500;
-        }
-        
-        .niyet-kutusu {
-            background: rgba(243, 207, 139, 0.08); border-left: 3px solid var(--text-gold); border-right: 3px solid var(--text-gold);
-            padding: 15px 20px; margin: 0 auto 30px auto; border-radius: 10px;
-            font-style: italic; color: #e8ded1; font-size: 1.1rem; line-height: 1.6; text-align: center;
-        }
-
-        .accept-btn {
-            background-color: var(--text-gold); color: #15381a; font-family: 'Cinzel', serif;
-            font-weight: 900; font-size: 1.15rem; padding: 16px 40px; border: none; border-radius: 40px;
-            cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(243, 207, 139, 0.3); letter-spacing: 1px;
-        }
+        #welcomeModal { position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: var(--modal-overlay); backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: center; padding: 15px; }
+        .welcome-content { background: linear-gradient(145deg, #183d21 0%, #0a1f11 100%); padding: 50px 40px; border: 2px solid var(--text-gold); border-radius: 20px; text-align: center; max-width: 650px; width: 100%; box-shadow: 0 20px 80px rgba(0,0,0,1); animation: zoomIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .welcome-title { font-family: 'Cinzel', serif; color: var(--text-gold); font-size: 1.8rem; font-weight: 900; margin-bottom: 20px; border-bottom: 1px dashed rgba(243, 207, 139, 0.4); padding-bottom: 15px; line-height: 1.3; }
+        .arabic-text { font-family: 'Amiri', serif; font-size: 2.8rem; color: #fff; line-height: 1.6; margin: 25px 0 15px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.6); }
+        .turkish-text { font-style: italic; color: #d1bfae; font-size: 1.15rem; margin-bottom: 30px; font-weight: 500; }
+        .niyet-kutusu { background: rgba(243, 207, 139, 0.08); border-left: 3px solid var(--text-gold); border-right: 3px solid var(--text-gold); padding: 15px 20px; margin: 0 auto 30px auto; border-radius: 10px; font-style: italic; color: #e8ded1; font-size: 1.1rem; line-height: 1.6; text-align: center; }
+        .accept-btn { background-color: var(--text-gold); color: #15381a; font-family: 'Cinzel', serif; font-weight: 900; font-size: 1.15rem; padding: 16px 40px; border: none; border-radius: 40px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(243, 207, 139, 0.3); letter-spacing: 1px; }
         .accept-btn:hover { transform: translateY(-4px); background-color: #fff; box-shadow: 0 12px 25px rgba(255, 255, 255, 0.4); }
 
         /* MODALLAR */
@@ -557,7 +416,6 @@
         .modal-window { background: linear-gradient(145deg, #183d21 0%, #0a1f11 100%); border: 2px solid var(--text-gold); border-radius: 20px; max-width: 860px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; padding: 40px; box-shadow: 0 25px 60px rgba(0,0,0,0.9); }
         .modal-close-btn { position: absolute; top: 20px; right: 25px; font-size: 2.2rem; color: var(--text-gold); cursor: pointer; line-height: 1; }
         .modal-close-btn:hover { color: #fff; transform: rotate(90deg); }
-
         .modal-header-section { border-bottom: 1px solid rgba(243, 207, 139, 0.2); padding-bottom: 15px; margin-bottom: 25px; text-align: center; }
         .modal-meta { font-size: 1rem; color: var(--text-gold); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-family: 'Cinzel', serif; margin-bottom: 10px; display: block; }
         .modal-heading { font-size: 2rem; color: #fff; font-weight: 800; margin: 10px 0; font-family: 'Cinzel', serif; line-height: 1.2; }
@@ -573,7 +431,6 @@
 
         .sinav-iframe { width: 100%; height: 75vh; min-height: 500px; border: none; border-radius: 12px; background: #fff; }
         .siralama-iframe { width: 100%; height: 65vh; min-height: 500px; border: none; border-radius: 12px; background: transparent; }
-
         .modal-footer-actions { border-top: 1px solid rgba(243, 207, 139, 0.2); padding-top: 25px; margin-top: 30px; display: flex; justify-content: flex-end; }
         .btn-complete-toggle { background: var(--text-gold); color: #15381a; padding: 14px 30px; border-radius: 10px; font-size: 1.05rem; font-weight: 900; font-family: 'Cinzel', serif; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 5px 15px rgba(243, 207, 139, 0.3); }
         .btn-complete-toggle:hover { background: #fff; transform: translateY(-2px); }
@@ -585,57 +442,11 @@
 
         /* FOOTER */
         footer { margin-top: 80px; border-top: 1px solid rgba(243, 207, 139, 0.2); padding-top: 50px; text-align: center; position: relative; z-index: 2; }
-        .yakisikli-sayac-yeni {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle at center, rgba(20, 56, 30, 0.95) 0%, rgba(10, 30, 16, 0.98) 100%);
-            border: 1.5px solid #f3cf8b;
-            border-radius: 18px;
-            padding: 14px 38px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(243, 207, 139, 0.1);
-            min-width: 190px;
-            margin-bottom: 25px;
-        }
-
-        .sayac-etiket {
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            font-weight: 800;
-            letter-spacing: 3px;
-            color: #d8f3dc;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .sayac-canli-isik {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #38ef7d;
-            box-shadow: 0 0 8px #38ef7d;
-            animation: nabiz 2s infinite ease-in-out;
-        }
-
-        @keyframes nabiz {
-            0%, 100% { transform: scale(0.9); opacity: 0.6; }
-            50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 14px #38ef7d; }
-        }
-
-        .sayac-rakam {
-            font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #fff;
-            letter-spacing: 2px;
-            text-shadow: 0 0 18px rgba(243, 207, 139, 0.6), 0 2px 5px rgba(0,0,0,0.8);
-            line-height: 1.1;
-        }
-
+        .yakisikli-sayac-yeni { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle at center, rgba(20, 56, 30, 0.95) 0%, rgba(10, 30, 16, 0.98) 100%); border: 1.5px solid #f3cf8b; border-radius: 18px; padding: 14px 38px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(243, 207, 139, 0.1); min-width: 190px; margin-bottom: 25px; }
+        .sayac-etiket { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 3px; color: #d8f3dc; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .sayac-canli-isik { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #38ef7d; box-shadow: 0 0 8px #38ef7d; animation: nabiz 2s infinite ease-in-out; }
+        @keyframes nabiz { 0%, 100% { transform: scale(0.9); opacity: 0.6; } 50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 14px #38ef7d; } }
+        .sayac-rakam { font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 900; color: #fff; letter-spacing: 2px; text-shadow: 0 0 18px rgba(243, 207, 139, 0.6), 0 2px 5px rgba(0,0,0,0.8); line-height: 1.1; }
         .zarif-bilgi-kutusu { margin: 30px auto; max-width: 750px; padding: 25px 20px; border: 1px dashed rgba(243, 207, 139, 0.4); border-radius: 12px; font-size: 0.95rem; color: #fff; line-height: 1.7; text-align: center; background: rgba(0, 0, 0, 0.3); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .bilgi-baslik-vurgu { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--text-gold); font-weight: 800; text-shadow: 0 2px 5px rgba(0,0,0,0.5); margin-bottom: 10px; letter-spacing: 1px; }
         .zarif-iletisim-alani { margin: 30px 20px 20px; font-size: 1rem; color: #dcebd2; line-height: 1.6; }
@@ -645,73 +456,40 @@
         .footer-copyright { display: block; font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 2px; color: var(--text-gold); font-weight: bold; margin-top: 40px; text-transform: uppercase; opacity: 0.8; }
 
         /* PWA VE IOS MODALLARI */
-        .pwa-install-banner {
-            position: fixed; bottom: 20px; left: 50%;
-            transform: translateX(-50%) translateY(120%);
-            width: 92%; max-width: 500px;
-            background: linear-gradient(135deg, rgba(20, 56, 30, 0.98), rgba(8, 26, 14, 0.98));
-            border: 1.5px solid var(--text-gold); border-radius: 20px; padding: 14px 20px;
-            display: flex; align-items: center; justify-content: space-between; gap: 15px;
-            z-index: 1000; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(243, 207, 139, 0.3);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(10px);
-        }
+        .pwa-install-banner { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(120%); width: 92%; max-width: 500px; background: linear-gradient(135deg, rgba(20, 56, 30, 0.98), rgba(8, 26, 14, 0.98)); border: 1.5px solid var(--text-gold); border-radius: 20px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 15px; z-index: 1000; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(243, 207, 139, 0.3); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); backdrop-filter: blur(10px); }
         .pwa-install-banner.active { transform: translateX(-50%) translateY(0); }
         .pwa-banner-left { display: flex; align-items: center; gap: 12px; }
-        .pwa-app-icon {
-            width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--text-gold);
-            background: #123018; display: flex; align-items: center; justify-content: center;
-            color: var(--text-gold); font-size: 1.3rem; flex-shrink: 0;
-        }
+        .pwa-app-icon { width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--text-gold); background: #123018; display: flex; align-items: center; justify-content: center; color: var(--text-gold); font-size: 1.3rem; flex-shrink: 0; }
         .pwa-text-title { font-family: 'Cinzel', serif; font-weight: 800; color: #fff; font-size: 0.95rem; line-height: 1.2; }
         .pwa-text-desc { font-size: 0.78rem; color: var(--accent-main); font-style: italic; }
-        .pwa-install-btn {
-            background: var(--text-gold); color: #15381a; border: none; padding: 8px 16px;
-            border-radius: 20px; font-family: 'Cinzel', serif; font-weight: 900; font-size: 0.85rem;
-            cursor: pointer; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
+        .pwa-install-btn { background: var(--text-gold); color: #15381a; border: none; padding: 8px 16px; border-radius: 20px; font-family: 'Cinzel', serif; font-weight: 900; font-size: 0.85rem; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .pwa-close-btn { background: transparent; border: none; color: #aaa; font-size: 1.2rem; cursor: pointer; padding: 0 4px; }
-
-        .ios-guide-modal {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px); z-index: 999999; align-items: flex-end;
-            justify-content: center; padding-bottom: 25px;
-        }
+        .ios-guide-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 999999; align-items: flex-end; justify-content: center; padding-bottom: 25px; }
         .ios-guide-modal.active { display: flex; }
-        .ios-guide-card {
-            background: linear-gradient(145deg, #183d21, #0a1f11);
-            border: 2px solid var(--text-gold); border-radius: 22px; padding: 25px 22px;
-            width: 92%; max-width: 440px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-            position: relative; animation: slideUp 0.4s ease-out;
-        }
+        .ios-guide-card { background: linear-gradient(145deg, #183d21, #0a1f11); border: 2px solid var(--text-gold); border-radius: 22px; padding: 25px 22px; width: 92%; max-width: 440px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.9); position: relative; animation: slideUp 0.4s ease-out; }
         .ios-guide-title { font-family: 'Cinzel', serif; color: var(--text-gold); font-size: 1.25rem; font-weight: 800; margin-bottom: 12px; }
         .ios-steps { text-align: left; font-size: 0.92rem; color: #FAF5EF; line-height: 1.7; margin-bottom: 20px; padding: 0 10px; }
         .ios-steps li { margin-bottom: 8px; }
         .ios-icon-badge { display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 6px; color: #38ef7d; font-weight: bold; }
-
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-        /* MOBİL UYUM */
+        /* MOBİL UYUM OVERRIDES */
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; line-height: 1.3;}
-            .ana-sekme-container { flex-direction: column; gap: 12px; max-width: 320px; margin: 20px auto;}
             
+            /* İlerleme Bilgilerini Mobilde Alt Alta Alarak Taşmayı Engeller */
+            .progress-info { flex-direction: column !important; justify-content: center !important; gap: 8px !important; text-align: center !important; }
+
             .timeline::after { left: 50%; width: 3px; } 
-            
             .container-box { width: 50%; padding-bottom: 20px; margin-bottom: 10px; }
             .left { padding-right: 15px; padding-left: 0; }
             .right { padding-left: 15px; padding-right: 0; left: 50%; }
-            
-            .left::before { right: 2px; width: 13px; }
-            .right::before { left: 2px; width: 13px; }
-            
-            .left::after { right: -6px; width: 12px; height: 12px; border-width: 2px; }
-            .right::after { left: -6px; width: 12px; height: 12px; border-width: 2px; }
+            .left::before { right: 2px; width: 13px; } .right::before { left: 2px; width: 13px; }
+            .left::after { right: -6px; width: 12px; height: 12px; border-width: 2px; } .right::after { left: -6px; width: 12px; height: 12px; border-width: 2px; }
 
             .content { padding: 18px 15px; }
             .left .content { border-radius: 30px 8px 30px 8px; }
             .right .content { border-radius: 8px 30px 8px 30px; }
-            
             .badge { font-size: 0.75rem; padding: 5px 12px; margin-bottom: 10px; }
             .content h3 { font-size: 1rem; line-height: 1.3; margin-bottom: 8px; }
             .speaker-text { font-size: 0.8rem; margin-bottom: 5px; }
@@ -723,15 +501,19 @@
             .turkish-text { font-size: 0.95rem !important; margin-bottom: 15px !important; }
             .niyet-kutusu { font-size: 0.95rem !important; padding: 12px 10px !important; margin-bottom: 20px !important; }
             .accept-btn { width: 100%; padding: 12px; font-size: 1rem; }
-            
             .modal-window { padding: 30px 20px; border-radius: 16px; }
             .modal-heading { font-size: 1.6rem; }
-            
             .bilgi-baslik-vurgu { font-size: 1.2rem; }
             .zarif-iletisim-alani { font-size: 0.95rem; }
             .telegram-belirgin-link { display: flex; justify-content: center; margin: 15px auto 0; max-width: 240px; }
+            
+            .okuma-satir { padding: 14px 15px; }
+            .okuma-sol { gap: 12px; }
+            .okuma-gun-rozet { width: 40px; height: 40px; font-size: 1.05rem; }
+            .okuma-tarih { font-size: 0.9rem; }
+            .okuma-hicri { font-size: 0.75rem; }
+            .okuma-aralik { font-size: 1.1rem; }
         }
-        
     </style>
 </head>
 <body>
@@ -759,12 +541,11 @@
     <div class="ana-sekme-container">
         <button class="ana-sekme-btn aktif" onclick="anaSekmeDegistir('dersler')">📜 Kamp Dersleri</button>
         <button class="ana-sekme-btn" onclick="anaSekmeDegistir('denemeler')">📝 Değerlendirme Sınavları</button>
+        <button class="ana-sekme-btn" onclick="anaSekmeDegistir('okuma')">📖 Okuma Takvimi</button>
     </div>
 
-    <!-- 📜 GÜNÜN HADÎS-İ ŞERÎFİ (ALLAH - MUHAMMED HATLI & GÜL YAPRAKLI) -->
+    <!-- 📜 GÜNÜN HADÎS-İ ŞERÎFİ -->
     <div class="gunun-hadisi-karti">
-        
-        <!-- Süzülen Gül Yaprakları Katmanı -->
         <div class="gul-yapraklari">
             <span class="gul-yaprak"></span>
             <span class="gul-yaprak"></span>
@@ -773,41 +554,32 @@
             <span class="gul-yaprak"></span>
         </div>
 
-        <!-- 👑 ÜST SATIR: SOLDA MUHAMMED - ORTADA BAŞLIK - SAĞDA ALLAH -->
         <div class="hadis-ust-sirali-alan">
             <div class="hat-rozet hat-muhammed" title="Muhammed Aleyhisselâm"><span>مُحَمَّد</span></div>
-
             <div class="hadis-baslik-sarici">
                 <i class="fa-solid fa-star-and-crescent"></i>
                 <span>Günün Hadîs-i Şerîfi</span>
                 <i class="fa-solid fa-star-and-crescent"></i>
             </div>
-
             <div class="hat-rozet hat-allah" title="Allah Celle Celâluhû"><span>اللّٰه</span></div>
         </div>
 
-        <!-- 3. Katman: Metin Alanı -->
         <div class="hadis-icerik-katmani">
             <div class="hadis-arapca" id="hadisArapca">Yükleniyor...</div>
-
             <div class="hadis-ayrac">
                 <span class="cizgi"></span>
                 <span class="nokta"></span>
                 <span class="cizgi"></span>
             </div>
-
             <div class="hadis-turkce" id="hadisTurkce">...</div>
-
             <div class="hadis-kaynak">
                 <i class="fa-solid fa-book-open"></i> <span>Riyâzü’s-Sâlihîn</span>
             </div>
         </div>
-
     </div>
 
     <!-- 1. SEKME: DERSLER -->
     <div id="dersler-alan">
-        <!-- İLERLEME KARTI (ÇUBUK ÜSTTE, BİLGİLER ALTTA) -->
         <div class="progress-container">
             <div class="progress-bar-bg">
                 <div class="progress-bar-fill" id="progressBar"></div>
@@ -823,6 +595,23 @@
     <!-- 2. SEKME: DENEMELER -->
     <div id="denemeler-alan" style="display: none;">
         <div class="timeline" id="denemelerContainer"></div>
+    </div>
+
+    <!-- 3. SEKME: OKUMA TAKVİMİ -->
+    <div id="okuma-alan" style="display: none;">
+        <div class="progress-container" style="max-width: 800px; margin: 0 auto 30px auto;">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="okumaProgressBar" style="background: linear-gradient(90deg, #e67d63, #b84323);"></div>
+            </div>
+            <div class="progress-info">
+                <span>RİYÂZÜ'S-SÂLİHÎN OKUMA SEYRİ</span>
+                <span id="okumaProgressText" style="color: #e67d63;">%0 TAMAMLANDI</span>
+            </div>
+            <div style="text-align: center; color: #a5d6a7; font-size: 0.85rem; font-style: italic; margin-top: 8px;">
+                Günde 127 hadis okuyarak kitabı tamamlıyoruz. Bitirdiğiniz günün üzerine tıklayarak işaretleyin.
+            </div>
+        </div>
+        <div id="okumaContainer" class="okuma-liste-alani"></div>
     </div>
 
     <footer>
@@ -959,6 +748,25 @@
         { id: "D10", num: "10. DENEME", date: "7 Kasım 2026 Cumartesi", title: "Büyük Final Öncesi Son Deneme" }
     ];
 
+    // 📖 OKUMA TAKVİMİ VERİLERİ
+    const okumaTakvimiData = [
+        { id: "O1", gun: "1", hicri: "11 Rebîü'l-Ahir 1448", miladi: "22 Eylül 2026 Salı", aralik: "0 - 127" },
+        { id: "O2", gun: "2", hicri: "12 Rebîü'l-Ahir 1448", miladi: "23 Eylül 2026 Çarşamba", aralik: "128 - 255" },
+        { id: "O3", gun: "3", hicri: "13 Rebîü'l-Ahir 1448", miladi: "24 Eylül 2026 Perşembe", aralik: "256 - 383" },
+        { id: "O4", gun: "4", hicri: "14 Rebîü'l-Ahir 1448", miladi: "25 Eylül 2026 Cuma", aralik: "384 - 511" },
+        { id: "O5", gun: "5", hicri: "15 Rebîü'l-Ahir 1448", miladi: "26 Eylül 2026 Cumartesi", aralik: "512 - 639" },
+        { id: "O6", gun: "6", hicri: "16 Rebîü'l-Ahir 1448", miladi: "27 Eylül 2026 Pazar", aralik: "640 - 767" },
+        { id: "O7", gun: "7", hicri: "17 Rebîü'l-Ahir 1448", miladi: "28 Eylül 2026 Pazartesi", aralik: "768 - 895" },
+        { id: "O8", gun: "8", hicri: "18 Rebîü'l-Ahir 1448", miladi: "29 Eylül 2026 Salı", aralik: "896 - 1023" },
+        { id: "O9", gun: "9", hicri: "19 Rebîü'l-Ahir 1448", miladi: "30 Eylül 2026 Çarşamba", aralik: "1024 - 1151" },
+        { id: "O10", gun: "10", hicri: "20 Rebîü'l-Ahir 1448", miladi: "1 Ekim 2026 Perşembe", aralik: "1152 - 1279" },
+        { id: "O11", gun: "11", hicri: "21 Rebîü'l-Ahir 1448", miladi: "2 Ekim 2026 Cuma", aralik: "1280 - 1407" },
+        { id: "O12", gun: "12", hicri: "22 Rebîü'l-Ahir 1448", miladi: "3 Ekim 2026 Cumartesi", aralik: "1408 - 1535" },
+        { id: "O13", gun: "13", hicri: "23 Rebîü'l-Ahir 1448", miladi: "4 Ekim 2026 Pazar", aralik: "1536 - 1663" },
+        { id: "O14", gun: "14", hicri: "24 Rebîü'l-Ahir 1448", miladi: "5 Ekim 2026 Pazartesi", aralik: "1664 - 1791" },
+        { id: "O15", gun: "15", hicri: "25 Rebîü'l-Ahir 1448", miladi: "6 Ekim 2026 Salı", aralik: "1792 - 1903" }
+    ];
+
     let dynamicDersData = {};
     let dynamicDenemeData = {};
     let activeId = null;
@@ -966,21 +774,26 @@
     let deferredPrompt = null;
 
     function anaSekmeDegistir(sekme) {
-        const btnDers = document.querySelectorAll('.ana-sekme-btn')[0];
-        const btnDeneme = document.querySelectorAll('.ana-sekme-btn')[1];
-        const alanDers = document.getElementById('dersler-alan');
-        const alanDeneme = document.getElementById('denemeler-alan');
+        const butonlar = document.querySelectorAll('.ana-sekme-btn');
+        const alanlar = {
+            'dersler': document.getElementById('dersler-alan'),
+            'denemeler': document.getElementById('denemeler-alan'),
+            'okuma': document.getElementById('okuma-alan')
+        };
+
+        butonlar.forEach(b => b.classList.remove('aktif'));
+        Object.values(alanlar).forEach(a => { if(a) a.style.display = 'none'; });
 
         if (sekme === 'dersler') {
-            btnDers.classList.add('aktif');
-            btnDeneme.classList.remove('aktif');
-            alanDers.style.display = 'block';
-            alanDeneme.style.display = 'none';
-        } else {
-            btnDeneme.classList.add('aktif');
-            btnDers.classList.remove('aktif');
-            alanDers.style.display = 'none';
-            alanDeneme.style.display = 'block';
+            butonlar[0].classList.add('aktif');
+            alanlar['dersler'].style.display = 'block';
+        } else if (sekme === 'denemeler') {
+            butonlar[1].classList.add('aktif');
+            alanlar['denemeler'].style.display = 'block';
+        } else if (sekme === 'okuma') {
+            butonlar[2].classList.add('aktif');
+            alanlar['okuma'].style.display = 'block';
+            renderOkumaTakvimi();
         }
     }
 
@@ -1087,6 +900,63 @@
             `;
             container.appendChild(box);
         });
+    }
+
+    function renderOkumaTakvimi() {
+        const container = document.getElementById('okumaContainer');
+        if(!container) return;
+        const completed = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
+        container.innerHTML = '';
+
+        okumaTakvimiData.forEach(item => {
+            const isDone = completed.includes(item.id);
+            const box = document.createElement('div');
+            box.className = `okuma-satir ${isDone ? 'tamamlandi' : ''}`;
+            box.onclick = () => okumaGunuIsaretle(item.id);
+
+            const iconHtml = isDone ? '<i class="fa-solid fa-check"></i>' : item.gun;
+
+            box.innerHTML = `
+                <div class="okuma-sol">
+                    <div class="okuma-gun-rozet">${iconHtml}</div>
+                    <div class="okuma-bilgi">
+                        <span class="okuma-tarih">${item.miladi}</span>
+                        <span class="okuma-hicri">${item.hicri}</span>
+                    </div>
+                </div>
+                <div class="okuma-sag">
+                    <span class="okuma-etiket">Hadis Aralığı</span>
+                    <span class="okuma-aralik">${item.aralik}</span>
+                </div>
+            `;
+            container.appendChild(box);
+        });
+
+        okumaIlerlemeGuncelle();
+    }
+
+    function okumaGunuIsaretle(id) {
+        let completed = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
+        if (completed.includes(id)) {
+            completed = completed.filter(i => i !== id);
+        } else {
+            completed.push(id);
+            if (window.confetti && completed.length === okumaTakvimiData.length) {
+                confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
+            }
+        }
+        localStorage.setItem('nevevi_okuma_durumu', JSON.stringify(completed));
+        renderOkumaTakvimi();
+    }
+
+    function okumaIlerlemeGuncelle() {
+        const completed = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
+        const percent = Math.round((completed.length / okumaTakvimiData.length) * 100);
+        const progressText = document.getElementById('okumaProgressText');
+        const progressBar = document.getElementById('okumaProgressBar');
+        
+        if(progressText) progressText.innerText = `%${percent} TAMAMLANDI`;
+        if(progressBar) progressBar.style.width = `${percent}%`;
     }
 
     function updateProgress() {
@@ -1283,50 +1153,106 @@
         dismissPwaBanner();
     }
 
-    // 🌿 RİYÂZÜ'S-SÂLİHÎN'DEN 20 HİKMETLİ HADÎS (NUMARASIZ)
+    // 🌿 İMÂM NEVEVÎ VE RİYÂZÜ'S-SÂLİHÎN'DEN SEÇMELER (MÜKERRERSİZ 33 HADİS)
     const riyazusSalihinHavuzu = [
         {
-            arapca: "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
-            turkce: "«Ameller ancak niyetlere göredir; herkesin niyeti ne ise eline geçecek olan odur.»"
+            arapca: "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
+            turkce: "«Amellerin değeri ancak niyetlere göredir. Herkesin niyeti ne ise eline geçecek olan odur.»"
         },
         {
-            arapca: "الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا",
+            arapca: "دَعْ مَا يَرِيبُكَ إِلَى مَا لَا يَرِيبُكَ",
+            turkce: "«Sana şüphe veren şeyleri bırak ve sana şüphe vermeyen şeyleri al.»"
+        },
+        {
+            arapca: "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأخيهِ مَا يُحِبُّ لِنَفْسِهِ",
+            turkce: "«Sizden her biriniz, kendi nefsi için sevip arzuladığı şeyleri, mümin kardeşi için de sevip arzu etmedikçe (kâmil manada) iman etmiş olmaz.»"
+        },
+        {
+            arapca: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْراً أَوْ لِيَصْمُتْ",
+            turkce: "«Allah'a ve ahiret gününe iman eden bir kimse, ya hayır söylesin ya da sussun.»"
+        },
+        {
+            arapca: "اِتَّقِ اللَّهَ حَيْثُمَا كُنْتَ، وَأَتْبِعِ السَّيِّئَةَ الحَسَنَةَ تَمْحُهَا وَخَالِقِ النَّاسَ بِخُلُقٍ حَسَنٍ",
+            turkce: "«Nerede olur isen ol, Allah Teâlâ'dan takva üzere bulun (kork). Bir kötülük yaptığında derhal ardından bir iyilik yap ki onu gidersin. Bir de insanlarla iyi ahlak sahibi olarak geçin.»"
+        },
+        {
+            arapca: "إِذَا لَمْ تَسْتَحْيِ فَاصْنَعْ مَا شِئْتَ",
+            turkce: "«İlk peygamberlerin sözlerinden insanların idrâk ettiği söz şudur: Utanmadıktan sonra dilediğini yap!»"
+        },
+        {
+            arapca: "قُلْ آمَنْتُ بِاللَّهِ ثُمَّ اسْتَقِمْ",
+            turkce: "«Allah'a iman ettim de, sonra da dosdoğru ol.»"
+        },
+        {
+            arapca: "إِزْهَدْ فِي الدُّنْيَا يُحِبَّكَ اللَّهُ وَأَزْهَدْ فِيمَا عِنْدَ النَّاسِ يُحِبَّكَ النَّاسُ",
+            turkce: "«Dünyaya iltifat etme ki Allah seni sevsin. İnsanların nezdinde olanlara iltifat etme (ellerindekine tama' etme) ki insanlar seni sevsin.»"
+        },
+        {
+            arapca: "لَا يُؤْمِنُ أَحَدُكُمْ حَتى يَكُونَ هَوَاهُ تَبَعاً لِمَا جِئْتُ بِهِ",
+            turkce: "«Sizden herhangi biriniz, heva ve heveslerini benim getirdiğim esaslara tabi kılmadıkça kemaliyle iman etmiş olmaz.»"
+        },
+        {
+            arapca: "مَنْ رَأَى مِنْكُمْ مُنْكَراً فَلْيُغَيِّرْهُ بِيَدِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِلِسَانِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِقَلْبِهِ",
+            turkce: "«İçinizden her kim bir kötülük görürse onu eliyle değiştirsin; gücü yetmezse diliyle, ona da gücü yetmezse kalbiyle buğz etsin.»"
+        },
+        {
+            arapca: "الطَّهُورِ شَطْرُ الإِيمَانِ، وَأَلْحَمْدُ لِلَّهِ تَمْلَأُ المِيزَانَ",
+            turkce: "«Temizlik imanın yarısıdır. Elhamdülillah sözü mizanı (teraziyi) doldurur.»"
+        },
+        {
+            arapca: "وَالْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ، وَ بِكُلِّ خَطْوَةٍ تَمْشِيهَا إِلَى الصَّلَاةِ صَدَقَةٌ",
+            turkce: "«Güzel bir kelime sadakadır. Namaza gitmek için attığın her adım bir sadakadır.»"
+        },
+        {
+            arapca: "مَنْ أَحْدَثَ فِي أَمْرِنَا هَذا مَا لَيْسَ مِنْهُ فَهُوَ رَدُّ",
+            turkce: "«Kim bizim bu dinimizde -dinden- olmayan bir şey ihdas ederse o ihdas olunan şey reddedilmiştir.»"
+        },
+        {
+            arapca: "مَا نَهَيْتُكُمْ عَنْهُ فَاجْتَنِبُوهُ وَمَا أَمَرْتُكُمْ بِهِ فَأْتُوا بِهِ مَا اسْتَطَعْتُمْ",
+            turkce: "«Ben herhangi bir şeyden sizi menettiğimde derhal ondan uzak kalınız. Yapmanızı emrettiğimde de gücünüzün yettiği kadarıyla onu yapınız.»"
+        },
+        {
+            arapca: "مِنْ حُسْنِ إِسْلَامِ الْمَرْءِ تَرْكُهُ مَا لَا يَعْنِيهِ",
+            turkce: "«Kişinin, kendisine yararı olmayan şeyleri terk etmesi, onun güzel bir Müslüman olduğunun göstergesidir.»"
+        },
+        {
+            arapca: "لا ضَرَرَ وَلا ضِرَارَ",
+            turkce: "«Zarar vermek yoktur; zarara zararla karşılık vermek de yoktur.»"
+        },
+        {
+            arapca: "الْبِرُّ حُسْنُ الْخُلُقِ وَالْإِثْمُ مَا حَاكَ فِي صَدْرِكَ",
+            turkce: "«İyilik, ahlak güzelliğidir. Günah da, nefsinde iz bırakan ve başkalarınca bilinmesini istemediğin şeydir.»"
+        },
+        {
+            arapca: "إِنَّ اللهَ كَتَبَ الْإِحْسَانَ عَلَى كُلِّ شَيْءٍ",
+            turkce: "«Allah Teâlâ her şeye güzel muamele edilmesini (iyilikle davranılmasını) emretmiştir.»"
+        },
+        {
+            arapca: "إِحْفَظِ اللَّهَ يَحْفَظْكَ، إِحْفَظِ اللَّهَ تَجِدْهُ تُجَاهَكَ",
+            turkce: "«Sen Allah'ın buyruklarını koru ki, O da seni korusun. Allah'ın buyruklarını gözet ki, O'nun yardımını karşında bulasın.»"
+        },
+        {
+            arapca: "الدِّينُ النَّصِيحَةُ قُلْنَا : لِمَنْ ؟ قَالَ : لِلَّهِ وَلِكِتَابِهِ وَلِرَسُولِهِ وَلِأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ",
+            turkce: "«Din nasihattir. 'Kim için?' dedik. Buyurdu ki: Allah için, O'nun kitabı için, O'nun Resulü için, müminlerin önderleri ve müminlerin hepsi için.»"
+        },
+        {
+            arapca: "الْمُؤْمِنُ لِلْمُؤْمِنِ كَالْبُنْيَانِ يَشُدُّ بَعْضُهُ بَعْضًا",
             turkce: "«Mü’min mü’min için, parçaları birbirini destekleyen sağlam bir bina gibidir.»"
         },
         {
-            arapca: "الطُّهُورُ شَطْرُ الإِيمَانِ، وَالْحَمْدُ لِلَّهِ تَمْلأُ الْمِيزَانَ",
-            turkce: "«Temizlik imanın yarısıdır. Elhamdülillâh mizanı doldurur.»"
-        },
-        {
-            arapca: "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ",
+            arapca: "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ طَرِيقًا إِلَى الْجَنَّةِ",
             turkce: "«Kim ilim tahsil etmek için bir yola girerse, Allah ona cennete giden yolu kolaylaştırır.»"
         },
         {
-            arapca: "اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ، وَأَتْبِعِ السَّيِّئَةَ الْحَسَنَةَ تَمْحُهَا",
-            turkce: "«Nerede olursan ol Allah’a karşı gelmekten sakın; kötülüğün peşinden hemen bir iyilik yap ki onu silsin.»"
-        },
-        {
-            arapca: "لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
-            turkce: "«Sizden biriniz, kendisi için istediğini din kardeşi için de istemedikçe kâmil manada iman etmiş olamaz.»"
-        },
-        {
-            arapca: "مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِهِ",
+            arapca: "مَنْ دَلَّ عَلَى خَيْرٍ فَلَهُ مِثْلُ أَجْرِ فَاعِلِهِ",
             turkce: "«Bir hayra vesile olan kimse, o hayrı bizzat işlemiş gibi ecir kazanır.»"
         },
         {
-            arapca: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
-            turkce: "«Allah’a ve ahiret gününe inanan kimse, ya hayır söylesin ya da sussun.»"
-        },
-        {
-            arapca: "الدِّينُ النَّصِيحَةُ",
-            turkce: "«Din, samimiyettir (nasihattir).»"
-        },
-        {
-            arapca: "الصَّبْرُ ضِيَاءٌ",
+            arapca: "الصَّبْرُ ضِيَاءٌ",
             turkce: "«Sabır, insanı aydınlatan ışıktır.»"
         },
         {
-            arapca: "كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ: سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+            arapca: "كَلِمَتَانِ خَفِيفَتَانِ عَلَى اللِّسَانِ، ثَقِيلَتَانِ فِي الْمِيزَانِ: سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
             turkce: "«Dile hafif, mizanda ağır iki kelime vardır: Sübhânallâhi ve bi-hamdihî, Sübhânallâhi'l-azîm.»"
         },
         {
@@ -1334,35 +1260,31 @@
             turkce: "«Müslüman, elinden ve dilinden diğer Müslümanların güvende olduğu kimsedir.»"
         },
         {
-            arapca: "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
+            arapca: "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
             turkce: "«Kardeşinin yüzüne tebessüm etmen bir sadakadır.»"
         },
         {
-            arapca: "إِنَّ اللَّهَ رَفِيقٌ يُحِبُّ الرِّفْقَ فِي الأَمْرِ كُلِّهِ",
+            arapca: "إِنَّ اللَّهَ رَفِيقٌ يُحِبُّ الرِّفْقَ فِي الأَمْرِ كُلِّهِ",
             turkce: "«Şüphesiz Allah şefkat sahibidir ve her işte nezaketi, yumuşaklığı sever.»"
         },
         {
-            arapca: "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلاَّ عِزًّا",
+            arapca: "مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ، وَمَا زَادَ اللَّهُ عَبْدًا بِعَفْوٍ إِلاَّ عِزًّا",
             turkce: "«Sadaka maldan hiçbir şey eksiltmez. Allah, affeden kulunun ancak izzet ve şerefini artırır.»"
         },
         {
-            arapca: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
+            arapca: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ",
             turkce: "«Sizin en hayırlınız, Kur'ân-ı Kerîm'i öğrenen ve öğretendir.»"
         },
         {
-            arapca: "احْفَظِ اللَّهَ يَحْفَظْكَ، احْفَظِ اللَّهَ تَجِدْهُ تُجَاهَكَ",
-            turkce: "«Sen Allah’ın hudutlarını gözet ki, Allah da seni gözetsin; O'nu daima yanında bulasın.»"
-        },
-        {
-            arapca: "الرَّجُلُ عَلَى دِينِ خَلِيلِهِ، فَلْيَنْظُرْ أَحَدُكُمْ مَنْ يُخَالِلُ",
+            arapca: "الرَّجُلُ عَلَى دِينِ خَلِيلِهِ، فَلْيَنْظُرْ أَحَدُكُمْ مَنْ يُخَالِلُ",
             turkce: "«Kişi dostunun dini üzeredir. Bu yüzden her biriniz kiminle dostluk ettiğine iyi baksın.»"
         },
         {
-            arapca: "أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ",
+            arapca: "أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ",
             turkce: "«Allah katında amellerin en sevimlisi, az da olsa devamlı olanıdır.»"
         },
         {
-            arapca: "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ",
+            arapca: "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ",
             turkce: "«Şüphesiz Allah, sizden birinizin yaptığı işi sağlam ve güzel yapmasını sever.»"
         }
     ];
@@ -1398,9 +1320,10 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        // 1. ANINDA ÇİZ: Dersleri, sınavları ve günün hadisini basar
+        // 1. ANINDA ÇİZ: Dersleri, sınavları ve okuma takvimini basar
         renderDersler();
         renderDenemeler();
+        renderOkumaTakvimi();
         gununHadisiniGoster();
 
         // 2. CANLI VERİLER: Ziyaretçi sayacı ve Google Sheets güncellemeleri
