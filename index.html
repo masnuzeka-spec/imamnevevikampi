@@ -475,7 +475,7 @@
 
         /* MOBİL UYUM OVERRIDES */
         @media (max-width: 768px) {
-        .duyuru-kutu { padding: 20px 15px !important; }
+            .duyuru-kutu { padding: 20px 15px !important; }
             .duyuru-baslik { font-size: 1.3rem !important; margin-bottom: 12px !important; padding-bottom: 10px !important; }
             .btn-duyuru-kapat { margin-top: 15px !important; padding: 12px !important; font-size: 1rem !important; }
             h1 { font-size: 2.2rem; line-height: 1.3;}
@@ -806,7 +806,11 @@
 
     async function fetchData() {
         try {
-            const res = await fetch(API_URL);
+            // ÖNBELLEK KIRICI: Her saniye değişen bir zaman damgası ekliyoruz
+            const zamanDamgasi = new Date().getTime(); 
+            
+            // Verileri çekerken sonuna zaman damgasını ekleyip her seferinde taze veri alıyoruz
+            const res = await fetch(API_URL + "?t=" + zamanDamgasi);
             const data = await res.json();
             
             if (data.dersler) {
@@ -819,8 +823,10 @@
             renderDersler();
             renderDenemeler();
 
-            const resDuyuru = await fetch(API_URL + "?tip=duyuru");
+            // Duyuruyu çekerken de aynı şekilde taze veri alıyoruz
+            const resDuyuru = await fetch(API_URL + "?tip=duyuru&t=" + zamanDamgasi);
             const duyuruData = await resDuyuru.json();
+            
             if (duyuruData && duyuruData.no && duyuruData.metin) {
                 aktifDuyuruNo = "D_" + duyuruData.no;
                 if (localStorage.getItem('nevevi_son_duyuru') !== aktifDuyuruNo) {
