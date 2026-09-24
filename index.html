@@ -36,6 +36,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+<!-- 🔔 ONESIGNAL BİLDİRİM SİSTEMİ (ZÜMRÜT/ALTIN TEMALI) -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "5a2fb1ae-b989-4751-b503-cff2267f90b5",
+          notifyButton: {
+            enable: true,
+            colors: {
+                'circle.background': 'rgb(226, 185, 115)',
+                'circle.foreground': 'rgb(20, 48, 25)',
+                'badge.background': 'rgb(20, 48, 25)',
+                'badge.foreground': 'white',
+                'badge.bordercolor': 'rgb(226, 185, 115)',
+                'pulse.color': 'rgb(226, 185, 115)',
+                'dialog.button.background.hovering': 'rgb(20, 48, 25)',
+                'dialog.button.background.active': 'rgb(20, 48, 25)',
+                'dialog.button.background': 'rgb(20, 48, 25)',
+                'dialog.button.foreground': 'white'
+            }
+          },
+        });
+      });
+    </script>
+    
     <style>
         :root {
             --bg-center: #2b5f31; 
