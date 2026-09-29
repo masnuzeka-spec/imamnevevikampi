@@ -36,6 +36,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.js"></script>
 
 <!-- 🔔 ONESIGNAL BİLDİRİM SİSTEMİ (ZÜMRÜT/ALTIN TEMALI) -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -1277,11 +1279,12 @@
     async function dersPdfIndir(id,btn){
         const lesson=lessonsData.find(x=>x.id===id);
         const source=document.getElementById('pdfDersIcerigi');
-        if(!lesson || !source || !source.textContent.trim()){
+        const plainText=source ? source.innerText.replace(/\u00a0/g,' ').replace(/\n{3,}/g,'\n\n').trim() : '';
+        if(!lesson || !plainText){
             alert('Bu derse ait indirilebilir ders notu bulunamadı.');
             return;
         }
-        if(typeof html2pdf==='undefined'){
+        if(typeof pdfMake==='undefined'){
             alert('PDF hazırlama bileşeni yüklenemedi. İnternet bağlantınızı kontrol edip tekrar deneyin.');
             return;
         }
@@ -1290,64 +1293,84 @@
         btn.disabled=true;
         btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> PDF HAZIRLANIYOR';
 
-        const pdf=document.createElement('section');
-        pdf.setAttribute('aria-hidden','true');
-        pdf.style.cssText=[
-            'position:fixed','left:0','top:0','z-index:2147483000',
-            'width:794px','min-height:1123px','padding:42px',
-            'background:#ffffff','color:#172019','font-family:Arial,Helvetica,sans-serif',
-            'font-size:15px','line-height:1.65','overflow:visible','opacity:1',
-            'pointer-events:none','transform:none','visibility:visible'
-        ].join(';');
-
-        const kapak=document.createElement('div');
-        kapak.style.cssText='text-align:center;border:2px solid #c79b4a;padding:25px;margin-bottom:26px;background:#fffdf6;color:#172019';
-        kapak.innerHTML=`<div style="color:#94702f;font-weight:700;letter-spacing:2px">İMÂM NEVEVÎ KAMPI</div><h1 style="color:#15381a!important;font-size:25px;line-height:1.3;margin:13px 0;text-shadow:none">${lesson.title}</h1><div style="color:#39443d">${lesson.num} • ${lesson.date}</div><div style="color:#94702f;margin-top:6px;font-weight:700">${lesson.speaker}</div>`;
-        pdf.appendChild(kapak);
-
-        const icerik=document.createElement('article');
-        icerik.innerHTML=source.innerHTML;
-        icerik.style.cssText='display:block;background:#ffffff;color:#172019;opacity:1;visibility:visible';
-        pdf.appendChild(icerik);
-
-        const pdfStyle=document.createElement('style');
-        pdfStyle.textContent=`
-            #neveviPdfExport, #neveviPdfExport * { box-sizing:border-box!important; opacity:1!important; visibility:visible!important; text-shadow:none!important; filter:none!important; }
-            #neveviPdfExport article, #neveviPdfExport article * { color:#172019!important; background-color:transparent!important; }
-            #neveviPdfExport article h1, #neveviPdfExport article h2, #neveviPdfExport article h3, #neveviPdfExport article h4, #neveviPdfExport article h5, #neveviPdfExport article strong { color:#15381a!important; }
-            #neveviPdfExport article h2, #neveviPdfExport article h3 { border-bottom:1px solid #d8b66c!important; padding-bottom:5px!important; break-after:avoid-page; }
-            #neveviPdfExport article p, #neveviPdfExport article li, #neveviPdfExport article div, #neveviPdfExport article span { font-size:15px!important; line-height:1.65!important; }
-            #neveviPdfExport article ul, #neveviPdfExport article ol { padding-left:24px!important; }
-            #neveviPdfExport article img { max-width:100%!important; height:auto!important; }
-            #neveviPdfExport article [class*="altin"], #neveviPdfExport article [class*="gold"] { border:1px solid #c79b4a!important; background:#fffaf0!important; padding:10px!important; border-radius:6px!important; }
-        `;
-        pdf.id='neveviPdfExport';
-        pdf.appendChild(pdfStyle);
-
-        const footer=document.createElement('div');
-        footer.style.cssText='margin-top:28px;padding-top:12px;border-top:1px solid #c79b4a;text-align:center;color:#666;font-size:11px';
-        footer.textContent='İmâm Nevevî Kampı Gönüllü Platformu';
-        pdf.appendChild(footer);
-        document.body.appendChild(pdf);
-
         try{
-            await document.fonts.ready;
-            await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-            const canvasTest=pdf.getBoundingClientRect();
-            if(canvasTest.width<700 || canvasTest.height<100 || !pdf.innerText.trim()) throw new Error('PDF içeriği tarayıcı tarafından oluşturulamadı.');
-            await html2pdf().set({
-                margin:[10,10,10,10],
-                filename:dosyaAdiTemizle(lesson.title)+'-Ders-Notu-ve-Altin-Bilgiler.pdf',
-                image:{type:'jpeg',quality:.98},
-                html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false,scrollX:0,scrollY:0,windowWidth:794},
-                jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
-                pagebreak:{mode:['css','legacy']}
-            }).from(pdf).save();
+            const satirlar=plainText.split('\n').map(x=>x.trim()).filter(Boolean);
+            const icerik=[];
+            satirlar.forEach((satir,index)=>{
+                const baslikMi = satir.length < 90 && (
+                    /^[0-9]+[.)-]\s/.test(satir) ||
+                    /^(ALTIN BİLGİLER|DERS NOTU|ÖNEMLİ|SONUÇ|ÖZET|GİRİŞ|SON SÖZ)/i.test(satir) ||
+                    (satir === satir.toLocaleUpperCase('tr-TR') && satir.length > 3)
+                );
+                icerik.push({
+                    text:satir,
+                    style:baslikMi ? 'noteHeading' : 'noteText',
+                    margin:baslikMi ? [0,index?10:0,0,5] : [0,0,0,7],
+                    preserveLeadingSpaces:false
+                });
+            });
+
+            const docDefinition={
+                pageSize:'A4',
+                pageMargins:[42,46,42,48],
+                info:{
+                    title:lesson.title,
+                    author:'İmâm Nevevî Kampı Gönüllü Platformu',
+                    subject:'Ders Notu ve Altın Bilgiler'
+                },
+                defaultStyle:{font:'Roboto',fontSize:10.5,color:'#172019',lineHeight:1.35},
+                styles:{
+                    camp:{fontSize:11,bold:true,color:'#94702f',characterSpacing:1.4,alignment:'center'},
+                    title:{fontSize:20,bold:true,color:'#15381a',alignment:'center',margin:[0,10,0,9],lineHeight:1.2},
+                    meta:{fontSize:10,color:'#39443d',alignment:'center',margin:[0,1,0,0]},
+                    speaker:{fontSize:10.5,bold:true,color:'#94702f',alignment:'center',margin:[0,5,0,0]},
+                    sectionTitle:{fontSize:12,bold:true,color:'#94702f',margin:[0,15,0,9]},
+                    noteHeading:{fontSize:11.5,bold:true,color:'#15381a',lineHeight:1.3},
+                    noteText:{fontSize:10.5,color:'#172019',lineHeight:1.4}
+                },
+                content:[
+                    {
+                        table:{widths:['*'],body:[[{stack:[
+                            {text:'İMÂM NEVEVÎ KAMPI',style:'camp'},
+                            {text:lesson.title,style:'title'},
+                            {text:lesson.num+' • '+lesson.date,style:'meta'},
+                            {text:lesson.speaker,style:'speaker'}
+                        ],margin:[14,15,14,15]}]]},
+                        layout:{hLineColor:()=> '#c79b4a',vLineColor:()=> '#c79b4a',hLineWidth:()=>1.4,vLineWidth:()=>1.4},
+                        margin:[0,0,0,15]
+                    },
+                    {text:'DERS NOTU VE ALTIN BİLGİLER',style:'sectionTitle'},
+                    ...icerik
+                ],
+                footer:(currentPage,pageCount)=>({
+                    columns:[
+                        {text:'İmâm Nevevî Kampı Gönüllü Platformu',alignment:'left'},
+                        {text:currentPage+' / '+pageCount,alignment:'right'}
+                    ],
+                    margin:[42,15,42,0],fontSize:8,color:'#777777'
+                })
+            };
+
+            const dosyaAdi=dosyaAdiTemizle(lesson.title)+'-Ders-Notu-ve-Altin-Bilgiler.pdf';
+            await new Promise((resolve,reject)=>{
+                try{
+                    pdfMake.createPdf(docDefinition).getBlob(blob=>{
+                        try{
+                            if(!blob || blob.size<1000) throw new Error('PDF boş oluşturuldu.');
+                            const url=URL.createObjectURL(blob);
+                            const a=document.createElement('a');
+                            a.href=url;a.download=dosyaAdi;a.style.display='none';
+                            document.body.appendChild(a);a.click();a.remove();
+                            setTimeout(()=>URL.revokeObjectURL(url),15000);
+                            resolve();
+                        }catch(err){reject(err);}
+                    });
+                }catch(err){reject(err);}
+            });
         }catch(e){
             console.error(e);
             alert('PDF hazırlanırken bir sorun oluştu. Lütfen sayfayı yenileyip tekrar deneyin.');
         }finally{
-            pdf.remove();
             btn.disabled=false;
             btn.innerHTML=onceki;
         }
