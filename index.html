@@ -905,7 +905,24 @@
     }
 
     function getCompleted() {
-        return JSON.parse(localStorage.getItem('nevevi_kamp_completed') || '[]');
+        // Mevcut ziyaretçilerin eski kayıt anahtarı değiştirilmez.
+        try {
+            const kayit = JSON.parse(localStorage.getItem('nevevi_kamp_completed') || '[]');
+            return Array.isArray(kayit) ? kayit.map(String) : [];
+        } catch (e) {
+            console.warn('Tamamlanan ders kaydı okunamadı:', e);
+            return [];
+        }
+    }
+
+    function getOkumaCompleted() {
+        try {
+            const kayit = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
+            return Array.isArray(kayit) ? kayit.map(String) : [];
+        } catch (e) {
+            console.warn('Okuma ilerleme kaydı okunamadı:', e);
+            return [];
+        }
     }
 
     async function fetchData() {
@@ -1018,7 +1035,7 @@
     function renderOkumaTakvimi() {
         const container = document.getElementById('okumaContainer');
         if(!container) return;
-        const completed = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
+        const completed = getOkumaCompleted();
         container.innerHTML = '';
 
         okumaTakvimiData.forEach(item => {
@@ -1049,7 +1066,7 @@
     }
 
     function okumaGunuIsaretle(id) {
-        let completed = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
+        let completed = getOkumaCompleted();
         if (completed.includes(id)) {
             completed = completed.filter(i => i !== id);
         } else {
@@ -1063,13 +1080,14 @@
     }
 
     function okumaIlerlemeGuncelle() {
-        const completed = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
+        const completed = getOkumaCompleted();
         const percent = Math.round((completed.length / okumaTakvimiData.length) * 100);
         const progressText = document.getElementById('okumaProgressText');
         const progressBar = document.getElementById('okumaProgressBar');
         
         if(progressText) progressText.innerText = `%${percent} TAMAMLANDI`;
         if(progressBar) progressBar.style.width = `${percent}%`;
+        kisiselIlerlemeyiGuncelle();
     }
 
     function updateProgress() {
@@ -1078,6 +1096,7 @@
         const percent = Math.round((doneCount / lessonsData.length) * 100);
         document.getElementById('progressText').innerText = `%${percent} TAMAMLANDI`;
         document.getElementById('progressBar').style.width = `${percent}%`;
+        kisiselIlerlemeyiGuncelle();
     }
 
     function kralSekme(btn, sekmeId) {
@@ -1247,7 +1266,7 @@
         const tamamlanan = getCompleted();
         const ders = lessonsData.filter(x => tamamlanan.includes(x.id)).length;
         const sinav = denemelerData.filter(x => tamamlanan.includes(x.id)).length;
-        const okumaTamam = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
+        const okumaTamam = getOkumaCompleted();
         const okuma = okumaTakvimiData.filter(x => okumaTamam.includes(x.id)).length;
         const toplam = ders + okuma + sinav;
         const genelYuzde = Math.round((toplam / (lessonsData.length + okumaTakvimiData.length + denemelerData.length)) * 100);
@@ -1264,7 +1283,7 @@
     }
     function kaldiginYerdenDevamEt() {
         const tamamlanan = getCompleted();
-        const okumaTamam = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
+        const okumaTamam = getOkumaCompleted();
         const dersOran = lessonsData.filter(x => tamamlanan.includes(x.id)).length / lessonsData.length;
         const okumaOran = okumaTakvimiData.filter(x => okumaTamam.includes(x.id)).length / okumaTakvimiData.length;
         const sinavOran = denemelerData.filter(x => tamamlanan.includes(x.id)).length / denemelerData.length;
@@ -1494,6 +1513,7 @@
         renderDersler();
         renderDenemeler();
         renderOkumaTakvimi();
+        kisiselIlerlemeyiGuncelle();
         gununHadisiniGoster();
 
         // 2. CANLI VERİLER: Ziyaretçi sayacı ve Google Sheets güncellemeleri
@@ -1509,6 +1529,16 @@
 
         if (isIos() && !isStandalone() && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
             setTimeout(showPwaBanner, 2000);
+        }
+    });
+
+    // Başka sekmede yapılan değişiklikleri de anında yansıtır.
+    window.addEventListener('storage', (event) => {
+        if (event.key === 'nevevi_kamp_completed' || event.key === 'nevevi_okuma_durumu') {
+            renderDersler();
+            renderDenemeler();
+            renderOkumaTakvimi();
+            kisiselIlerlemeyiGuncelle();
         }
     });
 
