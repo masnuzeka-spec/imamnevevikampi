@@ -36,8 +36,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.js"></script>
 
 <!-- 🔔 ONESIGNAL BİLDİRİM SİSTEMİ (ZÜMRÜT/ALTIN TEMALI) -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -613,51 +611,10 @@
         @media(max-width:390px){.deneme-footer{display:block;text-align:left}.deneme-footer .card-status{margin-top:7px;justify-content:flex-start;white-space:normal}.deneme-tur{display:block}.mobil-alt-nav{left:6px;right:6px}.mobil-nav-btn{font-size:.56rem}}
 
 
-        /* SON DUZELTMELER: SABIT GERI, ERISILEBILIR NAVIGASYON, KOMPAKT BUTONLAR */
-        .modal-back-btn {
-            position: sticky !important;
-            top: -1px !important;
-            left: 0 !important;
-            right: auto !important;
-            z-index: 50 !important;
-            margin: -18px 0 10px -18px !important;
-            background: rgba(5,22,11,.98) !important;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 7px 22px rgba(0,0,0,.55) !important;
-        }
-        .ders-materyal-alani { margin: 18px 0 8px !important; padding: 11px !important; }
-        .ders-materyal-baslik { margin-bottom: 7px !important; font-size: .72rem !important; }
-        .pdf-indir-btn {
-            min-height: 42px !important;
-            padding: 9px 12px !important;
-            font-size: .68rem !important;
-            line-height: 1.25 !important;
-            border-radius: 22px !important;
-        }
-        @media(max-width:768px) {
-            .mobil-alt-nav { z-index: 12000 !important; }
-            #lessonModal { z-index: 10000 !important; padding: 8px 8px calc(84px + env(safe-area-inset-bottom)) !important; }
-            #lessonModal .modal-window {
-                max-height: calc(100dvh - 96px - env(safe-area-inset-bottom)) !important;
-                padding: 18px 14px 22px !important;
-                align-self: stretch;
-            }
-            .modal-back-btn { margin: -8px 0 8px -4px !important; height: 37px !important; }
-            .modal-header-section { padding-top: 2px !important; margin-bottom: 16px !important; }
-            .modal-footer-actions { display: block !important; padding-top: 12px !important; margin-top: 12px !important; }
-            .btn-complete-toggle {
-                display: flex !important;
-                width: 100% !important;
-                min-height: 46px !important;
-                padding: 10px 12px !important;
-                justify-content: center !important;
-                text-align: center !important;
-                font-size: .76rem !important;
-                line-height: 1.25 !important;
-                white-space: normal !important;
-            }
-        }
+        /* SON DUZELTMELER */
+        .modal-back-btn{position:sticky!important;top:-1px!important;left:0!important;right:auto!important;z-index:50!important;margin:-18px 0 10px -18px!important;background:rgba(5,22,11,.98)!important;backdrop-filter:blur(12px);box-shadow:0 7px 22px rgba(0,0,0,.55)!important}
+        .ders-materyal-alani{margin:18px 0 8px!important;padding:11px!important}.ders-materyal-baslik{margin-bottom:7px!important;font-size:.72rem!important}.pdf-indir-btn{min-height:42px!important;padding:9px 12px!important;font-size:.68rem!important;line-height:1.25!important;border-radius:22px!important}
+        @media(max-width:768px){.mobil-alt-nav{z-index:12000!important}#lessonModal{z-index:10000!important;padding:8px 8px calc(84px + env(safe-area-inset-bottom))!important}#lessonModal .modal-window{max-height:calc(100dvh - 96px - env(safe-area-inset-bottom))!important;padding:18px 14px 22px!important;align-self:stretch}.modal-back-btn{margin:-8px 0 8px -4px!important;height:37px!important}.modal-header-section{padding-top:2px!important;margin-bottom:16px!important}.modal-footer-actions{display:block!important;padding-top:12px!important;margin-top:12px!important}.btn-complete-toggle{display:flex!important;width:100%!important;min-height:46px!important;padding:10px 12px!important;justify-content:center!important;text-align:center!important;font-size:.76rem!important;line-height:1.25!important;white-space:normal!important}}
 
     </style>
 </head>
@@ -1140,7 +1097,7 @@
 
         const content = dynamicDersData[id];
         if (content && content.trim() !== "") {
-            document.getElementById('modal-body-content').innerHTML = `<div id="pdfDersIcerigi">${content}</div><div class="ders-materyal-alani"><div class="ders-materyal-baslik"><i class="fa-solid fa-file-pdf"></i> DERS MATERYALİ</div><button class="pdf-indir-btn" type="button" onclick="dersPdfIndir('${id}', this)"><i class="fa-solid fa-download"></i> DERS NOTU + ALTIN BİLGİLER PDF</button></div>`;
+            document.getElementById('modal-body-content').innerHTML = `<div id="pdfDersIcerigi">${content}</div><div class="ders-materyal-alani"><div class="ders-materyal-baslik"><i class="fa-solid fa-file-pdf"></i> DERS MATERYALİ</div><button class="pdf-indir-btn" type="button" onclick="dersPdfIndir('${id}', this)"><i class="fa-solid fa-download"></i> PDF OLARAK KAYDET</button></div>`;
         } else {
             document.getElementById('modal-body-content').innerHTML = `
                 <div style="text-align:center; padding:40px 20px; background:rgba(0,0,0,0.3); border-radius:10px; border:1px dashed var(--text-gold); margin:20px 0; color:var(--text-light); font-style:italic;">
@@ -1260,11 +1217,7 @@
     }
     function mobilNavigasyon(view){
         const modal=document.getElementById('lessonModal');
-        if(modal && modal.classList.contains('active')){
-            closeLessonModal();
-            setTimeout(()=>mobilEkranGoster(view,true,true),100);
-            return;
-        }
+        if(modal && modal.classList.contains('active')){ closeLessonModal(); setTimeout(()=>mobilEkranGoster(view,true,true),100); return; }
         if(view===aktifMobilEkran && view!=='ilerleme'){ window.scrollTo({top:0,behavior:'smooth'}); return; }
         mobilEkranGoster(view,true,true);
     }
@@ -1276,104 +1229,21 @@
     }
     function kaldiginYerdenDevamEt(){ const t=getCompleted(),o=JSON.parse(localStorage.getItem('nevevi_okuma_durumu')||'[]'); const a=[{ad:'dersler',oran:lessonsData.filter(x=>t.includes(x.id)).length/lessonsData.length},{ad:'okuma',oran:okumaTakvimiData.filter(x=>o.includes(x.id)).length/okumaTakvimiData.length},{ad:'denemeler',oran:denemelerData.filter(x=>t.includes(x.id)).length/denemelerData.length}].filter(x=>x.oran<1).sort((x,y)=>x.oran-y.oran)[0]; mobilEkranGoster(a?a.ad:'ana',true,true); }
     function dosyaAdiTemizle(metin){ return metin.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i').replace(/[^a-zA-Z0-9ğĞüÜşŞöÖçÇİ -]/g,'').trim().replace(/\s+/g,'-'); }
-    async function dersPdfIndir(id,btn){
+    function dersPdfIndir(id,btn){
         const lesson=lessonsData.find(x=>x.id===id);
         const source=document.getElementById('pdfDersIcerigi');
-        const plainText=source ? source.innerText.replace(/\u00a0/g,' ').replace(/\n{3,}/g,'\n\n').trim() : '';
-        if(!lesson || !plainText){
-            alert('Bu derse ait indirilebilir ders notu bulunamadı.');
-            return;
-        }
-        if(typeof pdfMake==='undefined'){
-            alert('PDF hazırlama bileşeni yüklenemedi. İnternet bağlantınızı kontrol edip tekrar deneyin.');
-            return;
-        }
-
-        const onceki=btn.innerHTML;
-        btn.disabled=true;
-        btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> PDF HAZIRLANIYOR';
-
-        try{
-            const satirlar=plainText.split('\n').map(x=>x.trim()).filter(Boolean);
-            const icerik=[];
-            satirlar.forEach((satir,index)=>{
-                const baslikMi = satir.length < 90 && (
-                    /^[0-9]+[.)-]\s/.test(satir) ||
-                    /^(ALTIN BİLGİLER|DERS NOTU|ÖNEMLİ|SONUÇ|ÖZET|GİRİŞ|SON SÖZ)/i.test(satir) ||
-                    (satir === satir.toLocaleUpperCase('tr-TR') && satir.length > 3)
-                );
-                icerik.push({
-                    text:satir,
-                    style:baslikMi ? 'noteHeading' : 'noteText',
-                    margin:baslikMi ? [0,index?10:0,0,5] : [0,0,0,7],
-                    preserveLeadingSpaces:false
-                });
-            });
-
-            const docDefinition={
-                pageSize:'A4',
-                pageMargins:[42,46,42,48],
-                info:{
-                    title:lesson.title,
-                    author:'İmâm Nevevî Kampı Gönüllü Platformu',
-                    subject:'Ders Notu ve Altın Bilgiler'
-                },
-                defaultStyle:{font:'Roboto',fontSize:10.5,color:'#172019',lineHeight:1.35},
-                styles:{
-                    camp:{fontSize:11,bold:true,color:'#94702f',characterSpacing:1.4,alignment:'center'},
-                    title:{fontSize:20,bold:true,color:'#15381a',alignment:'center',margin:[0,10,0,9],lineHeight:1.2},
-                    meta:{fontSize:10,color:'#39443d',alignment:'center',margin:[0,1,0,0]},
-                    speaker:{fontSize:10.5,bold:true,color:'#94702f',alignment:'center',margin:[0,5,0,0]},
-                    sectionTitle:{fontSize:12,bold:true,color:'#94702f',margin:[0,15,0,9]},
-                    noteHeading:{fontSize:11.5,bold:true,color:'#15381a',lineHeight:1.3},
-                    noteText:{fontSize:10.5,color:'#172019',lineHeight:1.4}
-                },
-                content:[
-                    {
-                        table:{widths:['*'],body:[[{stack:[
-                            {text:'İMÂM NEVEVÎ KAMPI',style:'camp'},
-                            {text:lesson.title,style:'title'},
-                            {text:lesson.num+' • '+lesson.date,style:'meta'},
-                            {text:lesson.speaker,style:'speaker'}
-                        ],margin:[14,15,14,15]}]]},
-                        layout:{hLineColor:()=> '#c79b4a',vLineColor:()=> '#c79b4a',hLineWidth:()=>1.4,vLineWidth:()=>1.4},
-                        margin:[0,0,0,15]
-                    },
-                    {text:'DERS NOTU VE ALTIN BİLGİLER',style:'sectionTitle'},
-                    ...icerik
-                ],
-                footer:(currentPage,pageCount)=>({
-                    columns:[
-                        {text:'İmâm Nevevî Kampı Gönüllü Platformu',alignment:'left'},
-                        {text:currentPage+' / '+pageCount,alignment:'right'}
-                    ],
-                    margin:[42,15,42,0],fontSize:8,color:'#777777'
-                })
-            };
-
-            const dosyaAdi=dosyaAdiTemizle(lesson.title)+'-Ders-Notu-ve-Altin-Bilgiler.pdf';
-            await new Promise((resolve,reject)=>{
-                try{
-                    pdfMake.createPdf(docDefinition).getBlob(blob=>{
-                        try{
-                            if(!blob || blob.size<1000) throw new Error('PDF boş oluşturuldu.');
-                            const url=URL.createObjectURL(blob);
-                            const a=document.createElement('a');
-                            a.href=url;a.download=dosyaAdi;a.style.display='none';
-                            document.body.appendChild(a);a.click();a.remove();
-                            setTimeout(()=>URL.revokeObjectURL(url),15000);
-                            resolve();
-                        }catch(err){reject(err);}
-                    });
-                }catch(err){reject(err);}
-            });
-        }catch(e){
-            console.error(e);
-            alert('PDF hazırlanırken bir sorun oluştu. Lütfen sayfayı yenileyip tekrar deneyin.');
-        }finally{
-            btn.disabled=false;
-            btn.innerHTML=onceki;
-        }
+        if(!lesson || !source || !source.innerText.trim()){ alert('Bu derse ait indirilebilir ders notu bulunamadı.'); return; }
+        const dosyaAdi=dosyaAdiTemizle(lesson.title)+'-Ders-Notu-ve-Altin-Bilgiler.pdf';
+        const temizIcerik=source.cloneNode(true);
+        temizIcerik.querySelectorAll('script,iframe,button,input,form').forEach(el=>el.remove());
+        const w=window.open('','_blank');
+        if(!w){ alert('PDF ekranı açılamadı. Açılır pencerelere izin verip tekrar deneyin.'); return; }
+        const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        w.document.open();
+        w.document.write(`<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(dosyaAdi)}</title><style>
+@page{size:A4;margin:16mm 15mm 17mm}*{box-sizing:border-box}html,body{margin:0;padding:0;background:#fff;color:#172019}body{font-family:Arial,"Helvetica Neue",sans-serif;font-size:11pt;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}.kapak{border:2px solid #c79b4a;padding:22px;text-align:center;margin:0 0 22px;background:#fffdf6;page-break-inside:avoid}.kamp{color:#94702f;font-weight:700;letter-spacing:2px}.kapak h1{color:#15381a;font-size:21pt;line-height:1.25;margin:10px 0 8px}.meta{color:#39443d}.konusmaci{color:#94702f;font-weight:700;margin-top:5px}.bolum{color:#94702f;font-weight:700;font-size:13pt;margin:18px 0 10px;border-bottom:1px solid #d8b66c;padding-bottom:6px}#icerik,#icerik *{color:#172019!important;background:transparent!important;opacity:1!important;visibility:visible!important;text-shadow:none!important;box-shadow:none!important;filter:none!important}#icerik h1,#icerik h2,#icerik h3,#icerik h4,#icerik h5,#icerik strong{color:#15381a!important}#icerik h2,#icerik h3{border-bottom:1px solid #d8b66c!important;padding-bottom:5px!important;page-break-after:avoid}#icerik p,#icerik li,#icerik div,#icerik span{font-size:11pt!important;line-height:1.55!important}#icerik ul,#icerik ol{padding-left:22px!important}#icerik img{max-width:100%!important;height:auto!important}.altbilgi{margin-top:28px;padding-top:10px;border-top:1px solid #c79b4a;text-align:center;color:#666;font-size:9pt}.yardim{position:fixed;left:12px;right:12px;bottom:12px;padding:10px;background:#15381a;color:#fff;border-radius:10px;text-align:center;font-size:13px}@media print{.yardim{display:none!important}}
+</style></head><body><div class="kapak"><div class="kamp">İMÂM NEVEVÎ KAMPI</div><h1>${esc(lesson.title)}</h1><div class="meta">${esc(lesson.num+' • '+lesson.date)}</div><div class="konusmaci">${esc(lesson.speaker)}</div></div><div class="bolum">DERS NOTU VE ALTIN BİLGİLER</div><article id="icerik">${temizIcerik.innerHTML}</article><div class="altbilgi">İmâm Nevevî Kampı Gönüllü Platformu</div><div class="yardim">Yazdırma ekranında “PDF olarak kaydet” seçeneğini seçin.</div><script>window.addEventListener('load',function(){setTimeout(function(){window.focus();window.print()},500)});<\/script></body></html>`);
+        w.document.close();
     }
     /* PWA VE REHBER MANTIĞI */
     const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
