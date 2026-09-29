@@ -596,31 +596,65 @@
         }
 
 
-        /* DERS DETAYI MOBIL ERISIM, SABIT GERI VE KOMPAKT ISLEMLER */
-        .modal-sticky-back {
-            position: sticky !important; top: 0 !important; left: 0 !important; right: auto !important;
-            z-index: 30; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
-            width: auto; height: 38px; padding: 0 14px; margin: -18px 0 10px -18px;
-            border: 1px solid rgba(243,207,139,.72); border-radius: 22px;
-            background: rgba(5,22,11,.97); color: var(--text-gold);
-            font-family: 'Cinzel',serif; font-size: .72rem; font-weight: 900;
-            box-shadow: 0 7px 22px rgba(0,0,0,.55); backdrop-filter: blur(10px);
+        /* UYGULAMA NAVIGASYONU, KISISEL ILERLEME VE PDF */
+        .kisisel-ilerleme-karti{width:92%;max-width:580px;margin:0 auto 24px;background:linear-gradient(145deg,rgba(18,57,30,.96),rgba(5,22,11,.98));border:1.5px solid rgba(226,185,115,.65);border-radius:20px;padding:18px;box-shadow:0 14px 38px rgba(0,0,0,.65),inset 0 0 22px rgba(226,185,115,.05);position:relative;overflow:hidden}
+        .kisisel-ilerleme-karti:before{content:"";position:absolute;inset:5px;border:1px solid rgba(226,185,115,.14);border-radius:15px;pointer-events:none}
+        .ki-ust{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;position:relative;z-index:1}.ki-baslik{display:flex;align-items:center;gap:9px;font-family:'Cinzel',serif;color:#fff;font-size:.88rem;font-weight:800;letter-spacing:.7px}.ki-baslik i{color:var(--text-gold)}
+        .ki-yuzde{min-width:52px;height:52px;display:grid;place-items:center;border-radius:50%;border:2px solid var(--text-gold);color:var(--text-gold);font-family:'Cinzel',serif;font-weight:900;background:rgba(4,18,9,.8)}
+        .ki-satirlar{display:grid;gap:10px;position:relative;z-index:1}.ki-satir{display:grid;grid-template-columns:88px 1fr 45px;gap:9px;align-items:center}.ki-etiket{font-size:.78rem;color:#f8f1e5;font-weight:700}.ki-bar{height:7px;border-radius:10px;overflow:hidden;background:rgba(0,0,0,.48);border:1px solid rgba(226,185,115,.18)}.ki-dolgu{height:100%;width:0;border-radius:10px;background:linear-gradient(90deg,#b38938,#f3cf8b);transition:width .6s ease}.ki-sayim{text-align:right;color:#d9efb1;font-size:.75rem;font-weight:800}.ki-alt{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px dashed rgba(226,185,115,.25);margin-top:14px;padding-top:13px;position:relative;z-index:1}.ki-toplam{color:#a5d6a7;font-size:.76rem}.ki-devam{border:1px solid var(--text-gold);color:#15381a;background:var(--text-gold);border-radius:22px;padding:8px 13px;font-family:'Cinzel',serif;font-weight:900;font-size:.7rem;cursor:pointer}
+        .mobil-alt-nav{display:none}.okuma-mini-bilgi{max-width:800px;margin:0 auto 18px;padding:11px 15px;border:1px dashed rgba(226,185,115,.3);border-radius:12px;text-align:center;color:#a5d6a7;font-size:.85rem;font-style:italic;background:rgba(0,0,0,.18)}
+        .modal-back-btn{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;width:auto!important;height:38px;padding:0 13px!important;border-radius:22px;border:1px solid rgba(243,207,139,.6);background:rgba(5,22,11,.82);font-family:'Cinzel',serif;font-size:.72rem!important;font-weight:900;line-height:1;box-shadow:0 5px 16px rgba(0,0,0,.35)}.modal-back-btn:hover{color:#15381a;background:var(--text-gold);transform:translateX(-2px) rotate(0)!important}.modal-back-btn span{display:inline-block}
+        .deneme-footer{justify-content:space-between;gap:8px;min-width:0}.deneme-tur,.deneme-footer .card-status{min-width:0;line-height:1.3}.deneme-tur{color:#ff9e93;font-weight:bold;overflow-wrap:anywhere}
+        .ders-materyal-alani{margin:28px 0 5px;padding:18px;border:1px solid rgba(226,185,115,.38);border-radius:16px;background:linear-gradient(145deg,rgba(20,48,25,.62),rgba(5,20,10,.75));text-align:center}.ders-materyal-baslik{font-family:'Cinzel',serif;color:var(--text-gold);font-size:.82rem;font-weight:900;letter-spacing:1.2px;margin-bottom:11px}.pdf-indir-btn{width:100%;border:0;border-radius:28px;padding:13px 16px;background:linear-gradient(90deg,#c79b4a,#f3cf8b,#d8aa55);color:#123018;font-family:'Cinzel',serif;font-size:.82rem;font-weight:900;cursor:pointer;box-shadow:0 7px 20px rgba(226,185,115,.2)}.pdf-indir-btn:disabled{opacity:.65;cursor:wait}
+        .pwa-install-banner{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateX(-50%) translateY(220%)!important}.pwa-install-banner.active{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateX(-50%) translateY(0)!important}
+        @media(max-width:768px){body{padding-bottom:calc(104px + env(safe-area-inset-bottom))!important}.ana-sekme-container{display:none!important}.mobil-alt-nav{position:fixed;left:10px;right:10px;bottom:calc(6px + env(safe-area-inset-bottom));height:68px;display:grid;grid-template-columns:repeat(5,1fr);align-items:stretch;background:rgba(7,29,15,.96);border:1px solid rgba(226,185,115,.58);border-radius:20px;box-shadow:0 14px 45px rgba(0,0,0,.72),inset 0 1px 0 rgba(255,255,255,.05);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:5000;padding:5px 4px}.mobil-nav-btn{border:0;background:transparent;color:#b8cdbb;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:15px;font-family:'Lora',serif;font-size:.62rem;font-weight:700;cursor:pointer;min-width:0}.mobil-nav-btn i{font-size:1.02rem}.mobil-nav-btn.aktif{color:var(--text-gold);background:linear-gradient(180deg,rgba(226,185,115,.15),rgba(226,185,115,.04));box-shadow:inset 0 0 0 1px rgba(226,185,115,.12)}.mobil-nav-btn.aktif i{filter:drop-shadow(0 0 7px rgba(226,185,115,.5));transform:translateY(-1px)}.pwa-install-banner{bottom:calc(84px + env(safe-area-inset-bottom))!important;z-index:5100!important}.OneSignal-bell-container{bottom:calc(86px + env(safe-area-inset-bottom))!important}.modal-back-btn{top:12px!important;left:12px;right:auto!important;height:36px;padding:0 11px!important;font-size:.68rem!important;z-index:5}.modal-header-section{padding-top:30px}.deneme-footer{flex-wrap:wrap;align-items:center}.deneme-footer .card-status{margin-left:auto;white-space:nowrap}.deneme-tur{font-size:.69rem}.ki-satir{grid-template-columns:75px 1fr 39px;gap:7px}.ki-alt{align-items:flex-end}.ki-toplam{max-width:55%;line-height:1.35}}
+        @media(max-width:390px){.deneme-footer{display:block;text-align:left}.deneme-footer .card-status{margin-top:7px;justify-content:flex-start;white-space:normal}.deneme-tur{display:block}.mobil-alt-nav{left:6px;right:6px}.mobil-nav-btn{font-size:.56rem}}
+
+
+        /* SON DUZELTMELER: SABIT GERI, ERISILEBILIR NAVIGASYON, KOMPAKT BUTONLAR */
+        .modal-back-btn {
+            position: sticky !important;
+            top: -1px !important;
+            left: 0 !important;
+            right: auto !important;
+            z-index: 50 !important;
+            margin: -18px 0 10px -18px !important;
+            background: rgba(5,22,11,.98) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 7px 22px rgba(0,0,0,.55) !important;
         }
-        .modal-sticky-back:hover { background: var(--text-gold); color: #15381a; transform: translateX(-2px) !important; }
-        .ders-materyal-alani { margin: 22px 0 10px; padding: 12px; border: 1px solid rgba(226,185,115,.38); border-radius: 14px; background: rgba(5,22,11,.48); text-align: center; }
-        .ders-materyal-baslik { color: var(--text-gold); font-family:'Cinzel',serif; font-size:.72rem; font-weight:900; letter-spacing:1px; margin-bottom:8px; }
-        .pdf-indir-btn { width:100%; min-height:43px; padding:10px 13px; border:1px solid var(--text-gold); border-radius:22px; background:var(--text-gold); color:#15381a; font-family:'Cinzel',serif; font-size:.72rem; line-height:1.25; font-weight:900; cursor:pointer; }
-        .pdf-indir-btn:disabled { opacity:.65; cursor:wait; }
-        @media (max-width:768px) {
-            .mobil-alt-nav { z-index: 10050 !important; }
-            .modal-overlay { z-index: 9000 !important; padding: 8px 8px calc(84px + env(safe-area-inset-bottom)) !important; align-items: stretch !important; }
-            .modal-window { max-height: calc(100dvh - 96px - env(safe-area-inset-bottom)) !important; padding: 18px 14px 24px !important; margin:0 !important; border-radius:16px !important; }
-            .modal-sticky-back { top:-1px !important; margin:-8px 0 8px -4px; height:37px; padding:0 12px; }
-            .modal-header-section { padding-top: 2px !important; margin-bottom:16px !important; }
-            .modal-footer-actions { display:block !important; margin-top:14px !important; padding:14px 0 4px !important; }
-            .btn-complete-toggle { width:100% !important; min-height:46px; justify-content:center !important; padding:11px 12px !important; font-size:.78rem !important; line-height:1.25; white-space:normal; }
-            .ders-materyal-alani { margin:16px 0 8px; padding:10px; }
-            .pdf-indir-btn { min-height:41px; padding:9px 10px; font-size:.66rem; }
+        .ders-materyal-alani { margin: 18px 0 8px !important; padding: 11px !important; }
+        .ders-materyal-baslik { margin-bottom: 7px !important; font-size: .72rem !important; }
+        .pdf-indir-btn {
+            min-height: 42px !important;
+            padding: 9px 12px !important;
+            font-size: .68rem !important;
+            line-height: 1.25 !important;
+            border-radius: 22px !important;
+        }
+        @media(max-width:768px) {
+            .mobil-alt-nav { z-index: 12000 !important; }
+            #lessonModal { z-index: 10000 !important; padding: 8px 8px calc(84px + env(safe-area-inset-bottom)) !important; }
+            #lessonModal .modal-window {
+                max-height: calc(100dvh - 96px - env(safe-area-inset-bottom)) !important;
+                padding: 18px 14px 22px !important;
+                align-self: stretch;
+            }
+            .modal-back-btn { margin: -8px 0 8px -4px !important; height: 37px !important; }
+            .modal-header-section { padding-top: 2px !important; margin-bottom: 16px !important; }
+            .modal-footer-actions { display: block !important; padding-top: 12px !important; margin-top: 12px !important; }
+            .btn-complete-toggle {
+                display: flex !important;
+                width: 100% !important;
+                min-height: 46px !important;
+                padding: 10px 12px !important;
+                justify-content: center !important;
+                text-align: center !important;
+                font-size: .76rem !important;
+                line-height: 1.25 !important;
+                white-space: normal !important;
+            }
         }
 
     </style>
@@ -640,7 +674,7 @@
 
 <div class="container">
 
-    <header>
+    <header id="ana-ekran-ust" class="mobil-ana-ogesi">
         <span class="header-top-tag">BÜYÜKLERİN AYAK İZLERİ</span>
         <h1>İMÂM NEVEVÎ KAMPI</h1>
         <div class="badge-gonullu">GÖNÜLLÜ PLATFORMU</div>
@@ -654,7 +688,7 @@
     </div>
 
     <!-- 📜 GÜNÜN HADÎS-İ ŞERÎFİ -->
-    <div class="gunun-hadisi-karti">
+    <div class="gunun-hadisi-karti mobil-ana-ogesi">
         <div class="gul-yapraklari">
             <span class="gul-yaprak"></span>
             <span class="gul-yaprak"></span>
@@ -686,35 +720,18 @@
             </div>
         </div>
     </div>
-
-
-    <!-- KISISEL ILERLEME OZETI -->
-    <section id="kisisel-ilerleme" class="kisisel-ilerleme-karti" aria-labelledby="kiBaslik">
-        <div class="ki-ust">
-            <div class="ki-baslik" id="kiBaslik"><i class="fa-solid fa-chart-line"></i> KİŞİSEL İLERLEMEM</div>
-            <div class="ki-yuzde" id="kiToplamYuzde">%0</div>
-        </div>
-        <div class="ki-satirlar">
-            <div class="ki-satir"><span class="ki-etiket">Dersler</span><div class="ki-bar"><div class="ki-dolgu" id="kiDersBar"></div></div><span class="ki-sayim" id="kiDersSayim">0/15</span></div>
-            <div class="ki-satir"><span class="ki-etiket">Okuma</span><div class="ki-bar"><div class="ki-dolgu" id="kiOkumaBar"></div></div><span class="ki-sayim" id="kiOkumaSayim">0/15</span></div>
-            <div class="ki-satir"><span class="ki-etiket">Sınavlar</span><div class="ki-bar"><div class="ki-dolgu" id="kiSinavBar"></div></div><span class="ki-sayim" id="kiSinavSayim">0/10</span></div>
-        </div>
-        <div class="ki-alt">
-            <span class="ki-toplam" id="kiToplamMetin">Toplam 0 / 40 adım tamamlandı</span>
-            <button class="ki-devam" type="button" onclick="kaldiginYerdenDevamEt()">DEVAM ET <i class="fa-solid fa-chevron-right"></i></button>
-        </div>
+    
+    <section id="kisisel-ilerleme" class="kisisel-ilerleme-karti mobil-ana-ogesi" aria-labelledby="kiBaslik">
+      <div class="ki-ust"><div class="ki-baslik" id="kiBaslik"><i class="fa-solid fa-chart-line"></i> KİŞİSEL İLERLEMEM</div><div class="ki-yuzde" id="kiToplamYuzde">%0</div></div>
+      <div class="ki-satirlar">
+        <div class="ki-satir"><span class="ki-etiket">Dersler</span><div class="ki-bar"><div class="ki-dolgu" id="kiDersBar"></div></div><span class="ki-sayim" id="kiDersSayim">0/15</span></div>
+        <div class="ki-satir"><span class="ki-etiket">Okuma</span><div class="ki-bar"><div class="ki-dolgu" id="kiOkumaBar"></div></div><span class="ki-sayim" id="kiOkumaSayim">0/15</span></div>
+        <div class="ki-satir"><span class="ki-etiket">Sınavlar</span><div class="ki-bar"><div class="ki-dolgu" id="kiSinavBar"></div></div><span class="ki-sayim" id="kiSinavSayim">0/10</span></div>
+      </div>
+      <div class="ki-alt"><span class="ki-toplam" id="kiToplamMetin">Toplam 0 / 40 adım tamamlandı</span><button class="ki-devam" type="button" onclick="kaldiginYerdenDevamEt()">DEVAM ET <i class="fa-solid fa-chevron-right"></i></button></div>
     </section>
-        <!-- 1. SEKME: DERSLER -->
+    <!-- 1. SEKME: DERSLER -->
     <div id="dersler-alan">
-        <div class="progress-container">
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progressBar"></div>
-            </div>
-            <div class="progress-info">
-                <span>KAMP İSTİFÂDE SEYRİ</span>
-                <span id="progressText">%0 TAMAMLANDI</span>
-            </div>
-        </div>
         <div class="timeline" id="timelineContainer"></div>
     </div>
 
@@ -725,22 +742,11 @@
 
     <!-- 3. SEKME: OKUMA TAKVİMİ -->
     <div id="okuma-alan" style="display: none;">
-        <div class="progress-container" style="max-width: 800px; margin: 0 auto 30px auto;">
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="okumaProgressBar" style="background: linear-gradient(90deg, #e67d63, #b84323);"></div>
-            </div>
-            <div class="progress-info">
-                <span>RİYÂZÜ'S-SÂLİHÎN OKUMA SEYRİ</span>
-                <span id="okumaProgressText" style="color: #e67d63;">%0 TAMAMLANDI</span>
-            </div>
-            <div style="text-align: center; color: #a5d6a7; font-size: 0.85rem; font-style: italic; margin-top: 8px;">
-                Günde 127 hadis okuyarak kitabı tamamlıyoruz. Bitirdiğiniz günün üzerine tıklayarak işaretleyin.
-            </div>
-        </div>
+        <div class="okuma-mini-bilgi"><i class="fa-solid fa-book-open"></i> Günde 127 hadis okuyarak kitabı tamamlıyoruz. Bitirdiğiniz günün üzerine dokunarak işaretleyin.</div>
         <div id="okumaContainer" class="okuma-liste-alani"></div>
     </div>
 
-    <footer>
+    <footer class="mobil-ana-ogesi">
         <div class="yakisikli-sayac-yeni">
             <span class="sayac-etiket">
                 <span class="sayac-canli-isik"></span> TOPLAM ZİYARETÇİ 
@@ -769,14 +775,12 @@
 
 </div>
 
-
-<!-- MOBIL ALT NAVIGASYON -->
 <nav class="mobil-alt-nav" id="mobilAltNav" aria-label="Mobil ana menü">
-    <button class="mobil-nav-btn aktif" data-nav="ana" onclick="mobilNavigasyon('ana', this)" aria-label="Ana Sayfa"><i class="fa-solid fa-house"></i><span>Ana Sayfa</span></button>
-    <button class="mobil-nav-btn" data-nav="dersler" onclick="mobilNavigasyon('dersler', this)" aria-label="Dersler"><i class="fa-solid fa-book-open"></i><span>Dersler</span></button>
-    <button class="mobil-nav-btn" data-nav="okuma" onclick="mobilNavigasyon('okuma', this)" aria-label="Okuma"><i class="fa-solid fa-book-quran"></i><span>Okuma</span></button>
-    <button class="mobil-nav-btn" data-nav="denemeler" onclick="mobilNavigasyon('denemeler', this)" aria-label="Sınavlar"><i class="fa-solid fa-pen-to-square"></i><span>Sınavlar</span></button>
-    <button class="mobil-nav-btn" data-nav="ilerleme" onclick="mobilNavigasyon('ilerleme', this)" aria-label="İlerlemem"><i class="fa-solid fa-chart-pie"></i><span>İlerlemem</span></button>
+ <button class="mobil-nav-btn aktif" data-nav="ana" onclick="mobilNavigasyon('ana')"><i class="fa-solid fa-house"></i><span>Ana Sayfa</span></button>
+ <button class="mobil-nav-btn" data-nav="dersler" onclick="mobilNavigasyon('dersler')"><i class="fa-solid fa-book-open"></i><span>Dersler</span></button>
+ <button class="mobil-nav-btn" data-nav="okuma" onclick="mobilNavigasyon('okuma')"><i class="fa-solid fa-book-quran"></i><span>Okuma</span></button>
+ <button class="mobil-nav-btn" data-nav="denemeler" onclick="mobilNavigasyon('denemeler')"><i class="fa-solid fa-pen-to-square"></i><span>Sınavlar</span></button>
+ <button class="mobil-nav-btn" data-nav="ilerleme" onclick="mobilNavigasyon('ilerleme')"><i class="fa-solid fa-chart-pie"></i><span>İlerlemem</span></button>
 </nav>
 <!-- NİYET POPUP (WELCOME MODAL) -->
 <div id="welcomeModal">
@@ -794,7 +798,7 @@
 <!-- DERS VE DENEME DETAY MODALI -->
 <div class="modal-overlay" id="lessonModal">
     <div class="modal-window">
-        <button class="modal-close-btn modal-sticky-back" type="button" onclick="closeLessonModal()" aria-label="Ders notunu kapat"><i class="fa-solid fa-arrow-left"></i><span>Geri</span></button>
+        <button class="modal-close-btn modal-back-btn" type="button" onclick="closeLessonModal()" aria-label="Detayı kapat"><i class="fa-solid fa-arrow-left"></i><span>Geri</span></button>
         
         <div class="modal-header-section">
             <span class="modal-meta" id="modalMeta">21 EYLÜL</span>
@@ -907,33 +911,19 @@
     let activeId = null;
     let aktifDuyuruNo = "";
     let deferredPrompt = null;
+    let aktifMobilEkran = "ana";
     let lessonModalHistoryActive = false;
+    const mobilKaydirmaKonumlari = { ana: 0, dersler: 0, okuma: 0, denemeler: 0 };
 
     function anaSekmeDegistir(sekme) {
         const butonlar = document.querySelectorAll('.ana-sekme-btn');
-        const alanlar = {
-            'dersler': document.getElementById('dersler-alan'),
-            'denemeler': document.getElementById('denemeler-alan'),
-            'okuma': document.getElementById('okuma-alan')
-        };
-
+        const alanlar = { dersler: document.getElementById('dersler-alan'), denemeler: document.getElementById('denemeler-alan'), okuma: document.getElementById('okuma-alan') };
         butonlar.forEach(b => b.classList.remove('aktif'));
-        Object.values(alanlar).forEach(a => { if(a) a.style.display = 'none'; });
-
-        if (sekme === 'dersler') {
-            butonlar[0].classList.add('aktif');
-            alanlar['dersler'].style.display = 'block';
-        } else if (sekme === 'denemeler') {
-            butonlar[1].classList.add('aktif');
-            alanlar['denemeler'].style.display = 'block';
-        } else if (sekme === 'okuma') {
-            butonlar[2].classList.add('aktif');
-            alanlar['okuma'].style.display = 'block';
-            renderOkumaTakvimi();
-        }
-        mobilAktifButon(sekme);
+        Object.values(alanlar).forEach(a => { if(a) a.style.display='none'; });
+        if (sekme==='dersler') { if(butonlar[0]) butonlar[0].classList.add('aktif'); alanlar.dersler.style.display='block'; }
+        if (sekme==='denemeler') { if(butonlar[1]) butonlar[1].classList.add('aktif'); alanlar.denemeler.style.display='block'; }
+        if (sekme==='okuma') { if(butonlar[2]) butonlar[2].classList.add('aktif'); alanlar.okuma.style.display='block'; renderOkumaTakvimi(); }
     }
-
     function getCompleted() {
         return JSON.parse(localStorage.getItem('nevevi_kamp_completed') || '[]');
     }
@@ -1031,7 +1021,7 @@
                 ? '<i class="fa-solid fa-circle-check" style="color:#d9efb1;"></i> Çözüldü' 
                 : (hasLink ? '<i class="fa-solid fa-fire" style="color:#e74c3c;"></i> Sınav Aktif' : '');
                 
-            const footerHtml = statusHtml ? `<div class="card-footer" style="margin-top:10px;"><span style="color:#ff9e93; font-weight:bold;"><i class="fa-solid fa-pen-nib"></i> Online Değerlendirme</span><span class="card-status">${statusHtml}</span></div>` : '';
+            const footerHtml = statusHtml ? (isDone ? `<div class="card-footer deneme-footer" style="margin-top:10px;"><span class="card-status">${statusHtml}</span></div>` : `<div class="card-footer deneme-footer" style="margin-top:10px;"><span class="deneme-tur"><i class="fa-solid fa-pen-nib"></i> Online Sınav</span><span class="card-status">${statusHtml}</span></div>`) : '';
 
             box.innerHTML = `
                 <div class="content" onclick="openDenemeModal('${item.id}')">
@@ -1106,8 +1096,10 @@
         const completed = getCompleted();
         const doneCount = lessonsData.filter(l => completed.includes(l.id)).length;
         const percent = Math.round((doneCount / lessonsData.length) * 100);
-        document.getElementById('progressText').innerText = `%${percent} TAMAMLANDI`;
-        document.getElementById('progressBar').style.width = `${percent}%`;
+        const progressTextEl=document.getElementById('progressText');
+        const progressBarEl=document.getElementById('progressBar');
+        if(progressTextEl) progressTextEl.innerText=`%${percent} TAMAMLANDI`;
+        if(progressBarEl) progressBarEl.style.width=`${percent}%`;
     }
 
     function kralSekme(btn, sekmeId) {
@@ -1158,7 +1150,7 @@
 
         updateCompleteButton(id);
         document.getElementById('lessonModal').classList.add('active');
-        if (!lessonModalHistoryActive) { history.pushState({ neveviModal: true }, '', location.href); lessonModalHistoryActive = true; }
+        if (!lessonModalHistoryActive) { history.pushState({ neveviModal:true, view:aktifMobilEkran }, '', location.href); lessonModalHistoryActive=true; }
     }
 
     function openDenemeModal(id) {
@@ -1205,7 +1197,7 @@
 
         updateCompleteButton(id);
         document.getElementById('lessonModal').classList.add('active');
-        if (!lessonModalHistoryActive) { history.pushState({ neveviModal: true }, '', location.href); lessonModalHistoryActive = true; }
+        if (!lessonModalHistoryActive) { history.pushState({ neveviModal:true, view:aktifMobilEkran }, '', location.href); lessonModalHistoryActive=true; }
     }
 
     function updateCompleteButton(id) {
@@ -1226,13 +1218,8 @@
     }
 
     function closeLessonModal(fromHistory = false) {
-        const modal = document.getElementById('lessonModal');
-        if (modal) modal.classList.remove('active');
-        activeId = null;
-        if (lessonModalHistoryActive) {
-            lessonModalHistoryActive = false;
-            if (!fromHistory && history.state && history.state.neveviModal) history.back();
-        }
+        document.getElementById('lessonModal').classList.remove('active'); activeId=null;
+        if(lessonModalHistoryActive){ lessonModalHistoryActive=false; if(!fromHistory && history.state && history.state.neveviModal) history.back(); }
     }
 
     function toggleCompleteCurrent() {
@@ -1256,89 +1243,115 @@
     }
 
 
-    // MOBIL NAVIGASYON VE KISISEL ILERLEME
-    function mobilAktifButon(hedef) {
-        document.querySelectorAll('.mobil-nav-btn').forEach(btn => btn.classList.toggle('aktif', btn.dataset.nav === hedef));
+    function mobilMi(){ return window.matchMedia('(max-width: 768px)').matches; }
+    function mobilAktifButon(view){ document.querySelectorAll('.mobil-nav-btn').forEach(b=>b.classList.toggle('aktif',b.dataset.nav===view)); }
+    function mobilEkranGoster(view, push=true, kaydir=true){
+        if(!mobilMi()){ if(view==='ana'||view==='ilerleme') window.scrollTo({top:0,behavior:'smooth'}); else anaSekmeDegistir(view); return; }
+        if(aktifMobilEkran && aktifMobilEkran!=='ilerleme') mobilKaydirmaKonumlari[aktifMobilEkran]=window.scrollY;
+        const gercekView=view==='ilerleme'?'ana':view; aktifMobilEkran=gercekView;
+        document.querySelectorAll('.mobil-ana-ogesi').forEach(el=>el.style.display=gercekView==='ana'?'':'none');
+        ['dersler','okuma','denemeler'].forEach(ad=>{ const el=document.getElementById(ad+'-alan'); if(el) el.style.display=gercekView===ad?'block':'none'; });
+        if(gercekView==='okuma') renderOkumaTakvimi();
+        mobilAktifButon(view);
+        if(push && (!history.state || history.state.view!==view || history.state.neveviModal)) history.pushState({view:view},'',location.href);
+        if(kaydir){ if(view==='ilerleme') setTimeout(()=>document.getElementById('kisisel-ilerleme').scrollIntoView({behavior:'smooth',block:'start'}),30); else setTimeout(()=>window.scrollTo({top:mobilKaydirmaKonumlari[gercekView]||0,behavior:'smooth'}),30); }
     }
-    function yavasKaydir(element) {
-        if (!element) return;
-        const ustBosluk = 14;
-        const y = element.getBoundingClientRect().top + window.pageYOffset - ustBosluk;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-    function mobilNavigasyon(hedef, buton) {
-        const modal = document.getElementById('lessonModal');
-        if (modal && modal.classList.contains('active')) {
+    function mobilNavigasyon(view){
+        const modal=document.getElementById('lessonModal');
+        if(modal && modal.classList.contains('active')){
             closeLessonModal();
-            setTimeout(() => mobilNavigasyon(hedef, buton), 90);
+            setTimeout(()=>mobilEkranGoster(view,true,true),100);
             return;
         }
-        if (buton) mobilAktifButon(hedef);
-        if (hedef === 'ana') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-        if (hedef === 'ilerleme') { yavasKaydir(document.getElementById('kisisel-ilerleme')); return; }
-        anaSekmeDegistir(hedef);
-        const alan = document.getElementById(hedef + '-alan');
-        setTimeout(() => yavasKaydir(alan), 50);
+        if(view===aktifMobilEkran && view!=='ilerleme'){ window.scrollTo({top:0,behavior:'smooth'}); return; }
+        mobilEkranGoster(view,true,true);
     }
-    function kisiselIlerlemeyiGuncelle() {
-        const tamamlanan = getCompleted();
-        const ders = lessonsData.filter(x => tamamlanan.includes(x.id)).length;
-        const sinav = denemelerData.filter(x => tamamlanan.includes(x.id)).length;
-        const okumaTamam = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
-        const okuma = okumaTakvimiData.filter(x => okumaTamam.includes(x.id)).length;
-        const toplam = ders + okuma + sinav;
-        const genelYuzde = Math.round((toplam / (lessonsData.length + okumaTakvimiData.length + denemelerData.length)) * 100);
-        const yaz = (id, metin) => { const el = document.getElementById(id); if (el) el.textContent = metin; };
-        const bar = (id, deger, toplamDeger) => { const el = document.getElementById(id); if (el) el.style.width = Math.round((deger / toplamDeger) * 100) + '%'; };
-        yaz('kiToplamYuzde', '%' + genelYuzde);
-        yaz('kiDersSayim', ders + '/' + lessonsData.length);
-        yaz('kiOkumaSayim', okuma + '/' + okumaTakvimiData.length);
-        yaz('kiSinavSayim', sinav + '/' + denemelerData.length);
-        yaz('kiToplamMetin', 'Toplam ' + toplam + ' / ' + (lessonsData.length + okumaTakvimiData.length + denemelerData.length) + ' adım tamamlandı');
-        bar('kiDersBar', ders, lessonsData.length);
-        bar('kiOkumaBar', okuma, okumaTakvimiData.length);
-        bar('kiSinavBar', sinav, denemelerData.length);
+    function kisiselIlerlemeyiGuncelle(){
+        const tamam=getCompleted(), okumaTam=JSON.parse(localStorage.getItem('nevevi_okuma_durumu')||'[]');
+        const ders=lessonsData.filter(x=>tamam.includes(x.id)).length, sinav=denemelerData.filter(x=>tamam.includes(x.id)).length, okuma=okumaTakvimiData.filter(x=>okumaTam.includes(x.id)).length, toplam=ders+sinav+okuma, genel=lessonsData.length+denemelerData.length+okumaTakvimiData.length;
+        const yaz=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v}, bar=(id,v,t)=>{const e=document.getElementById(id);if(e)e.style.width=Math.round(v/t*100)+'%'};
+        yaz('kiToplamYuzde','%'+Math.round(toplam/genel*100)); yaz('kiDersSayim',ders+'/'+lessonsData.length); yaz('kiOkumaSayim',okuma+'/'+okumaTakvimiData.length); yaz('kiSinavSayim',sinav+'/'+denemelerData.length); yaz('kiToplamMetin','Toplam '+toplam+' / '+genel+' adım tamamlandı'); bar('kiDersBar',ders,lessonsData.length); bar('kiOkumaBar',okuma,okumaTakvimiData.length); bar('kiSinavBar',sinav,denemelerData.length);
     }
-    function kaldiginYerdenDevamEt() {
-        const tamamlanan = getCompleted();
-        const okumaTamam = JSON.parse(localStorage.getItem('nevevi_okuma_durumu') || '[]');
-        const dersOran = lessonsData.filter(x => tamamlanan.includes(x.id)).length / lessonsData.length;
-        const okumaOran = okumaTakvimiData.filter(x => okumaTamam.includes(x.id)).length / okumaTakvimiData.length;
-        const sinavOran = denemelerData.filter(x => tamamlanan.includes(x.id)).length / denemelerData.length;
-        const eksik = [{ad:'dersler', oran:dersOran}, {ad:'okuma', oran:okumaOran}, {ad:'denemeler', oran:sinavOran}].filter(x => x.oran < 1).sort((a,b) => a.oran - b.oran)[0];
-        if (!eksik) { yavasKaydir(document.getElementById('kisisel-ilerleme')); return; }
-        mobilAktifButon(eksik.ad);
-        anaSekmeDegistir(eksik.ad);
-        setTimeout(() => yavasKaydir(document.getElementById(eksik.ad + '-alan')), 50);
-    }
+    function kaldiginYerdenDevamEt(){ const t=getCompleted(),o=JSON.parse(localStorage.getItem('nevevi_okuma_durumu')||'[]'); const a=[{ad:'dersler',oran:lessonsData.filter(x=>t.includes(x.id)).length/lessonsData.length},{ad:'okuma',oran:okumaTakvimiData.filter(x=>o.includes(x.id)).length/okumaTakvimiData.length},{ad:'denemeler',oran:denemelerData.filter(x=>t.includes(x.id)).length/denemelerData.length}].filter(x=>x.oran<1).sort((x,y)=>x.oran-y.oran)[0]; mobilEkranGoster(a?a.ad:'ana',true,true); }
+    function dosyaAdiTemizle(metin){ return metin.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i').replace(/[^a-zA-Z0-9ğĞüÜşŞöÖçÇİ -]/g,'').trim().replace(/\s+/g,'-'); }
+    async function dersPdfIndir(id,btn){
+        const lesson=lessonsData.find(x=>x.id===id);
+        const source=document.getElementById('pdfDersIcerigi');
+        if(!lesson || !source || !source.textContent.trim()){
+            alert('Bu derse ait indirilebilir ders notu bulunamadı.');
+            return;
+        }
+        if(typeof html2pdf==='undefined'){
+            alert('PDF hazırlama bileşeni yüklenemedi. İnternet bağlantınızı kontrol edip tekrar deneyin.');
+            return;
+        }
 
+        const onceki=btn.innerHTML;
+        btn.disabled=true;
+        btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> PDF HAZIRLANIYOR';
 
-    function pdfDosyaAdi(metin) {
-        return metin.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i').replace(/İ/g,'I').replace(/[^a-zA-Z0-9ğĞüÜşŞöÖçÇ -]/g,'').trim().replace(/\s+/g,'-');
-    }
-    async function dersPdfIndir(id, btn) {
-        const lesson=lessonsData.find(x=>x.id===id), source=document.getElementById('pdfDersIcerigi');
-        if(!lesson || !source) return;
-        if(typeof html2pdf==='undefined'){ alert('PDF bileşeni yüklenemedi. İnternet bağlantınızı kontrol edip tekrar deneyin.'); return; }
-        const eski=btn.innerHTML; btn.disabled=true; btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> PDF hazırlanıyor…';
-        const root=document.createElement('div');
-        root.className='pdf-export-root';
-        root.style.cssText='position:fixed;left:-10000px;top:0;width:760px;background:#ffffff;color:#172019;padding:34px;font-family:Arial,Helvetica,sans-serif;line-height:1.62;z-index:-1';
-        const cloned=source.cloneNode(true);
-        cloned.removeAttribute('id');
-        root.innerHTML=`<div style="text-align:center;border:2px solid #c79b4a;padding:24px;margin-bottom:24px;background:#fffdf6;color:#172019"><div style="color:#94702f;font-weight:700;letter-spacing:2px">İMÂM NEVEVÎ KAMPI</div><h1 style="color:#15381a;font-size:25px;line-height:1.3;margin:12px 0">${lesson.title}</h1><div style="color:#39443d">${lesson.num} • ${lesson.date}</div><div style="color:#94702f;margin-top:6px;font-weight:700">${lesson.speaker}</div></div>`;
-        root.appendChild(cloned);
-        const style=document.createElement('style');
-        style.textContent=`.pdf-export-root,.pdf-export-root *{color:#172019!important;text-shadow:none!important;box-shadow:none!important;filter:none!important;background-color:transparent!important}.pdf-export-root h1,.pdf-export-root h2,.pdf-export-root h3,.pdf-export-root h4,.pdf-export-root strong{color:#15381a!important}.pdf-export-root h2,.pdf-export-root h3{border-bottom:1px solid #d8b66c!important;padding-bottom:5px!important}.pdf-export-root p,.pdf-export-root li,.pdf-export-root span,.pdf-export-root div{opacity:1!important}.pdf-export-root a{color:#15381a!important;text-decoration:none!important}.pdf-export-root img{max-width:100%!important}.pdf-export-root [class*="altin"],.pdf-export-root [class*="gold"]{border:1px solid #c79b4a!important;background:#fffaf0!important;padding:10px!important;border-radius:6px!important}`;
-        root.appendChild(style);
-        const footer=document.createElement('div'); footer.style.cssText='margin-top:28px;padding-top:12px;border-top:1px solid #c79b4a;text-align:center;color:#666;font-size:11px'; footer.textContent='İmâm Nevevî Kampı Gönüllü Platformu'; root.appendChild(footer);
-        document.body.appendChild(root);
-        try {
-            await html2pdf().set({margin:10,filename:pdfDosyaAdi(lesson.title)+'-Ders-Notu-ve-Altin-Bilgiler.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}}).from(root).save();
-        } catch(e) { console.error(e); alert('PDF hazırlanırken sorun oluştu. Lütfen tekrar deneyin.'); }
-        finally { root.remove(); btn.disabled=false; btn.innerHTML=eski; }
-    }
+        const pdf=document.createElement('section');
+        pdf.setAttribute('aria-hidden','true');
+        pdf.style.cssText=[
+            'position:fixed','left:0','top:0','z-index:2147483000',
+            'width:794px','min-height:1123px','padding:42px',
+            'background:#ffffff','color:#172019','font-family:Arial,Helvetica,sans-serif',
+            'font-size:15px','line-height:1.65','overflow:visible','opacity:1',
+            'pointer-events:none','transform:none','visibility:visible'
+        ].join(';');
 
+        const kapak=document.createElement('div');
+        kapak.style.cssText='text-align:center;border:2px solid #c79b4a;padding:25px;margin-bottom:26px;background:#fffdf6;color:#172019';
+        kapak.innerHTML=`<div style="color:#94702f;font-weight:700;letter-spacing:2px">İMÂM NEVEVÎ KAMPI</div><h1 style="color:#15381a!important;font-size:25px;line-height:1.3;margin:13px 0;text-shadow:none">${lesson.title}</h1><div style="color:#39443d">${lesson.num} • ${lesson.date}</div><div style="color:#94702f;margin-top:6px;font-weight:700">${lesson.speaker}</div>`;
+        pdf.appendChild(kapak);
+
+        const icerik=document.createElement('article');
+        icerik.innerHTML=source.innerHTML;
+        icerik.style.cssText='display:block;background:#ffffff;color:#172019;opacity:1;visibility:visible';
+        pdf.appendChild(icerik);
+
+        const pdfStyle=document.createElement('style');
+        pdfStyle.textContent=`
+            #neveviPdfExport, #neveviPdfExport * { box-sizing:border-box!important; opacity:1!important; visibility:visible!important; text-shadow:none!important; filter:none!important; }
+            #neveviPdfExport article, #neveviPdfExport article * { color:#172019!important; background-color:transparent!important; }
+            #neveviPdfExport article h1, #neveviPdfExport article h2, #neveviPdfExport article h3, #neveviPdfExport article h4, #neveviPdfExport article h5, #neveviPdfExport article strong { color:#15381a!important; }
+            #neveviPdfExport article h2, #neveviPdfExport article h3 { border-bottom:1px solid #d8b66c!important; padding-bottom:5px!important; break-after:avoid-page; }
+            #neveviPdfExport article p, #neveviPdfExport article li, #neveviPdfExport article div, #neveviPdfExport article span { font-size:15px!important; line-height:1.65!important; }
+            #neveviPdfExport article ul, #neveviPdfExport article ol { padding-left:24px!important; }
+            #neveviPdfExport article img { max-width:100%!important; height:auto!important; }
+            #neveviPdfExport article [class*="altin"], #neveviPdfExport article [class*="gold"] { border:1px solid #c79b4a!important; background:#fffaf0!important; padding:10px!important; border-radius:6px!important; }
+        `;
+        pdf.id='neveviPdfExport';
+        pdf.appendChild(pdfStyle);
+
+        const footer=document.createElement('div');
+        footer.style.cssText='margin-top:28px;padding-top:12px;border-top:1px solid #c79b4a;text-align:center;color:#666;font-size:11px';
+        footer.textContent='İmâm Nevevî Kampı Gönüllü Platformu';
+        pdf.appendChild(footer);
+        document.body.appendChild(pdf);
+
+        try{
+            await document.fonts.ready;
+            await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+            const canvasTest=pdf.getBoundingClientRect();
+            if(canvasTest.width<700 || canvasTest.height<100 || !pdf.innerText.trim()) throw new Error('PDF içeriği tarayıcı tarafından oluşturulamadı.');
+            await html2pdf().set({
+                margin:[10,10,10,10],
+                filename:dosyaAdiTemizle(lesson.title)+'-Ders-Notu-ve-Altin-Bilgiler.pdf',
+                image:{type:'jpeg',quality:.98},
+                html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false,scrollX:0,scrollY:0,windowWidth:794},
+                jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+                pagebreak:{mode:['css','legacy']}
+            }).from(pdf).save();
+        }catch(e){
+            console.error(e);
+            alert('PDF hazırlanırken bir sorun oluştu. Lütfen sayfayı yenileyip tekrar deneyin.');
+        }finally{
+            pdf.remove();
+            btn.disabled=false;
+            btn.innerHTML=onceki;
+        }
+    }
     /* PWA VE REHBER MANTIĞI */
     const isIos = () => /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -1352,15 +1365,13 @@
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        if (!isStandalone() && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
+        if (!isStandalone() && localStorage.getItem('nevevi_pwa_installed') !== 'true' && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
             showPwaBanner();
         }
     });
 
-    function showPwaBanner() {
-        const banner = document.getElementById('pwaInstallBanner');
-        if (banner) banner.classList.add('active');
-    }
+    window.addEventListener('appinstalled',()=>{ localStorage.setItem('nevevi_pwa_installed','true'); deferredPrompt=null; dismissPwaBanner(); });
+    function showPwaBanner() { const banner=document.getElementById('pwaInstallBanner'); if(banner && !isStandalone() && localStorage.getItem('nevevi_pwa_installed')!=='true') banner.classList.add('active'); }
 
     function dismissPwaBanner() {
         const banner = document.getElementById('pwaInstallBanner');
@@ -1371,10 +1382,7 @@
     function handlePwaInstallClick() {
         if (deferredPrompt) {
             deferredPrompt.prompt();
-            deferredPrompt.userChoice.then(() => {
-                deferredPrompt = null;
-                dismissPwaBanner();
-            });
+            deferredPrompt.userChoice.then(choice => { if(choice.outcome==='accepted') localStorage.setItem('nevevi_pwa_installed','true'); deferredPrompt=null; dismissPwaBanner(); });
         } else if (isIos()) {
             document.getElementById('iosGuideModal').classList.add('active');
         } else {
@@ -1571,19 +1579,20 @@
             document.body.style.overflow = 'hidden';
         }
 
-        if (isIos() && !isStandalone() && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
+        if(isStandalone()) localStorage.setItem('nevevi_pwa_installed','true');
+        if(mobilMi()){ history.replaceState({view:'ana'},'',location.href); mobilEkranGoster('ana',false,false); }
+        kisiselIlerlemeyiGuncelle();
+        if (isIos() && !isStandalone() && localStorage.getItem('nevevi_pwa_installed') !== 'true' && sessionStorage.getItem('pwa_banner_dismissed') !== 'true') {
             setTimeout(showPwaBanner, 2000);
         }
     });
 
-    window.addEventListener('popstate', () => {
+    window.addEventListener('popstate', event => {
         const modal=document.getElementById('lessonModal');
-        if(modal && modal.classList.contains('active')) closeLessonModal(true);
+        if(modal.classList.contains('active')){ closeLessonModal(true); return; }
+        if(mobilMi()) mobilEkranGoster((event.state&&event.state.view)||'ana',false,true);
     });
-    window.onclick = function(event) {
-        if (event.target.id === 'lessonModal') closeLessonModal();
-        else if (event.target.classList.contains('modal-overlay')) event.target.classList.remove('active');
-    };
+    window.onclick=function(event){ if(event.target.id==='lessonModal') closeLessonModal(); else if(event.target.classList.contains('modal-overlay')) event.target.classList.remove('active'); };
 </script>
 
 <!-- Vercel Web Analytics Takip Betiği -->
