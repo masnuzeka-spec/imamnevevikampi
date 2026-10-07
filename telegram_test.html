@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>İmam Nevevî Kampı Testleri</title>
     
-    <!-- Telegram Web App ve CSV Okuyucu (PapaParse) Kütüphaneleri -->
+    <!-- Telegram Web App ve CSV Okuyucu (PapaParse) -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     
@@ -15,76 +15,98 @@
     
     <style>
         :root {
+            /* Koyu (Gece) Tema Renkleri */
             --zumrut: #0b2614;
             --zumrut-acik: #15381a;
             --altin: #E2B973;
             --yazi: #FAF5EF;
             --yesil: #2ecc71;
             --kirmizi: #e74c3c;
+            --sayac-yazi: #dcebd2;
         }
-        body { font-family: 'Lora', serif; background-color: var(--zumrut); color: var(--yazi); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .baslik-alani { text-align: center; margin-bottom: 25px; border-bottom: 2px dashed rgba(226, 185, 115, 0.4); padding-bottom: 15px; width: 100%; max-width: 400px; }
+
+        /* Aydınlık (Gündüz) Tema Renkleri */
+        body.light-theme {
+            --zumrut: #FAF5EF; 
+            --zumrut-acik: #FFFFFF; 
+            --altin: #b38938; 
+            --yazi: #0b2614; 
+            --sayac-yazi: #15381a;
+        }
+
+        body { font-family: 'Lora', serif; background-color: var(--zumrut); color: var(--yazi); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; transition: background-color 0.4s, color 0.4s; }
+        
+        /* Tema Butonu */
+        .tema-btn-kutu { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--altin); cursor: pointer; transition: 0.3s; z-index: 100; }
+        
+        .baslik-alani { text-align: center; margin-bottom: 25px; border-bottom: 2px dashed rgba(226, 185, 115, 0.4); padding-bottom: 15px; width: 100%; max-width: 400px; position: relative; }
         .baslik-alani h1 { font-family: 'Cinzel', serif; color: var(--altin); font-size: 1.5rem; margin: 0 0 5px 0; }
-        .baslik-alani p { margin: 0; font-size: 0.9rem; color: #dcebd2; opacity: 0.8; }
+        .baslik-alani p { margin: 0; font-size: 0.9rem; color: var(--sayac-yazi); opacity: 0.8; font-weight: 600; }
         
         #ekran-yukleniyor, #ekran-menu, #ekran-test, #ekran-sonuc { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.4s ease; }
         .aktif-ekran { display: block !important; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Yükleniyor Ekranı */
         #ekran-yukleniyor { text-align: center; color: var(--altin); font-family: 'Cinzel', serif; margin-top: 50px; font-size: 1.2rem; }
 
-        /* Butonlar */
         .bolum-btn { background: rgba(226, 185, 115, 0.1); border: 2px solid var(--altin); color: var(--altin); width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; justify-content: space-between; align-items: center; }
         .bolum-btn:active { background: var(--altin); color: var(--zumrut); transform: scale(0.98); }
 
-        /* Test Ekranı */
+        body.light-theme .bolum-btn { background: rgba(226, 185, 115, 0.2); color: var(--yazi); }
+        body.light-theme .bolum-btn:active { background: var(--altin); color: #fff; }
+
         .soru-baslik { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; border-left: 4px solid var(--altin); padding-left: 10px; text-align: justify; }
-        .secenek-btn { background: var(--zumrut-acik); border: 1px solid rgba(226, 185, 115, 0.3); color: var(--yazi); width: 100%; padding: 12px 15px; margin-bottom: 10px; border-radius: 8px; font-size: 1rem; text-align: left; cursor: pointer; transition: 0.2s; font-family: 'Lora', serif; line-height: 1.4; }
+        .secenek-btn { background: var(--zumrut-acik); border: 1px solid rgba(226, 185, 115, 0.3); color: var(--yazi); width: 100%; padding: 12px 15px; margin-bottom: 10px; border-radius: 8px; font-size: 1rem; text-align: left; cursor: pointer; transition: 0.2s; font-family: 'Lora', serif; line-height: 1.4; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .secenek-btn:active { background: rgba(226, 185, 115, 0.2); }
         .secenek-btn.dogru { background: rgba(46, 204, 113, 0.2); border-color: var(--yesil); color: var(--yesil); font-weight: bold; }
         .secenek-btn.yanlis { background: rgba(231, 76, 60, 0.2); border-color: var(--kirmizi); color: var(--kirmizi); }
         .secenek-btn:disabled { cursor: not-allowed; }
 
-        .test-alt { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; font-size: 0.9rem; color: #dcebd2; }
-        .ileri-btn { background: var(--altin); color: var(--zumrut); border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; display: none; }
+        body.light-theme .secenek-btn { border-color: rgba(179, 137, 56, 0.5); }
+
+        .test-alt { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; font-size: 0.95rem; color: var(--sayac-yazi); font-weight: bold; }
         
-        /* Sonuç Ekranı */
-        .sonuc-kutu { background: var(--zumrut-acik); border: 2px solid var(--altin); border-radius: 15px; padding: 30px 20px; text-align: center; }
+        .nav-btn { padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: 'Cinzel', serif; transition: 0.3s; font-size: 0.9rem; }
+        #btn-geri { background: rgba(226, 185, 115, 0.2); color: var(--altin); border: 1px solid var(--altin); visibility: hidden; }
+        #btn-ileri { background: var(--altin); color: var(--zumrut); border: none; display: none; }
+        
+        body.light-theme #btn-geri { background: #fff; border-color: var(--altin); color: var(--altin); }
+
+        .sonuc-kutu { background: var(--zumrut-acik); border: 2px solid var(--altin); border-radius: 15px; padding: 30px 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .puan-yuvarlak { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--altin); display: flex; justify-content: center; align-items: center; font-size: 2rem; font-weight: bold; color: var(--altin); margin: 0 auto 20px auto; font-family: 'Cinzel', serif; }
         .sonuc-mesaj { font-size: 1.1rem; margin-bottom: 25px; line-height: 1.5; }
-        .ana-menu-btn { background: var(--altin); color: var(--zumrut); border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-family: 'Cinzel', serif; font-size: 1.1rem; cursor: pointer; }
+        .ana-menu-btn { background: var(--altin); color: #fff; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-family: 'Cinzel', serif; font-size: 1.1rem; cursor: pointer; }
     </style>
 </head>
 <body>
+
+    <!-- Tema Değiştirme Butonu -->
+    <div class="tema-btn-kutu" onclick="temaDegistir()">
+        <i id="tema-ikon" class="fa-solid fa-sun"></i>
+    </div>
 
     <div class="baslik-alani">
         <h1>İmam Nevevî Kampı</h1>
         <p>Telegram Test Merkezi</p>
     </div>
 
-    <!-- ⏳ YÜKLENİYOR EKRANI -->
     <div id="ekran-yukleniyor" class="aktif-ekran">
         <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 15px;"></i>
         <br>Sorular E-Tablodan Çekiliyor...
     </div>
 
-    <!-- 🧭 MENÜ EKRANI (Dinamik Dolacak) -->
-    <div id="ekran-menu">
-        <div id="dinamik-menuler"></div>
-    </div>
+    <div id="ekran-menu"><div id="dinamik-menuler"></div></div>
 
-    <!-- 📝 TEST EKRANI -->
     <div id="ekran-test">
         <div class="soru-baslik" id="soru-metni">Soru metni buraya gelecek...</div>
         <div id="secenekler-alani"></div>
         <div class="test-alt">
+            <button id="btn-geri" class="nav-btn" onclick="oncekiSoru()"><i class="fa-solid fa-arrow-left"></i> Geri</button>
             <span id="soru-sayaci">Soru: 1/10</span>
-            <button id="btn-ileri" class="ileri-btn" onclick="sonrakiSoru()">İleri <i class="fa-solid fa-arrow-right"></i></button>
+            <button id="btn-ileri" class="nav-btn" onclick="sonrakiSoru()">İleri <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
 
-    <!-- ⭐ SONUÇ EKRANI -->
     <div id="ekran-sonuc">
         <div class="sonuc-kutu">
             <div class="puan-yuvarlak" id="sonuc-puan">0/0</div>
@@ -94,24 +116,21 @@
     </div>
 
     <script>
-        // Telegram Web App'i tam ekran yap ve üst rengi ayarla
         let tg = window.Telegram.WebApp;
         tg.expand();
         tg.setHeaderColor('#0b2614');
 
-        // KRAL, CSV LİNKİN BURADA
+        // CSV LİNKİN
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
 
         let tumSorular = {};
         let aktifBolum = [];
         let guncelSoruIndex = 0;
-        let dogruSayisi = 0;
+        let secilenCevaplar = []; // Kullanıcının verdiği cevapları hafızada tutar
 
-        // Harfi index numarasına çevirici (A->0, B->1 vb.)
         const harfIndexi = { "A": 0, "B": 1, "C": 2, "D": 3, "E": 4 };
         const secenekHarfleri = ["A) ", "B) ", "C) ", "D) ", "E) "];
 
-        // Sayfa açılınca soruları çek
         window.onload = () => {
             Papa.parse(CSV_URL, {
                 download: true,
@@ -126,16 +145,29 @@
             });
         };
 
-        // Gelen CSV verisini bizim sisteme uyarlama
+        // Temayı Değiştirme Fonksiyonu
+        function temaDegistir() {
+            document.body.classList.toggle('light-theme');
+            let ikon = document.getElementById('tema-ikon');
+            
+            if(document.body.classList.contains('light-theme')) {
+                ikon.classList.remove('fa-sun');
+                ikon.classList.add('fa-moon');
+                if(tg.setHeaderColor) tg.setHeaderColor('#FAF5EF'); // Telegram üst bar rengini açık yapar
+            } else {
+                ikon.classList.remove('fa-moon');
+                ikon.classList.add('fa-sun');
+                if(tg.setHeaderColor) tg.setHeaderColor('#0b2614'); // Telegram üst bar rengini koyu yapar
+            }
+        }
+
         function verileriIsle(data) {
             data.forEach(satir => {
-                // Eğer satırda soru yoksa atla
                 if(!satir.Soru || satir.Soru.trim() === "") return;
 
                 let bolum = satir.Bolum ? satir.Bolum.trim() : "Genel";
                 if(!tumSorular[bolum]) tumSorular[bolum] = [];
 
-                // Boş şıkları eleyerek seçenekler dizisi oluştur
                 let secenekler = [];
                 if(satir.A && satir.A.trim() !== "") secenekler.push(satir.A.trim());
                 if(satir.B && satir.B.trim() !== "") secenekler.push(satir.B.trim());
@@ -143,8 +175,8 @@
                 if(satir.D && satir.D.trim() !== "") secenekler.push(satir.D.trim());
                 if(satir.E && satir.E.trim() !== "") secenekler.push(satir.E.trim());
 
-                // Doğru cevabın indexini bul
-                let dogruHarf = satir.Dogru ? satir.Dogru.trim().toUpperCase() : "A";
+                let dogruVerisi = satir.Dogru_Cevap || satir.Dogru || satir.Doğru || satir.Cevap || "A";
+                let dogruHarf = String(dogruVerisi).trim().toUpperCase().charAt(0);
                 let dIndex = harfIndexi[dogruHarf] !== undefined ? harfIndexi[dogruHarf] : 0;
 
                 tumSorular[bolum].push({
@@ -154,24 +186,20 @@
                 });
             });
 
-            // Tabloda hiç soru bulunamadıysa uyarı ver
             if(Object.keys(tumSorular).length === 0) {
-                document.getElementById('ekran-yukleniyor').innerHTML = '<i class="fa-solid fa-circle-exclamation" style="color:#E2B973; font-size:2rem; margin-bottom:15px;"></i><br>Tabloda kayıtlı soru bulunamadı. Sütun isimlerini kontrol et.';
+                document.getElementById('ekran-yukleniyor').innerHTML = '<i class="fa-solid fa-circle-exclamation" style="color:#E2B973; font-size:2rem; margin-bottom:15px;"></i><br>Tabloda kayıtlı soru bulunamadı.';
                 return;
             }
 
             menuleriOlustur();
         }
 
-        // Bölümlere göre butonları otomatik oluştur
         function menuleriOlustur() {
             let menuHTML = "";
             let bolumİsimleri = Object.keys(tumSorular);
             
             bolumİsimleri.forEach(bolumKey => {
-                // "bolum1" yazısını "BÖLÜM 1" şeklinde daha şık göster
                 let gosterimAdi = bolumKey.toUpperCase();
-                
                 menuHTML += `
                 <button class="bolum-btn" onclick="testiBaslat('${bolumKey}')">
                     <span>${gosterimAdi} TESTİ</span> <i class="fa-solid fa-chevron-right"></i>
@@ -193,7 +221,8 @@
         function testiBaslat(bolumAnahtari) {
             aktifBolum = tumSorular[bolumAnahtari];
             guncelSoruIndex = 0;
-            dogruSayisi = 0;
+            // Tüm sorular için hafızayı boş (null) olarak oluştur
+            secilenCevaplar = new Array(aktifBolum.length).fill(null);
             soruEkranaBas();
             ekranGoster('ekran-test');
         }
@@ -201,51 +230,96 @@
         function soruEkranaBas() {
             let soruData = aktifBolum[guncelSoruIndex];
             document.getElementById('soru-metni').innerHTML = "<b>" + (guncelSoruIndex + 1) + ".</b> " + soruData.soru;
-            document.getElementById('soru-sayaci').innerText = "Soru: " + (guncelSoruIndex + 1) + "/" + aktifBolum.length;
-            document.getElementById('btn-ileri').style.display = 'none';
+            document.getElementById('soru-sayaci').innerText = (guncelSoruIndex + 1) + " / " + aktifBolum.length;
             
+            // Geri butonunu kontrol et (İlk soruda gizle, diğerlerinde göster)
+            document.getElementById('btn-geri').style.visibility = guncelSoruIndex > 0 ? 'visible' : 'hidden';
+            
+            let oncekiCevap = secilenCevaplar[guncelSoruIndex];
+            let dogruIndex = soruData.dogruCevap;
             let seceneklerHTML = "";
+
             for(let i=0; i<soruData.secenekler.length; i++){
-                seceneklerHTML += `<button class="secenek-btn" onclick="cevapKontrol(${i}, this)"><b>${secenekHarfleri[i]}</b> ${soruData.secenekler[i]}</button>`;
+                let ekstraClass = "";
+                let ikon = "";
+                
+                // Eğer bu soru daha önce cevaplandıysa şıkları renklendir
+                if(oncekiCevap !== null) {
+                    if(i === dogruIndex) {
+                        ekstraClass = "dogru";
+                        ikon = ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
+                    } else if (i === oncekiCevap && i !== dogruIndex) {
+                        ekstraClass = "yanlis";
+                        ikon = ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
+                    }
+                }
+                
+                // Cevaplandıysa butonları tıklanamaz yap
+                let disableAttr = oncekiCevap !== null ? "disabled" : "";
+                
+                seceneklerHTML += `<button class="secenek-btn ${ekstraClass}" ${disableAttr} onclick="cevapKontrol(${i}, this)"><b>${secenekHarfleri[i]}</b> ${soruData.secenekler[i]}${ikon}</button>`;
             }
             document.getElementById('secenekler-alani').innerHTML = seceneklerHTML;
+
+            // İleri butonunu kontrol et (Sadece cevap verildiyse göster)
+            let ileriBtn = document.getElementById('btn-ileri');
+            if(oncekiCevap !== null) {
+                ileriBtn.style.display = 'block';
+                ileriBtn.innerHTML = (guncelSoruIndex === aktifBolum.length - 1) ? 'Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'İleri <i class="fa-solid fa-arrow-right"></i>';
+            } else {
+                ileriBtn.style.display = 'none';
+            }
         }
 
         function cevapKontrol(secilenIndex, btnElement) {
+            secilenCevaplar[guncelSoruIndex] = secilenIndex; // Cevabı hafızaya kaydet
             let dogruIndex = aktifBolum[guncelSoruIndex].dogruCevap;
-            let butonlar = document.querySelectorAll('.secenek-btn');
             
+            let butonlar = document.querySelectorAll('.secenek-btn');
             butonlar.forEach(btn => btn.disabled = true);
 
             if(secilenIndex === dogruIndex) {
                 btnElement.classList.add('dogru');
                 btnElement.innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
-                dogruSayisi++;
                 if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
             } else {
                 btnElement.classList.add('yanlis');
                 btnElement.innerHTML += ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
-                if(butonlar[dogruIndex]) {
-                    butonlar[dogruIndex].classList.add('dogru');
-                }
+                butonlar[dogruIndex].classList.add('dogru');
+                butonlar[dogruIndex].innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
                 if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
             }
             
-            document.getElementById('btn-ileri').style.display = 'block';
+            let ileriBtn = document.getElementById('btn-ileri');
+            ileriBtn.style.display = 'block';
+            ileriBtn.innerHTML = (guncelSoruIndex === aktifBolum.length - 1) ? 'Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'İleri <i class="fa-solid fa-arrow-right"></i>';
         }
 
         function sonrakiSoru() {
-            guncelSoruIndex++;
-            if(guncelSoruIndex < aktifBolum.length) {
+            if(guncelSoruIndex < aktifBolum.length - 1) {
+                guncelSoruIndex++;
                 soruEkranaBas();
             } else {
                 testiBitir();
             }
         }
 
+        function oncekiSoru() {
+            if(guncelSoruIndex > 0) {
+                guncelSoruIndex--;
+                soruEkranaBas();
+            }
+        }
+
         function testiBitir() {
-            document.getElementById('sonuc-puan').innerText = dogruSayisi + "/" + aktifBolum.length;
-            let basariYuzdesi = dogruSayisi / aktifBolum.length;
+            // Puanı en sonda hafızadan hesapla
+            let dogruHesap = 0;
+            for(let i=0; i<aktifBolum.length; i++) {
+                if(secilenCevaplar[i] === aktifBolum[i].dogruCevap) dogruHesap++;
+            }
+
+            document.getElementById('sonuc-puan').innerText = dogruHesap + "/" + aktifBolum.length;
+            let basariYuzdesi = dogruHesap / aktifBolum.length;
             let mesaj = basariYuzdesi === 1 ? "Muazzam! Konuya tam olarak hakimsiniz." : 
                         basariYuzdesi >= 0.5 ? "Tebrikler, güzel bir sonuç. Notları bir kez daha gözden geçirebilirsiniz." : 
                         "Ders notlarını tekrar okumanız faydalı olacaktır. Gayret bizden, tevfik Allah'tandır.";
