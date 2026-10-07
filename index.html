@@ -639,7 +639,44 @@
         <div class="badge-gonullu">GÖNÜLLÜ PLATFORMU</div>
         <div class="header-date">21 EYLÜL – 6 EKİM 2026</div>
     </header>
+<!-- 📚 PDF İNDİRME BUTONU BAŞLANGICI -->
+    <style>
+        .pdf-indir-alani { text-align: center; margin: 10px auto 35px auto; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 10; position: relative; }
+        .btn-pdf-indir {
+            background: linear-gradient(135deg, #E2B973 0%, #f3cf8b 50%, #b38938 100%);
+            color: #0b2614 !important;
+            font-family: 'Cinzel', serif; font-weight: 900; font-size: 1.05rem; text-decoration: none;
+            padding: 15px 35px; border-radius: 50px; border: 2px solid #fff;
+            display: inline-flex; align-items: center; gap: 12px;
+            box-shadow: 0 8px 25px rgba(226, 185, 115, 0.4), inset 0 0 10px rgba(255,255,255,0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase; letter-spacing: 1px;
+            animation: pulse-gold 2s infinite;
+        }
+        .btn-pdf-indir:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(226, 185, 115, 0.7), inset 0 0 15px rgba(255,255,255,0.8);
+            background: linear-gradient(135deg, #f3cf8b 0%, #fff 50%, #E2B973 100%);
+            animation: none;
+        }
+        .btn-pdf-indir i { font-size: 1.4rem; color: #900; /* PDF kırmızısı */ text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+        .pdf-alt-bilgi { font-size: 0.85rem; color: #a5d6a7; font-style: italic; letter-spacing: 0.5px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(226, 185, 115, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(226, 185, 115, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(226, 185, 115, 0); }
+        }
+    </style>
 
+    <div class="pdf-indir-alani">
+        <!-- href kısmındaki 'imam_nevevi_kamp_notlari.pdf' yazısını kendi pdf dosyanın adıyla değiştirmeyi unutma! -->
+        <a href="kamp_notlari.pdf" download="İmam Nevevi Kampı Ders Notları.pdf" target="_blank" class="btn-pdf-indir">
+    <i class="fa-solid fa-file-pdf"></i> Tüm Ders Notlarını İndir (PDF)
+</a>
+        <div class="pdf-alt-bilgi">Kamp boyunca işlenen tüm notlar tek bir kitapçıkta toplandı.</div>
+    </div>
+    <!-- 📚 PDF İNDİRME BUTONU BİTİŞİ -->
     <div class="ana-sekme-container">
         <button class="ana-sekme-btn aktif" onclick="anaSekmeDegistir('dersler')">📜 Kamp Dersleri</button>
         <button class="ana-sekme-btn" onclick="anaSekmeDegistir('denemeler')">📝 Değerlendirme Sınavları</button>
