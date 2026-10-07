@@ -39,8 +39,8 @@
         .bolum-btn:active { background: var(--altin); color: var(--zumrut); transform: scale(0.98); }
 
         /* Test Ekranı */
-        .soru-baslik { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; border-left: 4px solid var(--altin); padding-left: 10px; }
-        .secenek-btn { background: var(--zumrut-acik); border: 1px solid rgba(226, 185, 115, 0.3); color: var(--yazi); width: 100%; padding: 12px 15px; margin-bottom: 10px; border-radius: 8px; font-size: 1rem; text-align: left; cursor: pointer; transition: 0.2s; font-family: 'Lora', serif; }
+        .soru-baslik { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; border-left: 4px solid var(--altin); padding-left: 10px; text-align: justify; }
+        .secenek-btn { background: var(--zumrut-acik); border: 1px solid rgba(226, 185, 115, 0.3); color: var(--yazi); width: 100%; padding: 12px 15px; margin-bottom: 10px; border-radius: 8px; font-size: 1rem; text-align: left; cursor: pointer; transition: 0.2s; font-family: 'Lora', serif; line-height: 1.4; }
         .secenek-btn:active { background: rgba(226, 185, 115, 0.2); }
         .secenek-btn.dogru { background: rgba(46, 204, 113, 0.2); border-color: var(--yesil); color: var(--yesil); font-weight: bold; }
         .secenek-btn.yanlis { background: rgba(231, 76, 60, 0.2); border-color: var(--kirmizi); color: var(--kirmizi); }
@@ -94,11 +94,12 @@
     </div>
 
     <script>
+        // Telegram Web App'i tam ekran yap ve üst rengi ayarla
         let tg = window.Telegram.WebApp;
         tg.expand();
         tg.setHeaderColor('#0b2614');
 
-        // KRAL: GOOGLE E-TABLO CSV LİNKİNİ BURAYA YAPIŞTIR
+        // KRAL, CSV LİNKİN BURADA
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
 
         let tumSorular = {};
@@ -112,11 +113,6 @@
 
         // Sayfa açılınca soruları çek
         window.onload = () => {
-            if(CSV_URL === "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv"){
-                alert("Kral, koddaki CSV_URL kısmına kendi linkini yapıştırmayı unutmuşsun!");
-                return;
-            }
-
             Papa.parse(CSV_URL, {
                 download: true,
                 header: true,
@@ -125,7 +121,7 @@
                     verileriIsle(results.data);
                 },
                 error: function(err) {
-                    alert("Sorular çekilemedi. Bağlantıyı kontrol et kral.");
+                    document.getElementById('ekran-yukleniyor').innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#e74c3c; font-size:2rem; margin-bottom:15px;"></i><br>Bağlantı Hatası. Tablo çekilemedi.';
                 }
             });
         };
@@ -133,27 +129,36 @@
         // Gelen CSV verisini bizim sisteme uyarlama
         function verileriIsle(data) {
             data.forEach(satir => {
-                let bolum = satir.Bolum ? satir.Bolum.trim() : "Diger";
+                // Eğer satırda soru yoksa atla
+                if(!satir.Soru || satir.Soru.trim() === "") return;
+
+                let bolum = satir.Bolum ? satir.Bolum.trim() : "Genel";
                 if(!tumSorular[bolum]) tumSorular[bolum] = [];
 
                 // Boş şıkları eleyerek seçenekler dizisi oluştur
                 let secenekler = [];
-                if(satir.A) secenekler.push(satir.A);
-                if(satir.B) secenekler.push(satir.B);
-                if(satir.C) secenekler.push(satir.C);
-                if(satir.D) secenekler.push(satir.D);
-                if(satir.E) secenekler.push(satir.E);
+                if(satir.A && satir.A.trim() !== "") secenekler.push(satir.A.trim());
+                if(satir.B && satir.B.trim() !== "") secenekler.push(satir.B.trim());
+                if(satir.C && satir.C.trim() !== "") secenekler.push(satir.C.trim());
+                if(satir.D && satir.D.trim() !== "") secenekler.push(satir.D.trim());
+                if(satir.E && satir.E.trim() !== "") secenekler.push(satir.E.trim());
 
                 // Doğru cevabın indexini bul
                 let dogruHarf = satir.Dogru ? satir.Dogru.trim().toUpperCase() : "A";
-                let dIndex = harfIndexi[dogruHarf] || 0;
+                let dIndex = harfIndexi[dogruHarf] !== undefined ? harfIndexi[dogruHarf] : 0;
 
                 tumSorular[bolum].push({
-                    soru: satir.Soru,
+                    soru: satir.Soru.trim(),
                     secenekler: secenekler,
                     dogruCevap: dIndex
                 });
             });
+
+            // Tabloda hiç soru bulunamadıysa uyarı ver
+            if(Object.keys(tumSorular).length === 0) {
+                document.getElementById('ekran-yukleniyor').innerHTML = '<i class="fa-solid fa-circle-exclamation" style="color:#E2B973; font-size:2rem; margin-bottom:15px;"></i><br>Tabloda kayıtlı soru bulunamadı. Sütun isimlerini kontrol et.';
+                return;
+            }
 
             menuleriOlustur();
         }
@@ -164,12 +169,12 @@
             let bolumİsimleri = Object.keys(tumSorular);
             
             bolumİsimleri.forEach(bolumKey => {
-                // "bolum1" yazısını "Bölüm 1" şeklinde düzeltmek için ufak bir makyaj
-                let gosterimAdi = bolumKey.replace(/bolum/i, 'Bölüm ').toUpperCase();
+                // "bolum1" yazısını "BÖLÜM 1" şeklinde daha şık göster
+                let gosterimAdi = bolumKey.toUpperCase();
                 
                 menuHTML += `
                 <button class="bolum-btn" onclick="testiBaslat('${bolumKey}')">
-                    <span>${gosterimAdi} Testi</span> <i class="fa-solid fa-chevron-right"></i>
+                    <span>${gosterimAdi} TESTİ</span> <i class="fa-solid fa-chevron-right"></i>
                 </button>`;
             });
 
@@ -216,12 +221,14 @@
                 btnElement.classList.add('dogru');
                 btnElement.innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
                 dogruSayisi++;
-                tg.HapticFeedback.notificationOccurred('success');
+                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
             } else {
                 btnElement.classList.add('yanlis');
                 btnElement.innerHTML += ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
-                butonlar[dogruIndex].classList.add('dogru');
-                tg.HapticFeedback.notificationOccurred('error');
+                if(butonlar[dogruIndex]) {
+                    butonlar[dogruIndex].classList.add('dogru');
+                }
+                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
             }
             
             document.getElementById('btn-ileri').style.display = 'block';
@@ -245,7 +252,7 @@
             
             document.getElementById('sonuc-yazi').innerText = mesaj;
             ekranGoster('ekran-sonuc');
-            tg.HapticFeedback.notificationOccurred('warning');
+            if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
         }
 
         function anaMenuyeDon() {
