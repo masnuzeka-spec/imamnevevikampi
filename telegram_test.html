@@ -15,23 +15,18 @@
     
     <style>
         :root {
-            /* Koyu (Gece) Tema Renkleri */
-            --zumrut: #0b2614;
-            --zumrut-acik: #15381a;
-            --altin: #E2B973;
-            --yazi: #FAF5EF;
-            --yesil: #2ecc71;
-            --kirmizi: #e74c3c;
-            --sayac-yazi: #dcebd2;
+            /* Koyu Tema */
+            --zumrut: #0b2614; --zumrut-acik: #15381a;
+            --altin: #E2B973; --yazi: #FAF5EF;
+            --yesil: #2ecc71; --kirmizi: #e74c3c;
+            --sayac-yazi: #dcebd2; --kart-bg: rgba(226, 185, 115, 0.1);
         }
 
-        /* Aydınlık (Gündüz) Tema Renkleri */
+        /* Aydınlık Tema */
         body.light-theme {
-            --zumrut: #FAF5EF; 
-            --zumrut-acik: #FFFFFF; 
-            --altin: #b38938; 
-            --yazi: #0b2614; 
-            --sayac-yazi: #15381a;
+            --zumrut: #FAF5EF; --zumrut-acik: #FFFFFF;
+            --altin: #b38938; --yazi: #0b2614;
+            --sayac-yazi: #15381a; --kart-bg: rgba(226, 185, 115, 0.2);
         }
 
         body { font-family: 'Lora', serif; background-color: var(--zumrut); color: var(--yazi); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; transition: background-color 0.4s, color 0.4s; }
@@ -39,21 +34,37 @@
         /* Tema Butonu */
         .tema-btn-kutu { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--altin); cursor: pointer; transition: 0.3s; z-index: 100; }
         
-        .baslik-alani { text-align: center; margin-bottom: 25px; border-bottom: 2px dashed rgba(226, 185, 115, 0.4); padding-bottom: 15px; width: 100%; max-width: 400px; position: relative; }
+        /* Başlık ve İlerleme */
+        .baslik-alani { text-align: center; margin-bottom: 20px; width: 100%; max-width: 400px; position: relative; }
         .baslik-alani h1 { font-family: 'Cinzel', serif; color: var(--altin); font-size: 1.5rem; margin: 0 0 5px 0; }
         .baslik-alani p { margin: 0; font-size: 0.9rem; color: var(--sayac-yazi); opacity: 0.8; font-weight: 600; }
         
-        #ekran-yukleniyor, #ekran-menu, #ekran-test, #ekran-sonuc { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.4s ease; }
+        .genel-ilerleme { background: rgba(0,0,0,0.2); border-radius: 10px; height: 12px; width: 100%; margin-top: 15px; overflow: hidden; border: 1px solid rgba(226,185,115,0.3); }
+        body.light-theme .genel-ilerleme { background: rgba(0,0,0,0.05); }
+        .ilerleme-bar { background: var(--altin); height: 100%; width: 0%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .ilerleme-yazi { font-size: 0.8rem; font-family: 'Cinzel', serif; color: var(--altin); margin-top: 5px; font-weight: bold; }
+
+        #ekran-yukleniyor, #ekran-menu, #ekran-test, #ekran-sonuc, #ekran-hatalar { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.4s ease; }
         .aktif-ekran { display: block !important; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         #ekran-yukleniyor { text-align: center; color: var(--altin); font-family: 'Cinzel', serif; margin-top: 50px; font-size: 1.2rem; }
 
-        .bolum-btn { background: rgba(226, 185, 115, 0.1); border: 2px solid var(--altin); color: var(--altin); width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; justify-content: space-between; align-items: center; }
-        .bolum-btn:active { background: var(--altin); color: var(--zumrut); transform: scale(0.98); }
-
-        body.light-theme .bolum-btn { background: rgba(226, 185, 115, 0.2); color: var(--yazi); }
+        /* Menü Butonları */
+        .bolum-btn { background: var(--kart-bg); border: 2px solid var(--altin); color: var(--yazi); width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; text-align: left; cursor: pointer; transition: 0.3s; display: flex; justify-content: space-between; align-items: center; }
+        .bolum-btn:active { transform: scale(0.98); }
         body.light-theme .bolum-btn:active { background: var(--altin); color: #fff; }
+        
+        .btn-icerik { display: flex; flex-direction: column; gap: 5px; }
+        .btn-baslik { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: bold; color: var(--altin); }
+        .btn-durum { font-size: 0.8rem; font-weight: bold; padding: 3px 8px; border-radius: 6px; background: rgba(0,0,0,0.3); width: max-content; }
+        .durum-cozulmedi { color: #aaa; }
+        .durum-cozuldu { color: var(--yesil); background: rgba(46, 204, 113, 0.15); border: 1px solid var(--yesil); }
+        body.light-theme .durum-cozulmedi { color: #666; background: rgba(0,0,0,0.05); }
+
+        /* Test Ekranı ve Zamanlayıcı */
+        .ust-bilgi { display: flex; justify-content: space-between; color: var(--altin); font-weight: bold; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(226,185,115,0.3); }
+        .zamanlayici { font-family: monospace; font-size: 1.1rem; }
 
         .soru-baslik { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; border-left: 4px solid var(--altin); padding-left: 10px; text-align: justify; }
         .secenek-btn { background: var(--zumrut-acik); border: 1px solid rgba(226, 185, 115, 0.3); color: var(--yazi); width: 100%; padding: 12px 15px; margin-bottom: 10px; border-radius: 8px; font-size: 1rem; text-align: left; cursor: pointer; transition: 0.2s; font-family: 'Lora', serif; line-height: 1.4; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
@@ -61,26 +72,35 @@
         .secenek-btn.dogru { background: rgba(46, 204, 113, 0.2); border-color: var(--yesil); color: var(--yesil); font-weight: bold; }
         .secenek-btn.yanlis { background: rgba(231, 76, 60, 0.2); border-color: var(--kirmizi); color: var(--kirmizi); }
         .secenek-btn:disabled { cursor: not-allowed; }
-
         body.light-theme .secenek-btn { border-color: rgba(179, 137, 56, 0.5); }
 
-        .test-alt { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; font-size: 0.95rem; color: var(--sayac-yazi); font-weight: bold; }
-        
+        .test-alt { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; }
         .nav-btn { padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: 'Cinzel', serif; transition: 0.3s; font-size: 0.9rem; }
         #btn-geri { background: rgba(226, 185, 115, 0.2); color: var(--altin); border: 1px solid var(--altin); visibility: hidden; }
         #btn-ileri { background: var(--altin); color: var(--zumrut); border: none; display: none; }
-        
         body.light-theme #btn-geri { background: #fff; border-color: var(--altin); color: var(--altin); }
 
-        .sonuc-kutu { background: var(--zumrut-acik); border: 2px solid var(--altin); border-radius: 15px; padding: 30px 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .puan-yuvarlak { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--altin); display: flex; justify-content: center; align-items: center; font-size: 2rem; font-weight: bold; color: var(--altin); margin: 0 auto 20px auto; font-family: 'Cinzel', serif; }
-        .sonuc-mesaj { font-size: 1.1rem; margin-bottom: 25px; line-height: 1.5; }
-        .ana-menu-btn { background: var(--altin); color: #fff; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-family: 'Cinzel', serif; font-size: 1.1rem; cursor: pointer; }
+        /* Sonuç Ekranı ve Ünvanlar */
+        .sonuc-kutu { background: var(--zumrut-acik); border: 2px solid var(--altin); border-radius: 15px; padding: 25px 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .puan-yuvarlak { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--altin); display: flex; justify-content: center; align-items: center; font-size: 2rem; font-weight: bold; color: var(--altin); margin: 0 auto 15px auto; font-family: 'Cinzel', serif; }
+        .unvan-yazi { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--altin); font-weight: 900; margin-bottom: 5px; }
+        .sure-yazi { font-size: 0.9rem; color: var(--sayac-yazi); margin-bottom: 20px; font-style: italic; }
+        
+        .buton-grup { display: flex; flex-direction: column; gap: 10px; }
+        .btn-genis { border: none; width: 100%; padding: 14px; border-radius: 10px; font-weight: bold; font-family: 'Cinzel', serif; font-size: 1rem; cursor: pointer; transition: 0.2s; }
+        .btn-altin { background: var(--altin); color: var(--zumrut); }
+        .btn-hatalar { background: transparent; border: 2px solid var(--altin); color: var(--altin); }
+        body.light-theme .btn-hatalar { background: #fff; }
+
+        /* Hataları İncele Ekranı */
+        .hata-kart { background: var(--zumrut-acik); border: 1px solid rgba(226,185,115,0.3); padding: 15px; border-radius: 10px; margin-bottom: 15px; text-align: justify; }
+        .h-soru { font-weight: bold; margin-bottom: 10px; color: var(--altin); }
+        .h-yanlis { color: var(--kirmizi); font-size: 0.9rem; margin-bottom: 5px; }
+        .h-dogru { color: var(--yesil); font-size: 0.9rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <!-- Tema Değiştirme Butonu -->
     <div class="tema-btn-kutu" onclick="temaDegistir()">
         <i id="tema-ikon" class="fa-solid fa-sun"></i>
     </div>
@@ -88,6 +108,10 @@
     <div class="baslik-alani">
         <h1>İmam Nevevî Kampı</h1>
         <p>Telegram Test Merkezi</p>
+        <div id="genel-ilerleme-kutu" style="display:none;">
+            <div class="genel-ilerleme"><div class="ilerleme-bar" id="p-bar"></div></div>
+            <div class="ilerleme-yazi" id="p-yazi">%0 Tamamlandı</div>
+        </div>
     </div>
 
     <div id="ekran-yukleniyor" class="aktif-ekran">
@@ -98,21 +122,35 @@
     <div id="ekran-menu"><div id="dinamik-menuler"></div></div>
 
     <div id="ekran-test">
-        <div class="soru-baslik" id="soru-metni">Soru metni buraya gelecek...</div>
+        <div class="ust-bilgi">
+            <span id="soru-sayaci">Soru: 1/10</span>
+            <span class="zamanlayici"><i class="fa-regular fa-clock"></i> <span id="zaman-yazi">00:00</span></span>
+        </div>
+        <div class="soru-baslik" id="soru-metni">Soru metni...</div>
         <div id="secenekler-alani"></div>
         <div class="test-alt">
             <button id="btn-geri" class="nav-btn" onclick="oncekiSoru()"><i class="fa-solid fa-arrow-left"></i> Geri</button>
-            <span id="soru-sayaci">Soru: 1/10</span>
             <button id="btn-ileri" class="nav-btn" onclick="sonrakiSoru()">İleri <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
 
     <div id="ekran-sonuc">
         <div class="sonuc-kutu">
-            <div class="puan-yuvarlak" id="sonuc-puan">0/0</div>
-            <div class="sonuc-mesaj" id="sonuc-yazi">Tebrikler!</div>
-            <button class="ana-menu-btn" onclick="anaMenuyeDon()">Ana Menüye Dön</button>
+            <div class="unvan-yazi" id="sonuc-unvan">🌟 Nevevî Vârisi</div>
+            <div class="puan-yuvarlak" id="sonuc-yuzde">%100</div>
+            <div class="sure-yazi" id="sonuc-sure"><i class="fa-regular fa-clock"></i> Çözüm Süresi: 01:25</div>
+            
+            <div class="buton-grup">
+                <button class="btn-genis btn-hatalar" id="btn-hata-incele" onclick="hatalariGoster()">Hatalarımı İncele</button>
+                <button class="btn-genis btn-altin" onclick="anaMenuyeDon()">Ana Menüye Dön</button>
+            </div>
         </div>
+    </div>
+
+    <div id="ekran-hatalar">
+        <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px solid; padding-bottom:10px;">Hatalı Sorularınız</h3>
+        <div id="hatalar-listesi"></div>
+        <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="ekranGoster('ekran-sonuc')">Sonuç Ekranına Dön</button>
     </div>
 
     <script>
@@ -120,13 +158,17 @@
         tg.expand();
         tg.setHeaderColor('#0b2614');
 
-        // CSV LİNKİN
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
 
         let tumSorular = {};
-        let aktifBolum = [];
+        let aktifBolum = "";
         let guncelSoruIndex = 0;
-        let secilenCevaplar = []; // Kullanıcının verdiği cevapları hafızada tutar
+        let secilenCevaplar = []; 
+        let kaydedilenPuanlar = JSON.parse(localStorage.getItem('imamNeveviKampiSkorlar')) || {};
+        
+        // Zamanlayıcı Değişkenleri
+        let testSaniye = 0;
+        let kronometreInterval;
 
         const harfIndexi = { "A": 0, "B": 1, "C": 2, "D": 3, "E": 4 };
         const secenekHarfleri = ["A) ", "B) ", "C) ", "D) ", "E) "];
@@ -136,35 +178,28 @@
                 download: true,
                 header: true,
                 skipEmptyLines: true,
-                complete: function(results) {
-                    verileriIsle(results.data);
-                },
+                complete: function(results) { verileriIsle(results.data); },
                 error: function(err) {
                     document.getElementById('ekran-yukleniyor').innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#e74c3c; font-size:2rem; margin-bottom:15px;"></i><br>Bağlantı Hatası. Tablo çekilemedi.';
                 }
             });
         };
 
-        // Temayı Değiştirme Fonksiyonu
         function temaDegistir() {
             document.body.classList.toggle('light-theme');
             let ikon = document.getElementById('tema-ikon');
-            
             if(document.body.classList.contains('light-theme')) {
-                ikon.classList.remove('fa-sun');
-                ikon.classList.add('fa-moon');
-                if(tg.setHeaderColor) tg.setHeaderColor('#FAF5EF'); // Telegram üst bar rengini açık yapar
+                ikon.className = 'fa-solid fa-moon';
+                if(tg.setHeaderColor) tg.setHeaderColor('#FAF5EF');
             } else {
-                ikon.classList.remove('fa-moon');
-                ikon.classList.add('fa-sun');
-                if(tg.setHeaderColor) tg.setHeaderColor('#0b2614'); // Telegram üst bar rengini koyu yapar
+                ikon.className = 'fa-solid fa-sun';
+                if(tg.setHeaderColor) tg.setHeaderColor('#0b2614');
             }
         }
 
         function verileriIsle(data) {
             data.forEach(satir => {
                 if(!satir.Soru || satir.Soru.trim() === "") return;
-
                 let bolum = satir.Bolum ? satir.Bolum.trim() : "Genel";
                 if(!tumSorular[bolum]) tumSorular[bolum] = [];
 
@@ -190,49 +225,83 @@
                 document.getElementById('ekran-yukleniyor').innerHTML = '<i class="fa-solid fa-circle-exclamation" style="color:#E2B973; font-size:2rem; margin-bottom:15px;"></i><br>Tabloda kayıtlı soru bulunamadı.';
                 return;
             }
-
             menuleriOlustur();
         }
 
         function menuleriOlustur() {
             let menuHTML = "";
             let bolumİsimleri = Object.keys(tumSorular);
+            let cozulmusTestSayisi = 0;
             
-            bolumİsimleri.forEach(bolumKey => {
-                let gosterimAdi = bolumKey.toUpperCase();
+            bolumİsimleri.forEach((bolumKey, index) => {
+                // "bolum1" gibi yazıları "1. Test", "2. Test" yapar. Rakam yoksa ismini yazar.
+                let rakam = bolumKey.match(/\d+/);
+                let gosterimAdi = rakam ? rakam[0] + ". Test" : bolumKey.toUpperCase() + " Testi";
+                
+                let durumHTML = `<span class="btn-durum durum-cozulmedi">Henüz Çözülmedi</span>`;
+                let ikonHTML = `<i class="fa-solid fa-play"></i>`;
+
+                // Hafızada varsa
+                if(kaydedilenPuanlar[bolumKey]) {
+                    cozulmusTestSayisi++;
+                    durumHTML = `<span class="btn-durum durum-cozuldu"><i class="fa-solid fa-check-double"></i> Çözüldü - %${kaydedilenPuanlar[bolumKey].yuzde} Başarı</span>`;
+                    ikonHTML = `<i class="fa-solid fa-rotate-right" style="color:#2ecc71;"></i>`;
+                }
+                
                 menuHTML += `
                 <button class="bolum-btn" onclick="testiBaslat('${bolumKey}')">
-                    <span>${gosterimAdi} TESTİ</span> <i class="fa-solid fa-chevron-right"></i>
+                    <div class="btn-icerik">
+                        <span class="btn-baslik">${gosterimAdi}</span>
+                        ${durumHTML}
+                    </div>
+                    ${ikonHTML}
                 </button>`;
             });
+
+            // İlerleme Çubuğunu Güncelle
+            document.getElementById('genel-ilerleme-kutu').style.display = 'block';
+            let yuzdeTamamlanma = Math.round((cozulmusTestSayisi / bolumİsimleri.length) * 100);
+            document.getElementById('p-bar').style.width = yuzdeTamamlanma + "%";
+            document.getElementById('p-yazi').innerText = "Kampın %" + yuzdeTamamlanma + " Kısmı Tamamlandı";
 
             document.getElementById('dinamik-menuler').innerHTML = menuHTML;
             ekranGoster('ekran-menu');
         }
 
         function ekranGoster(ekranId) {
-            document.getElementById('ekran-yukleniyor').classList.remove('aktif-ekran');
-            document.getElementById('ekran-menu').classList.remove('aktif-ekran');
-            document.getElementById('ekran-test').classList.remove('aktif-ekran');
-            document.getElementById('ekran-sonuc').classList.remove('aktif-ekran');
+            let ekranlar = ['ekran-yukleniyor', 'ekran-menu', 'ekran-test', 'ekran-sonuc', 'ekran-hatalar'];
+            ekranlar.forEach(id => document.getElementById(id).classList.remove('aktif-ekran'));
             document.getElementById(ekranId).classList.add('aktif-ekran');
         }
 
+        function zamanlayiciBaslat() {
+            testSaniye = 0;
+            document.getElementById('zaman-yazi').innerText = "00:00";
+            clearInterval(kronometreInterval);
+            kronometreInterval = setInterval(() => {
+                testSaniye++;
+                let dk = Math.floor(testSaniye / 60).toString().padStart(2, '0');
+                let sn = (testSaniye % 60).toString().padStart(2, '0');
+                document.getElementById('zaman-yazi').innerText = `${dk}:${sn}`;
+            }, 1000);
+        }
+
         function testiBaslat(bolumAnahtari) {
-            aktifBolum = tumSorular[bolumAnahtari];
+            aktifBolum = bolumAnahtari;
             guncelSoruIndex = 0;
-            // Tüm sorular için hafızayı boş (null) olarak oluştur
-            secilenCevaplar = new Array(aktifBolum.length).fill(null);
+            let soruListesi = tumSorular[aktifBolum];
+            secilenCevaplar = new Array(soruListesi.length).fill(null);
+            zamanlayiciBaslat();
             soruEkranaBas();
             ekranGoster('ekran-test');
         }
 
         function soruEkranaBas() {
-            let soruData = aktifBolum[guncelSoruIndex];
-            document.getElementById('soru-metni').innerHTML = "<b>" + (guncelSoruIndex + 1) + ".</b> " + soruData.soru;
-            document.getElementById('soru-sayaci').innerText = (guncelSoruIndex + 1) + " / " + aktifBolum.length;
+            let soruListesi = tumSorular[aktifBolum];
+            let soruData = soruListesi[guncelSoruIndex];
             
-            // Geri butonunu kontrol et (İlk soruda gizle, diğerlerinde göster)
+            document.getElementById('soru-metni').innerHTML = "<b>" + (guncelSoruIndex + 1) + ".</b> " + soruData.soru;
+            document.getElementById('soru-sayaci').innerText = (guncelSoruIndex + 1) + " / " + soruListesi.length;
             document.getElementById('btn-geri').style.visibility = guncelSoruIndex > 0 ? 'visible' : 'hidden';
             
             let oncekiCevap = secilenCevaplar[guncelSoruIndex];
@@ -240,41 +309,33 @@
             let seceneklerHTML = "";
 
             for(let i=0; i<soruData.secenekler.length; i++){
-                let ekstraClass = "";
-                let ikon = "";
+                let ekstraClass = ""; let ikon = "";
                 
-                // Eğer bu soru daha önce cevaplandıysa şıkları renklendir
                 if(oncekiCevap !== null) {
                     if(i === dogruIndex) {
-                        ekstraClass = "dogru";
-                        ikon = ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
+                        ekstraClass = "dogru"; ikon = ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
                     } else if (i === oncekiCevap && i !== dogruIndex) {
-                        ekstraClass = "yanlis";
-                        ikon = ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
+                        ekstraClass = "yanlis"; ikon = ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
                     }
                 }
                 
-                // Cevaplandıysa butonları tıklanamaz yap
                 let disableAttr = oncekiCevap !== null ? "disabled" : "";
-                
                 seceneklerHTML += `<button class="secenek-btn ${ekstraClass}" ${disableAttr} onclick="cevapKontrol(${i}, this)"><b>${secenekHarfleri[i]}</b> ${soruData.secenekler[i]}${ikon}</button>`;
             }
             document.getElementById('secenekler-alani').innerHTML = seceneklerHTML;
 
-            // İleri butonunu kontrol et (Sadece cevap verildiyse göster)
             let ileriBtn = document.getElementById('btn-ileri');
             if(oncekiCevap !== null) {
                 ileriBtn.style.display = 'block';
-                ileriBtn.innerHTML = (guncelSoruIndex === aktifBolum.length - 1) ? 'Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'İleri <i class="fa-solid fa-arrow-right"></i>';
+                ileriBtn.innerHTML = (guncelSoruIndex === soruListesi.length - 1) ? 'Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'İleri <i class="fa-solid fa-arrow-right"></i>';
             } else {
                 ileriBtn.style.display = 'none';
             }
         }
 
         function cevapKontrol(secilenIndex, btnElement) {
-            secilenCevaplar[guncelSoruIndex] = secilenIndex; // Cevabı hafızaya kaydet
-            let dogruIndex = aktifBolum[guncelSoruIndex].dogruCevap;
-            
+            secilenCevaplar[guncelSoruIndex] = secilenIndex; 
+            let dogruIndex = tumSorular[aktifBolum][guncelSoruIndex].dogruCevap;
             let butonlar = document.querySelectorAll('.secenek-btn');
             butonlar.forEach(btn => btn.disabled = true);
 
@@ -292,45 +353,81 @@
             
             let ileriBtn = document.getElementById('btn-ileri');
             ileriBtn.style.display = 'block';
-            ileriBtn.innerHTML = (guncelSoruIndex === aktifBolum.length - 1) ? 'Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'İleri <i class="fa-solid fa-arrow-right"></i>';
+            ileriBtn.innerHTML = (guncelSoruIndex === tumSorular[aktifBolum].length - 1) ? 'Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'İleri <i class="fa-solid fa-arrow-right"></i>';
         }
 
         function sonrakiSoru() {
-            if(guncelSoruIndex < aktifBolum.length - 1) {
+            if(guncelSoruIndex < tumSorular[aktifBolum].length - 1) {
                 guncelSoruIndex++;
                 soruEkranaBas();
-            } else {
-                testiBitir();
-            }
+            } else { testiBitir(); }
         }
 
         function oncekiSoru() {
-            if(guncelSoruIndex > 0) {
-                guncelSoruIndex--;
-                soruEkranaBas();
-            }
+            if(guncelSoruIndex > 0) { guncelSoruIndex--; soruEkranaBas(); }
         }
 
         function testiBitir() {
-            // Puanı en sonda hafızadan hesapla
+            clearInterval(kronometreInterval);
+            let soruListesi = tumSorular[aktifBolum];
             let dogruHesap = 0;
-            for(let i=0; i<aktifBolum.length; i++) {
-                if(secilenCevaplar[i] === aktifBolum[i].dogruCevap) dogruHesap++;
+            
+            for(let i=0; i<soruListesi.length; i++) {
+                if(secilenCevaplar[i] === soruListesi[i].dogruCevap) dogruHesap++;
             }
 
-            document.getElementById('sonuc-puan').innerText = dogruHesap + "/" + aktifBolum.length;
-            let basariYuzdesi = dogruHesap / aktifBolum.length;
-            let mesaj = basariYuzdesi === 1 ? "Muazzam! Konuya tam olarak hakimsiniz." : 
-                        basariYuzdesi >= 0.5 ? "Tebrikler, güzel bir sonuç. Notları bir kez daha gözden geçirebilirsiniz." : 
-                        "Ders notlarını tekrar okumanız faydalı olacaktır. Gayret bizden, tevfik Allah'tandır.";
+            let yuzde = Math.round((dogruHesap / soruListesi.length) * 100);
+            let dk = Math.floor(testSaniye / 60).toString().padStart(2, '0');
+            let sn = (testSaniye % 60).toString().padStart(2, '0');
+            let sureStr = `${dk}:${sn}`;
+
+            // Hafızaya Kaydet
+            kaydedilenPuanlar[aktifBolum] = { yuzde: yuzde, sure: sureStr };
+            localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
+
+            // Rozet / Ünvan Belirleme
+            let unvan = "";
+            if(yuzde === 100) unvan = "🌟 Nevevî Vârisi";
+            else if(yuzde >= 70) unvan = "📚 İlim Yolcusu";
+            else if(yuzde >= 40) unvan = "🌱 Gayretli Talebe";
+            else unvan = "📖 Yolun Başında";
+
+            document.getElementById('sonuc-unvan').innerText = unvan;
+            document.getElementById('sonuc-yuzde').innerText = "%" + yuzde;
+            document.getElementById('sonuc-sure').innerHTML = `<i class="fa-regular fa-clock"></i> Çözüm Süresi: ${sureStr}`;
             
-            document.getElementById('sonuc-yazi').innerText = mesaj;
+            // Hataları İncele Butonunu Kontrol Et (Tam puansa gizle)
+            if(yuzde === 100) document.getElementById('btn-hata-incele').style.display = 'none';
+            else document.getElementById('btn-hata-incele').style.display = 'block';
+
             ekranGoster('ekran-sonuc');
             if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
         }
 
+        function hatalariGoster() {
+            let soruListesi = tumSorular[aktifBolum];
+            let hatalarHTML = "";
+
+            for(let i=0; i<soruListesi.length; i++) {
+                let dogruIndex = soruListesi[i].dogruCevap;
+                let kullaniciCevap = secilenCevaplar[i];
+
+                if(kullaniciCevap !== dogruIndex) {
+                    let kullaniciMetin = kullaniciCevap !== null ? secenekHarfleri[kullaniciCevap] + soruListesi[i].secenekler[kullaniciCevap] : "Cevaplanmadı";
+                    hatalarHTML += `
+                    <div class="hata-kart">
+                        <div class="h-soru">${i+1}. ${soruListesi[i].soru}</div>
+                        <div class="h-yanlis"><i class="fa-solid fa-xmark"></i> Sizin Cevabınız: ${kullaniciMetin}</div>
+                        <div class="h-dogru"><i class="fa-solid fa-check"></i> Doğru Cevap: ${secenekHarfleri[dogruIndex]}${soruListesi[i].secenekler[dogruIndex]}</div>
+                    </div>`;
+                }
+            }
+            document.getElementById('hatalar-listesi').innerHTML = hatalarHTML;
+            ekranGoster('ekran-hatalar');
+        }
+
         function anaMenuyeDon() {
-            ekranGoster('ekran-menu');
+            menuleriOlustur(); // Yenilenen skorları yükle
         }
     </script>
 </body>
