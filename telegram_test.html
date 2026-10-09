@@ -110,7 +110,6 @@
         .info-kart ul { padding-left: 20px; margin-top: 10px; }
         .info-kart li { margin-bottom: 10px; }
         
-        /* Mod Seçim Ekranı Stilleri */
         .mod-kart { background: var(--kart-bg); border: 2px solid var(--altin); border-radius: 12px; padding: 20px; margin-bottom: 15px; cursor: pointer; text-align: center; transition: 0.3s; }
         .mod-kart:active { transform: scale(0.97); }
         .mod-kart h3 { font-family: 'Cinzel', serif; color: var(--altin); margin: 0 0 10px 0; }
@@ -126,7 +125,7 @@
 
     <div class="baslik-alani">
         <h1>İmam Nevevî Kampı</h1>
-        <p>Telegram Test Merkezi</p>
+        <p>İlim ve Takip Platformu</p>
         <div id="genel-ilerleme-kutu" style="display:none;">
             <div class="genel-ilerleme"><div class="ilerleme-bar" id="p-bar"></div></div>
             <div class="ilerleme-yazi" id="p-yazi">%0 Tamamlandı</div>
@@ -216,9 +215,9 @@
             <ul>
                 <li><b>🔀 Anti-Ezber Karıştırma:</b> Sorular ve A, B, C şıkları her girişinizde rastgele karıştırılır.</li>
                 <li><b>📖 Öğrenme ve 📝 Sınav Modu:</b> Dilerseniz anında geri bildirim alın, dilerseniz gerçek bir deneme sınavı heyecanı yaşayın.</li>
-                <li><b>📚 Yanlışlar Defteri:</b> Yanlış yaptığınız sorular kalıcı olarak kaydedilir. Sadece eksiklerinizden oluşan özel testler çözerek konuları tam öğrenirsiniz.</li>
-                <li><b>🔒 Kilit Sistemi:</b> Bir sonraki konunun açılması için bulunduğunuz testi en az <b>%70 başarıyla</b> geçmelisiniz.</li>
-                <li><b>📊 Zengin Analitik:</b> Soru başına harcadığınız saniyeden, konudaki kişisel rekorunuza kadar her şey takip edilir.</li>
+                <li><b>📚 Yanlışlar Defteri:</b> Yanlış yaptığınız sorular kaydedilir. Menüden sadece eksiklerinizden oluşan özel testler çözerek konuları tam öğrenirsiniz.</li>
+                <li><b>🔒 Kilit Sistemi:</b> İlerlemek için testleri <b>%70 başarıyla</b> geçmelisiniz.</li>
+                <li><b>📊 Zengin Analitik:</b> Çözüm hızınızdan kişisel rekorunuza kadar her şey takip edilir.</li>
             </ul>
             <i>Gayret bizden, tevfik Allah'tandır.</i>
         </div>
@@ -234,10 +233,10 @@
         const BARAJ_PUANI = 70;
 
         let tumSorular = {};
-        let aktifTestTuru = "normal"; // normal veya yanlislar
+        let aktifTestTuru = "normal"; 
         let aktifBolum = "";
         let aktifTestSorulari = [];
-        let testModu = "ogrenme"; // ogrenme veya sinav
+        let testModu = "ogrenme"; 
         
         let guncelSoruIndex = 0;
         let secilenCevaplar = []; 
@@ -284,14 +283,13 @@
             return array;
         }
 
-        // Çifte Karıştırma: Hem soruları hem şıkları karıştırır (A, B, C sabit kalır, içerik değişir)
         function testHazirlaVeKaristir(soruArray) {
             let kopyalananSorular = JSON.parse(JSON.stringify(soruArray));
-            sorulariKaristir(kopyalananSorular); // Soruların sırasını karıştır
+            sorulariKaristir(kopyalananSorular); 
             
             kopyalananSorular.forEach(soru => {
                 let secenekObjeleri = soru.secenekler.map((metin, i) => ({ metin: metin, isDogru: i === soru.dogruCevap }));
-                sorulariKaristir(secenekObjeleri); // Şıkların yerini karıştır
+                sorulariKaristir(secenekObjeleri); 
                 
                 soru.secenekler = secenekObjeleri.map(o => o.metin);
                 soru.dogruCevap = secenekObjeleri.findIndex(o => o.isDogru);
@@ -331,10 +329,12 @@
             
             menuleriOlustur();
             
-            // İlk Açılış Rehberi Kontrolü
+            // 🔥 HATANIN ÇÖZÜLDÜĞÜ YER: İlk girişte rehber açılır, ikinci girişte direkt ana menü açılır
             if (!localStorage.getItem('imamNeveviIlkKullanim')) {
                 localStorage.setItem('imamNeveviIlkKullanim', 'tamam');
                 ekranGoster('ekran-info');
+            } else {
+                ekranGoster('ekran-menu');
             }
         }
 
@@ -391,7 +391,6 @@
                 </button>`;
             });
             
-            // Yanlışlarım Butonu Ekleme
             if(yanlisSorularHafizasi.length > 0) {
                 menuHTML += `
                 <button class="bolum-btn" style="background: rgba(231, 76, 60, 0.1); border-color: var(--kirmizi);" onclick="testOncesiHazirlik('yanlislar', '')">
@@ -549,7 +548,6 @@
             let dogruHesap = 0;
             let yanlisHesap = 0;
             
-            // Sonuç hesaplama ve Yanlış Defteri Yönetimi
             aktifTestSorulari.forEach((soru, index) => {
                 let kullaniciCevap = secilenCevaplar[index];
                 let dogruMu = (kullaniciCevap === soru.dogruCevap);
@@ -559,10 +557,10 @@
                 let mevcutIndex = yanlisSorularHafizasi.findIndex(y => y.soru === soru.soru);
 
                 if (!dogruMu) {
-                    if (mevcutIndex === -1) yanlisSorularHafizasi.push(soru); // Yanlışlara ekle
+                    if (mevcutIndex === -1) yanlisSorularHafizasi.push(soru);
                 } else {
                     if (aktifTestTuru === 'yanlislar' && mevcutIndex !== -1) {
-                        yanlisSorularHafizasi.splice(mevcutIndex, 1); // Öğrendi, listeden çıkar
+                        yanlisSorularHafizasi.splice(mevcutIndex, 1);
                     }
                 }
             });
@@ -575,7 +573,6 @@
             let sureStr = `${dk}:${sn}`;
             let ortalamaSn = Math.round(testSaniye / aktifTestSorulari.length);
 
-            // İstatistik Kaydı (Normal Test İse)
             let enIyiPuan = yuzde;
             let denemeSayisi = 1;
             
@@ -590,7 +587,6 @@
                 localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
             }
 
-            // Unvan
             let unvan = "";
             if(yuzde === 100) unvan = "🌟 Nevevî Vârisi";
             else if(yuzde >= 70) unvan = "📚 İlim Yolcusu";
@@ -609,7 +605,7 @@
                 document.getElementById('s-deneme').innerText = denemeSayisi + ".";
                 document.getElementById('kutu-en-iyi').style.display = "block";
                 document.getElementById('kutu-deneme').style.display = "block";
-            } else { // Yanlislar testinde bu istatistikleri gizle
+            } else { 
                 document.getElementById('kutu-en-iyi').style.display = "none";
                 document.getElementById('kutu-deneme').style.display = "none";
             }
