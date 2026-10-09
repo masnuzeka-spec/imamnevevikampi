@@ -41,7 +41,7 @@
         .ilerleme-bar { background: var(--altin); height: 100%; width: 0%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .ilerleme-yazi { font-size: 0.8rem; font-family: 'Cinzel', serif; color: var(--altin); margin-top: 5px; font-weight: bold; }
 
-        #ekran-yukleniyor, #ekran-menu, #ekran-test, #ekran-sonuc, #ekran-hatalar { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.4s ease; }
+        #ekran-yukleniyor, #ekran-menu, #ekran-test, #ekran-sonuc, #ekran-hatalar, #ekran-info { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.4s ease; }
         .aktif-ekran { display: block !important; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -51,7 +51,6 @@
         .bolum-btn:active { transform: scale(0.98); }
         body.light-theme .bolum-btn:active { background: var(--altin); color: #fff; }
         
-        /* Kilitli Buton Stili */
         .btn-kilitli { opacity: 0.55; cursor: not-allowed; border-color: rgba(231,76,60,0.5); }
         .btn-kilitli:active { transform: none; background: var(--kart-bg); color: var(--yazi); }
         
@@ -109,6 +108,11 @@
         .h-soru { font-weight: bold; margin-bottom: 10px; color: var(--altin); }
         .h-yanlis { color: var(--kirmizi); font-size: 0.9rem; margin-bottom: 5px; }
         .h-dogru { color: var(--yesil); font-size: 0.9rem; font-weight: bold; }
+        
+        /* Info Ekranı Stilleri */
+        .info-kart { background: var(--zumrut-acik); border: 1px solid rgba(226,185,115,0.3); padding: 20px; border-radius: 10px; text-align: justify; line-height: 1.7; font-size: 0.95rem; }
+        .info-kart ul { padding-left: 20px; margin-top: 10px; }
+        .info-kart li { margin-bottom: 10px; }
     </style>
 </head>
 <body class="light-theme">
@@ -145,8 +149,8 @@
         <div class="soru-baslik" id="soru-metni">Soru metni...</div>
         <div id="secenekler-alani"></div>
         <div class="test-alt">
-            <button id="btn-geri" class="nav-btn" onclick="oncekiSoru()"><i class="fa-solid fa-arrow-left"></i> Önceki Soru</button>
-            <button id="btn-ileri" class="nav-btn" onclick="sonrakiSoru()">Sonraki Soru <i class="fa-solid fa-arrow-right"></i></button>
+            <button id="btn-geri" class="nav-btn" onclick="oncekiSoru()"><i class="fa-solid fa-arrow-left"></i> Önceki</button>
+            <button id="btn-ileri" class="nav-btn" onclick="sonrakiSoru()">Sonraki <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
 
@@ -170,14 +174,28 @@
         <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="ekranGoster('ekran-sonuc')">Sonuç Ekranına Dön</button>
     </div>
 
+    <!-- YENİ: Kullanım İnfosu Ekranı -->
+    <div id="ekran-info">
+        <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kullanım Rehberi</h3>
+        <div class="info-kart">
+            Uygulamamız kamp sürecinizi en verimli şekilde takip etmek için tasarlanmıştır:
+            <ul>
+                <li><b>🔒 Kilit Sistemi:</b> Bir sonraki testin açılması için bulunduğunuz testi en az <b>%70 başarıyla</b> geçmelisiniz.</li>
+                <li><b>🔀 Dinamik Sınav:</b> Sorular, ezberi engellemek amacıyla her girişte <b>karışık (rastgele)</b> sırayla karşınıza çıkar.</li>
+                <li><b>💾 Kalıcı Hafıza:</b> Testten çıkış yapsanız dahi ilerlemeniz cihazınıza kaydedilir. (Dilerseniz "İlerlemeyi Sıfırla" butonuyla silebilirsiniz).</li>
+                <li><b>📊 Kamp Karnesi:</b> Çözdüğünüz test sayısı ve genel başarınız ana menünün en altındaki karnede hesaplanır.</li>
+            </ul>
+            <i>Gayret bizden, tevfik Allah'tandır.</i>
+        </div>
+        <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="anaMenuyeDon()">Menüye Dön</button>
+    </div>
+
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
         if(tg.setHeaderColor) tg.setHeaderColor('#FAF5EF');
 
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
-        
-        // DİKKAT: Yeni bölümün açılması için gereken BARAJ PUANI
         const BARAJ_PUANI = 70;
 
         let tumSorular = {};
@@ -214,6 +232,17 @@
                 ikon.className = 'fa-solid fa-sun';
                 if(tg.setHeaderColor) tg.setHeaderColor('#0b2614');
             }
+        }
+
+        // YENİ: Soruları Karıştırma (Shuffle) Fonksiyonu
+        function sorulariKaristir(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
         }
 
         function verileriIsle(data) {
@@ -264,7 +293,6 @@
                 let ekstraClass = "";
                 let tiklamaOlayi = `onclick="testiBaslat('${bolumKey}')"`;
 
-                // 🔥 KİLİT SİSTEMİ MANTIĞI 🔥
                 let kilitli = false;
                 if(index > 0) {
                     let oncekiBolum = bolumİsimleri[index - 1];
@@ -283,8 +311,7 @@
                     durumHTML = `<span class="btn-durum durum-cozuldu"><i class="fa-solid fa-check-double"></i> Çözüldü - %${kayit.yuzde} Başarı</span>`;
                     ikonHTML = `<i class="fa-solid fa-rotate-right" style="color:#2ecc71;"></i>`;
                 } else if (kilitli) {
-                    // Kilitli Test Durumu
-                    durumHTML = `<span class="btn-durum durum-kilitli"><i class="fa-solid fa-lock"></i> Kilitli</span>`;
+                    durumHTML = `<span class="btn-durum durum-kilitli"><i class="fa-solid fa-lock"></i> Kilitli (Baraj: %${BARAJ_PUANI})</span>`;
                     ikonHTML = `<i class="fa-solid fa-lock" style="color:#e74c3c;"></i>`;
                     ekstraClass = "btn-kilitli";
                     tiklamaOlayi = `onclick="kilitUyarisi()"`;
@@ -299,6 +326,12 @@
                     ${ikonHTML}
                 </button>`;
             });
+            
+            // YENİ: Bilgi Butonunu Menüye Ekle
+            menuHTML += `
+            <button class="bolum-btn" style="background:transparent; border: 1px dashed var(--altin); justify-content:center; margin-top:20px; color:var(--altin);" onclick="ekranGoster('ekran-info')">
+                <i class="fa-solid fa-circle-info" style="margin-right:10px;"></i> Nasıl Kullanılır?
+            </button>`;
 
             document.getElementById('genel-ilerleme-kutu').style.display = 'block';
             let yuzdeTamamlanma = Math.round((cozulmusTestSayisi / bolumİsimleri.length) * 100);
@@ -352,7 +385,7 @@
         }
 
         function ekranGoster(ekranId) {
-            let ekranlar = ['ekran-yukleniyor', 'ekran-menu', 'ekran-test', 'ekran-sonuc', 'ekran-hatalar'];
+            let ekranlar = ['ekran-yukleniyor', 'ekran-menu', 'ekran-test', 'ekran-sonuc', 'ekran-hatalar', 'ekran-info'];
             ekranlar.forEach(id => document.getElementById(id).classList.remove('aktif-ekran'));
             document.getElementById(ekranId).classList.add('aktif-ekran');
         }
@@ -372,6 +405,10 @@
         function testiBaslat(bolumAnahtari) {
             aktifBolum = bolumAnahtari;
             guncelSoruIndex = 0;
+            
+            // YENİ: Soruları test başlarken her seferinde karıştır
+            sorulariKaristir(tumSorular[aktifBolum]);
+            
             let soruListesi = tumSorular[aktifBolum];
             secilenCevaplar = new Array(soruListesi.length).fill(null);
             zamanlayiciBaslat();
@@ -440,7 +477,7 @@
             let ileriBtn = document.getElementById('btn-ileri');
             if(oncekiCevap !== null) {
                 ileriBtn.style.display = 'block';
-                ileriBtn.innerHTML = (guncelSoruIndex === soruListesi.length - 1) ? 'Testi Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'Sonraki Soru <i class="fa-solid fa-arrow-right"></i>';
+                ileriBtn.innerHTML = (guncelSoruIndex === soruListesi.length - 1) ? 'Testi Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'Sonraki <i class="fa-solid fa-arrow-right"></i>';
             } else {
                 ileriBtn.style.display = 'none';
             }
@@ -455,18 +492,19 @@
             if(secilenIndex === dogruIndex) {
                 btnElement.classList.add('dogru');
                 btnElement.innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
+                // Doğruda titreşim var
                 if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
             } else {
                 btnElement.classList.add('yanlis');
                 btnElement.innerHTML += ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
                 butonlar[dogruIndex].classList.add('dogru');
                 butonlar[dogruIndex].innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
-                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
+                // Yanlışta gelen titreşimi senin talebin üzerine iptal ettik
             }
             
             let ileriBtn = document.getElementById('btn-ileri');
             ileriBtn.style.display = 'block';
-            ileriBtn.innerHTML = (guncelSoruIndex === tumSorular[aktifBolum].length - 1) ? 'Testi Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'Sonraki Soru <i class="fa-solid fa-arrow-right"></i>';
+            ileriBtn.innerHTML = (guncelSoruIndex === tumSorular[aktifBolum].length - 1) ? 'Testi Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'Sonraki <i class="fa-solid fa-arrow-right"></i>';
         }
 
         function sonrakiSoru() {
@@ -517,8 +555,6 @@
             if(yuzde === 100) {
                 if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
                 confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#E2B973', '#2ecc71', '#ffffff'] });
-            } else {
-                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
             }
         }
 
