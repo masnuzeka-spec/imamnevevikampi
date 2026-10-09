@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>İmam Nevevî Kampı Testleri</title>
     
-    <!-- Telegram Web App ve CSV Okuyucu (PapaParse) -->
+    <!-- Telegram Web App, CSV Okuyucu ve Konfeti Kütüphanesi -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <!-- FontAwesome ve Fontlar -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,7 +23,7 @@
             --sayac-yazi: #dcebd2; --kart-bg: rgba(226, 185, 115, 0.1);
         }
 
-        /* Aydınlık Tema */
+        /* Aydınlık Tema (Varsayılan) */
         body.light-theme {
             --zumrut: #FAF5EF; --zumrut-acik: #FFFFFF;
             --altin: #b38938; --yazi: #0b2614;
@@ -31,10 +32,8 @@
 
         body { font-family: 'Lora', serif; background-color: var(--zumrut); color: var(--yazi); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; transition: background-color 0.4s, color 0.4s; }
         
-        /* Tema Butonu */
         .tema-btn-kutu { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--altin); cursor: pointer; transition: 0.3s; z-index: 100; }
         
-        /* Başlık ve İlerleme */
         .baslik-alani { text-align: center; margin-bottom: 20px; width: 100%; max-width: 400px; position: relative; }
         .baslik-alani h1 { font-family: 'Cinzel', serif; color: var(--altin); font-size: 1.5rem; margin: 0 0 5px 0; }
         .baslik-alani p { margin: 0; font-size: 0.9rem; color: var(--sayac-yazi); opacity: 0.8; font-weight: 600; }
@@ -50,7 +49,6 @@
 
         #ekran-yukleniyor { text-align: center; color: var(--altin); font-family: 'Cinzel', serif; margin-top: 50px; font-size: 1.2rem; }
 
-        /* Menü Butonları */
         .bolum-btn { background: var(--kart-bg); border: 2px solid var(--altin); color: var(--yazi); width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 12px; text-align: left; cursor: pointer; transition: 0.3s; display: flex; justify-content: space-between; align-items: center; }
         .bolum-btn:active { transform: scale(0.98); }
         body.light-theme .bolum-btn:active { background: var(--altin); color: #fff; }
@@ -62,7 +60,15 @@
         .durum-cozuldu { color: var(--yesil); background: rgba(46, 204, 113, 0.15); border: 1px solid var(--yesil); }
         body.light-theme .durum-cozulmedi { color: #666; background: rgba(0,0,0,0.05); }
 
-        /* Test Ekranı ve Zamanlayıcı */
+        /* Kamp İstatistikleri (Karne) Kartı */
+        .karne-kutu { background: var(--zumrut-acik); border: 2px dashed rgba(226,185,115,0.5); border-radius: 15px; padding: 20px; margin-top: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .karne-baslik { text-align: center; font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: bold; color: var(--altin); margin-bottom: 15px; border-bottom: 1px solid rgba(226,185,115,0.3); padding-bottom: 8px; }
+        .karne-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .karne-item { text-align: center; background: var(--kart-bg); padding: 10px; border-radius: 10px; }
+        .karne-item i { font-size: 1.4rem; color: var(--altin); margin-bottom: 5px; }
+        .karne-deger { font-weight: bold; font-size: 1.1rem; color: var(--yazi); }
+        .karne-etiket { font-size: 0.75rem; color: var(--sayac-yazi); }
+
         .ust-bilgi { display: flex; justify-content: space-between; color: var(--altin); font-weight: bold; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(226,185,115,0.3); }
         .zamanlayici { font-family: monospace; font-size: 1.1rem; }
 
@@ -75,12 +81,11 @@
         body.light-theme .secenek-btn { border-color: rgba(179, 137, 56, 0.5); }
 
         .test-alt { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; }
-        .nav-btn { padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: 'Cinzel', serif; transition: 0.3s; font-size: 0.9rem; }
+        .nav-btn { padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: 'Cinzel', serif; transition: 0.3s; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
         #btn-geri { background: rgba(226, 185, 115, 0.2); color: var(--altin); border: 1px solid var(--altin); visibility: hidden; }
         #btn-ileri { background: var(--altin); color: var(--zumrut); border: none; display: none; }
         body.light-theme #btn-geri { background: #fff; border-color: var(--altin); color: var(--altin); }
 
-        /* Sonuç Ekranı ve Ünvanlar */
         .sonuc-kutu { background: var(--zumrut-acik); border: 2px solid var(--altin); border-radius: 15px; padding: 25px 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .puan-yuvarlak { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--altin); display: flex; justify-content: center; align-items: center; font-size: 2rem; font-weight: bold; color: var(--altin); margin: 0 auto 15px auto; font-family: 'Cinzel', serif; }
         .unvan-yazi { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--altin); font-weight: 900; margin-bottom: 5px; }
@@ -89,20 +94,20 @@
         .buton-grup { display: flex; flex-direction: column; gap: 10px; }
         .btn-genis { border: none; width: 100%; padding: 14px; border-radius: 10px; font-weight: bold; font-family: 'Cinzel', serif; font-size: 1rem; cursor: pointer; transition: 0.2s; }
         .btn-altin { background: var(--altin); color: var(--zumrut); }
+        .btn-telegram { background: #24A1DE; color: #fff; border: 1px solid #1c88bd; } /* Telegram Mavi Buton */
         .btn-hatalar { background: transparent; border: 2px solid var(--altin); color: var(--altin); }
         body.light-theme .btn-hatalar { background: #fff; }
 
-        /* Hataları İncele Ekranı */
         .hata-kart { background: var(--zumrut-acik); border: 1px solid rgba(226,185,115,0.3); padding: 15px; border-radius: 10px; margin-bottom: 15px; text-align: justify; }
         .h-soru { font-weight: bold; margin-bottom: 10px; color: var(--altin); }
         .h-yanlis { color: var(--kirmizi); font-size: 0.9rem; margin-bottom: 5px; }
         .h-dogru { color: var(--yesil); font-size: 0.9rem; font-weight: bold; }
     </style>
 </head>
-<body>
+<body class="light-theme">
 
     <div class="tema-btn-kutu" onclick="temaDegistir()">
-        <i id="tema-ikon" class="fa-solid fa-sun"></i>
+        <i id="tema-ikon" class="fa-solid fa-moon"></i>
     </div>
 
     <div class="baslik-alani">
@@ -119,7 +124,10 @@
         <br>Sorular E-Tablodan Çekiliyor...
     </div>
 
-    <div id="ekran-menu"><div id="dinamik-menuler"></div></div>
+    <div id="ekran-menu">
+        <div id="dinamik-menuler"></div>
+        <div id="dinamik-karne"></div> <!-- Karne Alanı -->
+    </div>
 
     <div id="ekran-test">
         <div class="ust-bilgi">
@@ -129,8 +137,8 @@
         <div class="soru-baslik" id="soru-metni">Soru metni...</div>
         <div id="secenekler-alani"></div>
         <div class="test-alt">
-            <button id="btn-geri" class="nav-btn" onclick="oncekiSoru()"><i class="fa-solid fa-arrow-left"></i> Geri</button>
-            <button id="btn-ileri" class="nav-btn" onclick="sonrakiSoru()">İleri <i class="fa-solid fa-arrow-right"></i></button>
+            <button id="btn-geri" class="nav-btn" onclick="oncekiSoru()"><i class="fa-solid fa-arrow-left"></i> Önceki Soru</button>
+            <button id="btn-ileri" class="nav-btn" onclick="sonrakiSoru()">Sonraki Soru <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
 
@@ -141,6 +149,7 @@
             <div class="sure-yazi" id="sonuc-sure"><i class="fa-regular fa-clock"></i> Çözüm Süresi: 01:25</div>
             
             <div class="buton-grup">
+                <button class="btn-genis btn-telegram" onclick="sonucuPaylas()"><i class="fa-brands fa-telegram"></i> Sonucumu Paylaş</button>
                 <button class="btn-genis btn-hatalar" id="btn-hata-incele" onclick="hatalariGoster()">Hatalarımı İncele</button>
                 <button class="btn-genis btn-altin" onclick="anaMenuyeDon()">Ana Menüye Dön</button>
             </div>
@@ -156,7 +165,7 @@
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        tg.setHeaderColor('#0b2614');
+        if(tg.setHeaderColor) tg.setHeaderColor('#FAF5EF');
 
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
 
@@ -166,7 +175,6 @@
         let secilenCevaplar = []; 
         let kaydedilenPuanlar = JSON.parse(localStorage.getItem('imamNeveviKampiSkorlar')) || {};
         
-        // Zamanlayıcı Değişkenleri
         let testSaniye = 0;
         let kronometreInterval;
 
@@ -231,20 +239,29 @@
         function menuleriOlustur() {
             let menuHTML = "";
             let bolumİsimleri = Object.keys(tumSorular);
-            let cozulmusTestSayisi = 0;
             
-            bolumİsimleri.forEach((bolumKey, index) => {
-                // "bolum1" gibi yazıları "1. Test", "2. Test" yapar. Rakam yoksa ismini yazar.
+            // Karne İstatistik Değişkenleri
+            let cozulmusTestSayisi = 0;
+            let toplamCozulenSoru = 0;
+            let toplamDogru = 0;
+            let toplamSaniye = 0;
+            
+            bolumİsimleri.forEach((bolumKey) => {
                 let rakam = bolumKey.match(/\d+/);
                 let gosterimAdi = rakam ? rakam[0] + ". Test" : bolumKey.toUpperCase() + " Testi";
                 
                 let durumHTML = `<span class="btn-durum durum-cozulmedi">Henüz Çözülmedi</span>`;
                 let ikonHTML = `<i class="fa-solid fa-play"></i>`;
 
-                // Hafızada varsa
+                // Test daha önce çözüldüyse verileri topla
                 if(kaydedilenPuanlar[bolumKey]) {
+                    let kayit = kaydedilenPuanlar[bolumKey];
                     cozulmusTestSayisi++;
-                    durumHTML = `<span class="btn-durum durum-cozuldu"><i class="fa-solid fa-check-double"></i> Çözüldü - %${kaydedilenPuanlar[bolumKey].yuzde} Başarı</span>`;
+                    toplamCozulenSoru += kayit.toplamSoru || 0;
+                    toplamDogru += kayit.dogruSayisi || 0;
+                    toplamSaniye += kayit.saniye || 0;
+
+                    durumHTML = `<span class="btn-durum durum-cozuldu"><i class="fa-solid fa-check-double"></i> Çözüldü - %${kayit.yuzde} Başarı</span>`;
                     ikonHTML = `<i class="fa-solid fa-rotate-right" style="color:#2ecc71;"></i>`;
                 }
                 
@@ -258,13 +275,48 @@
                 </button>`;
             });
 
-            // İlerleme Çubuğunu Güncelle
+            // 1. Genel İlerleme Çubuğunu Güncelle
             document.getElementById('genel-ilerleme-kutu').style.display = 'block';
             let yuzdeTamamlanma = Math.round((cozulmusTestSayisi / bolumİsimleri.length) * 100);
             document.getElementById('p-bar').style.width = yuzdeTamamlanma + "%";
             document.getElementById('p-yazi').innerText = "Kampın %" + yuzdeTamamlanma + " Kısmı Tamamlandı";
 
             document.getElementById('dinamik-menuler').innerHTML = menuHTML;
+
+            // 2. Kamp İstatistikleri (Karne) Kartını Oluştur (Eğer test çözdüyse)
+            if(cozulmusTestSayisi > 0) {
+                let dk = Math.floor(toplamSaniye / 60);
+                let karneHTML = `
+                <div class="karne-kutu">
+                    <div class="karne-baslik">📊 Kamp İstatistiklerim</div>
+                    <div class="karne-grid">
+                        <div class="karne-item">
+                            <i class="fa-solid fa-list-check"></i>
+                            <div class="karne-deger">${cozulmusTestSayisi} / ${bolumİsimleri.length}</div>
+                            <div class="karne-etiket">Çözülen Test</div>
+                        </div>
+                        <div class="karne-item">
+                            <i class="fa-solid fa-check-to-slot"></i>
+                            <div class="karne-deger">${toplamDogru} / ${toplamCozulenSoru}</div>
+                            <div class="karne-etiket">Doğru Cevap</div>
+                        </div>
+                        <div class="karne-item">
+                            <i class="fa-solid fa-stopwatch"></i>
+                            <div class="karne-deger">${dk} Dk</div>
+                            <div class="karne-etiket">Odaklanma Süresi</div>
+                        </div>
+                        <div class="karne-item">
+                            <i class="fa-solid fa-medal"></i>
+                            <div class="karne-deger">%${Math.round((toplamDogru/toplamCozulenSoru)*100)}</div>
+                            <div class="karne-etiket">Genel Başarı</div>
+                        </div>
+                    </div>
+                </div>`;
+                document.getElementById('dinamik-karne').innerHTML = karneHTML;
+            } else {
+                document.getElementById('dinamik-karne').innerHTML = "";
+            }
+
             ekranGoster('ekran-menu');
         }
 
@@ -327,7 +379,7 @@
             let ileriBtn = document.getElementById('btn-ileri');
             if(oncekiCevap !== null) {
                 ileriBtn.style.display = 'block';
-                ileriBtn.innerHTML = (guncelSoruIndex === soruListesi.length - 1) ? 'Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'İleri <i class="fa-solid fa-arrow-right"></i>';
+                ileriBtn.innerHTML = (guncelSoruIndex === soruListesi.length - 1) ? 'Testi Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'Sonraki Soru <i class="fa-solid fa-arrow-right"></i>';
             } else {
                 ileriBtn.style.display = 'none';
             }
@@ -353,7 +405,7 @@
             
             let ileriBtn = document.getElementById('btn-ileri');
             ileriBtn.style.display = 'block';
-            ileriBtn.innerHTML = (guncelSoruIndex === tumSorular[aktifBolum].length - 1) ? 'Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'İleri <i class="fa-solid fa-arrow-right"></i>';
+            ileriBtn.innerHTML = (guncelSoruIndex === tumSorular[aktifBolum].length - 1) ? 'Testi Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'Sonraki Soru <i class="fa-solid fa-arrow-right"></i>';
         }
 
         function sonrakiSoru() {
@@ -381,11 +433,16 @@
             let sn = (testSaniye % 60).toString().padStart(2, '0');
             let sureStr = `${dk}:${sn}`;
 
-            // Hafızaya Kaydet
-            kaydedilenPuanlar[aktifBolum] = { yuzde: yuzde, sure: sureStr };
+            // Hafızaya Kaydet (Yeni veri yapısıyla)
+            kaydedilenPuanlar[aktifBolum] = { 
+                yuzde: yuzde, 
+                sure: sureStr, 
+                dogruSayisi: dogruHesap, 
+                toplamSoru: soruListesi.length,
+                saniye: testSaniye
+            };
             localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
 
-            // Rozet / Ünvan Belirleme
             let unvan = "";
             if(yuzde === 100) unvan = "🌟 Nevevî Vârisi";
             else if(yuzde >= 70) unvan = "📚 İlim Yolcusu";
@@ -396,12 +453,37 @@
             document.getElementById('sonuc-yuzde').innerText = "%" + yuzde;
             document.getElementById('sonuc-sure').innerHTML = `<i class="fa-regular fa-clock"></i> Çözüm Süresi: ${sureStr}`;
             
-            // Hataları İncele Butonunu Kontrol Et (Tam puansa gizle)
             if(yuzde === 100) document.getElementById('btn-hata-incele').style.display = 'none';
             else document.getElementById('btn-hata-incele').style.display = 'block';
 
             ekranGoster('ekran-sonuc');
-            if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
+            
+            // Konfeti Patlatma Efekti (Sadece %100 Yapanlara)
+            if(yuzde === 100) {
+                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#E2B973', '#2ecc71', '#ffffff'] });
+            } else {
+                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('warning');
+            }
+        }
+
+        // Telegram'da Puan Paylaşma Özelliği
+        function sonucuPaylas() {
+            let yuzde = document.getElementById('sonuc-yuzde').innerText;
+            let bolumAdi = aktifBolum.toUpperCase();
+            
+            // Kullanıcıya gidecek olan efsane mesaj
+            let mesaj = `📚 İmam Nevevî Kampı ${bolumAdi} Testinden ${yuzde} başarı elde ettim!\n\nSen de kendi ilmi seviyeni ölçmek ister misin? 👇`;
+            
+            // Telegram Paylaşım URL'sini oluştur
+            let shareUrl = `https://t.me/share/url?url=https://t.me/ImamNeveviKampBot&text=${encodeURIComponent(mesaj)}`;
+            
+            // Linki aç (Direkt arkadaş seçme ekranına gönderir)
+            if (tg.openTelegramLink) {
+                tg.openTelegramLink(shareUrl);
+            } else {
+                window.open(shareUrl, '_blank');
+            }
         }
 
         function hatalariGoster() {
@@ -427,7 +509,7 @@
         }
 
         function anaMenuyeDon() {
-            menuleriOlustur(); // Yenilenen skorları yükle
+            menuleriOlustur(); 
         }
     </script>
 </body>
