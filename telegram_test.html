@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>İmam Nevevî Kampı Testleri</title>
     
+    <!-- Telegram Web App, CSV Okuyucu ve Konfeti Kütüphanesi -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
+    <!-- FontAwesome ve Fontlar -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Lora:wght@400;600&display=swap" rel="stylesheet">
     
@@ -125,7 +127,7 @@
 
     <div class="baslik-alani">
         <h1>İmam Nevevî Kampı</h1>
-        <p>Telegram Test Merkezi</p>
+        <p>İlim Yolculuğu Platformu</p>
         <div id="genel-ilerleme-kutu" style="display:none;">
             <div class="genel-ilerleme"><div class="ilerleme-bar" id="p-bar"></div></div>
             <div class="ilerleme-yazi" id="p-yazi">%0 Tamamlandı</div>
@@ -200,10 +202,11 @@
         <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="ekranGoster('ekran-sonuc')">Sonuç Ekranına Dön</button>
     </div>
 
+    <!-- Rehber Ekranı (Sıfırlama Butonu Eklendi) -->
     <div id="ekran-info">
         <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kamp Akademi Rehberi</h3>
         <div class="info-kart">
-            Profesyonel eğitim platformumuza hoş geldiniz! Özelliklerimiz:
+            İmâm Nevevî Kampı Test platformumuza hoş geldiniz! Özelliklerimiz:
             <ul>
                 <li><b>🔀 Anti-Ezber Karıştırma:</b> Sorular ve şıklar her girişinizde rastgele karıştırılır.</li>
                 <li><b>📖 Öğrenme ve 📝 Sınav Modu:</b> Dilerseniz anında geri bildirim alın, dilerseniz gerçek bir deneme sınavı heyecanı yaşayın.</li>
@@ -213,7 +216,11 @@
             </ul>
             <i>Gayret bizden, tevfik Allah'tandır.</i>
         </div>
+        
         <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="anaMenuyeDon()">Anladım, Kampa Başla</button>
+        
+        <!-- YENİ: REHBER EKRANINDA DA SIFIRLAMA BUTONU -->
+        <button class="btn-sifirla" style="margin-top:15px;" onclick="ilerlemeyiSifirla()"><i class="fa-solid fa-trash-can"></i> Tüm İlerlemeyi ve Hafızayı Sıfırla</button>
     </div>
 
     <script>
@@ -221,13 +228,11 @@
         tg.expand();
         if(tg.setHeaderColor) tg.setHeaderColor('#FAF5EF');
 
-        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
-        
-        // --------------------------------------------------------
-        // 🔥 KRAL BURAYA APPS SCRIPT URL'Nİ YAPIŞTIRACAKSIN 🔥
+        // 🔥 UZAKTAN EĞİTİM TAKİP LİNKİN 🔥
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzw7ri9LDEz8iaX1-d9n6UdA6BtoPpWalrTICaq3C9AKeFslatgGKige9QKmdDGSjtLoA/exec";
-        // --------------------------------------------------------
+        // -------------------------------------
 
+        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
         const BARAJ_PUANI = 70;
 
         let tumSorular = {};
@@ -237,11 +242,17 @@
         let testModu = "ogrenme"; 
         let guncelSoruIndex = 0;
         let secilenCevaplar = []; 
-        let kaydedilenPuanlar = JSON.parse(localStorage.getItem('imamNeveviKampiSkorlar')) || {};
-        let yanlisSorularHafizasi = JSON.parse(localStorage.getItem('imamNeveviKampiYanlislar')) || [];
+        
+        // LocalStorage Hatalarına Karşı Korumalı Parse İşlemi
+        let kaydedilenPuanlar = {};
+        try { kaydedilenPuanlar = JSON.parse(localStorage.getItem('imamNeveviKampiSkorlar')) || {}; } catch(e) {}
+        
+        let yanlisSorularHafizasi = [];
+        try { yanlisSorularHafizasi = JSON.parse(localStorage.getItem('imamNeveviKampiYanlislar')) || []; } catch(e) {}
         
         let testSaniye = 0;
         let kronometreInterval;
+
         const secenekHarfleri = ["A) ", "B) ", "C) ", "D) ", "E) "];
 
         window.onload = () => {
@@ -298,13 +309,26 @@
                 if(!tumSorular[bolum]) tumSorular[bolum] = [];
 
                 let secenekler = [];
-                if(satir.A && satir.A.trim() !== "") secenekler.push(satir.A.trim());
-                if(satir.B && satir.B.trim() !== "") secenekler.push(satir.B.trim());
-                if(satir.C && satir.C.trim() !== "") secenekler.push(satir.C.trim());
-                if(satir.D && satir.D.trim() !== "") secenekler.push(satir.D.trim());
-                if(satir.E && satir.E.trim() !== "") secenekler.push(satir.E.trim());
+                // Sütun isimlerini BOM veya boşluk hatasına karşı korumalı okuyoruz
+                let aKey = Object.keys(satir).find(k => k.trim().toUpperCase() === "A");
+                let bKey = Object.keys(satir).find(k => k.trim().toUpperCase() === "B");
+                let cKey = Object.keys(satir).find(k => k.trim().toUpperCase() === "C");
+                let dKey = Object.keys(satir).find(k => k.trim().toUpperCase() === "D");
+                let eKey = Object.keys(satir).find(k => k.trim().toUpperCase() === "E");
 
-                let dogruVerisi = satir.Dogru_Cevap || satir.Dogru || satir.Doğru || satir.Cevap || "A";
+                if(aKey && satir[aKey] && satir[aKey].trim() !== "") secenekler.push(satir[aKey].trim());
+                if(bKey && satir[bKey] && satir[bKey].trim() !== "") secenekler.push(satir[bKey].trim());
+                if(cKey && satir[cKey] && satir[cKey].trim() !== "") secenekler.push(satir[cKey].trim());
+                if(dKey && satir[dKey] && satir[dKey].trim() !== "") secenekler.push(satir[dKey].trim());
+                if(eKey && satir[eKey] && satir[eKey].trim() !== "") secenekler.push(satir[eKey].trim());
+
+                // Doğru Cevap sütununu ne yazılmışsa yazılsın tanır
+                let dCevapKey = Object.keys(satir).find(k => {
+                    let val = k.trim().toLowerCase();
+                    return val.includes("dogru") || val.includes("doğru") || val.includes("cevap");
+                });
+                
+                let dogruVerisi = dCevapKey ? satir[dCevapKey] : "A";
                 let dogruHarf = String(dogruVerisi).trim().toUpperCase().charAt(0);
                 let dIndex = harfIndexi[dogruHarf] !== undefined ? harfIndexi[dogruHarf] : 0;
 
@@ -335,6 +359,7 @@
             let cozulmusTestSayisi = 0;
             let toplamCozulenSoru = 0;
             let toplamDogru = 0;
+            let toplamSaniye = 0;
             
             bolumİsimleri.forEach((bolumKey, index) => {
                 let rakam = bolumKey.match(/\d+/);
@@ -356,6 +381,7 @@
                     cozulmusTestSayisi++;
                     toplamCozulenSoru += kayit.toplamSoru || 0;
                     toplamDogru += kayit.dogruSayisi || 0;
+                    toplamSaniye += kayit.saniye || 0;
                     durumHTML = `<span class="btn-durum durum-cozuldu"><i class="fa-solid fa-check-double"></i> Çözüldü - En İyi: %${kayit.enIyiYuzde}</span>`;
                     ikonHTML = `<i class="fa-solid fa-rotate-right" style="color:#2ecc71;"></i>`;
                 } else if (kilitli) {
@@ -388,6 +414,24 @@
             document.getElementById('p-bar').style.width = yuzdeTamamlanma + "%";
             document.getElementById('p-yazi').innerText = "Kampın %" + yuzdeTamamlanma + " Kısmı Tamamlandı";
             document.getElementById('dinamik-menuler').innerHTML = menuHTML;
+            
+            // Karne Güncelleme
+            if(cozulmusTestSayisi > 0) {
+                let dk = Math.floor(toplamSaniye / 60);
+                let karneHTML = `
+                <div class="karne-kutu">
+                    <div class="karne-baslik">📊 Kamp İstatistiklerim</div>
+                    <div class="karne-grid">
+                        <div class="karne-item"><i class="fa-solid fa-list-check"></i><div class="karne-deger">${cozulmusTestSayisi} / ${bolumİsimleri.length}</div><div class="karne-etiket">Çözülen</div></div>
+                        <div class="karne-item"><i class="fa-solid fa-check-to-slot"></i><div class="karne-deger">${toplamDogru} / ${toplamCozulenSoru}</div><div class="karne-etiket">Doğru</div></div>
+                        <div class="karne-item"><i class="fa-solid fa-medal"></i><div class="karne-deger">%${Math.round((toplamDogru/toplamCozulenSoru)*100)}</div><div class="karne-etiket">Genel Başarı</div></div>
+                    </div>
+                    <button class="btn-sifirla" onclick="ilerlemeyiSifirla()"><i class="fa-solid fa-trash-can"></i> İlerlemeyi Sıfırla</button>
+                </div>`;
+                document.getElementById('dinamik-karne').innerHTML = karneHTML;
+            } else {
+                document.getElementById('dinamik-karne').innerHTML = "";
+            }
         }
 
         function kilitUyarisi() {
@@ -438,6 +482,31 @@
             } else {
                 if(confirm("Testi yarıda bırakmak istediğinize emin misiniz? İlerlemeniz kaydedilmeyecek.")) {
                     clearInterval(kronometreInterval); anaMenuyeDon();
+                }
+            }
+        }
+
+        function ilerlemeyiSifirla() {
+            let uyar = "Tüm test geçmişiniz, puanlarınız ve yanlışlar defteriniz kalıcı olarak silinecek. Emin misiniz?";
+            if (tg.showConfirm) {
+                tg.showConfirm(uyar, function(onay) {
+                    if(onay) {
+                        localStorage.removeItem('imamNeveviKampiSkorlar');
+                        localStorage.removeItem('imamNeveviKampiYanlislar');
+                        kaydedilenPuanlar = {};
+                        yanlisSorularHafizasi = [];
+                        menuleriOlustur();
+                        ekranGoster('ekran-menu');
+                    }
+                });
+            } else {
+                if(confirm(uyar)) {
+                    localStorage.removeItem('imamNeveviKampiSkorlar');
+                    localStorage.removeItem('imamNeveviKampiYanlislar');
+                    kaydedilenPuanlar = {};
+                    yanlisSorularHafizasi = [];
+                    menuleriOlustur();
+                    ekranGoster('ekran-menu');
                 }
             }
         }
@@ -549,19 +618,19 @@
                 localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
             }
 
-            // APPS SCRIPT VERİ GÖNDERİMİ (Canlı E-Tablo Kaydı)
+            // APPS SCRIPT İLE CANLI VERİ GÖNDERİMİ
             let tgKullanici = tg.initDataUnsafe?.user;
             let kullaniciAdi = tgKullanici ? (tgKullanici.first_name + (tgKullanici.last_name ? " " + tgKullanici.last_name : "")) : "Bilinmeyen Öğrenci";
             
-            if(APPS_SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbzw7ri9LDEz8iaX1-d9n6UdA6BtoPpWalrTICaq3C9AKeFslatgGKige9QKmdDGSjtLoA/exec") {
-                let gonderilecekVeri = {
-                    kullanici: kullaniciAdi, testAdi: (aktifTestTuru === 'normal' ? aktifBolum : "Yanlışlar Tekrarı"),
-                    yuzde: "%" + yuzde, dogru: dogruHesap, yanlis: yanlisHesap, sure: sureStr
-                };
-                fetch(APPS_SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gonderilecekVeri)
-                }).catch(e => console.log("Gönderim hatası (normaldir):", e));
-            }
+            let gonderilecekVeri = {
+                kullanici: kullaniciAdi, testAdi: (aktifTestTuru === 'normal' ? aktifBolum : "Yanlışlar Tekrarı"),
+                yuzde: "%" + yuzde, dogru: dogruHesap, yanlis: yanlisHesap, sure: sureStr
+            };
+            
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gonderilecekVeri)
+            }).catch(e => console.log(e));
+            // ------------------------------------
 
             let unvan = yuzde === 100 ? "🌟 Nevevî Vârisi" : yuzde >= 70 ? "📚 İlim Yolcusu" : yuzde >= 40 ? "🌱 Gayretli Talebe" : "📖 Yolun Başında";
             document.getElementById('sonuc-unvan').innerText = unvan;
