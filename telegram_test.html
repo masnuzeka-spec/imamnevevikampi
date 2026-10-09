@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>İmam Nevevî Kampı Testleri</title>
     
-    <!-- Telegram Web App, CSV Okuyucu ve Konfeti Kütüphanesi -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
-    <!-- FontAwesome ve Fontlar -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Lora:wght@400;600&display=swap" rel="stylesheet">
     
@@ -210,15 +208,15 @@
 
     <!-- Rehber Ekranı -->
     <div id="ekran-info">
-        <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kamp Yolculuğu Rehberi</h3>
+        <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kamp Akademi Rehberi</h3>
         <div class="info-kart">
             İmâm Nevevî Kampı Test platformumuza hoş geldiniz! Özelliklerimiz:
             <ul>
-                <li><b>🔀 Anti-Ezber Karıştırma:</b> Sorular ve şıklar rastgele karıştırılır.</li>
-                <li><b>✂️ 15 Soruluk Seriler:</b> Odağınız kaybolmasın diye uzun testler otomatik olarak 15'er soruya bölünür.</li>
+                <li><b>🔀 Anti-Ezber Karıştırma:</b> Sorular ve şıklar her girişinizde rastgele karıştırılır.</li>
+                <li><b>✂️ Akıllı Bölme:</b> Odağınız kaybolmasın diye uzun testler (20 sorudan fazlaysa) otomatik olarak eşit parçalara bölünür. (Örn: 30 Soru -> 15 ve 15, 32 Soru -> 16 ve 16)</li>
                 <li><b>🔮 %50 Jokeri:</b> Her testte zorlandığınız 1 soruda yanlış 2 şıkkı silebilirsiniz!</li>
                 <li><b>📚 Yanlışlar Defteri:</b> Eksiklerinizden özel test çözebilirsiniz.</li>
-                <li><b>🔒 Kilit Sistemi:</b> Sonraki konunun açılması için bulunduğunuz testi <b>%70 başarıyla</b> geçmelisiniz.</li>
+                <li><b>🔒 Kilit Sistemi:</b> Sonraki konunun açılması için bulunduğunuz testi <b>%70 başarıyla</b> geçmelisiniz. (Barajı geçemezseniz ders videosuna yönlendirilirsiniz).</li>
             </ul>
             <i>Gayret bizden, tevfik Allah'tandır.</i>
         </div>
@@ -237,7 +235,6 @@
         // CSV URLN
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
         const BARAJ_PUANI = 70;
-        const BOLME_SINIRI = 15;
 
         let tumSorular = {};
         let aktifTestTuru = "normal"; 
@@ -342,13 +339,19 @@
                 });
             });
 
-            // OTOMATİK 15'E BÖLME MAKİNESİ
+            // 🔥 AKILLI EŞİT BÖLME MAKİNESİ 🔥
             for (let bolum in geciciSorular) {
                 let sorular = geciciSorular[bolum];
-                if (sorular.length > BOLME_SINIRI) {
+                // Eğer 20 sorudan fazlaysa eşit böl
+                if (sorular.length > 20) {
+                    // Kaç parça olacağını bulur (Ortalama 15-16 soruluk hedefe göre)
+                    let parcaSayisi = Math.ceil(sorular.length / 16); 
+                    // Parçalara düşen net soru sayısı (örn 30 için 15, 32 için 16)
+                    let parcaBasiSoru = Math.ceil(sorular.length / parcaSayisi);
+                    
                     let kisim = 1;
-                    for (let i = 0; i < sorular.length; i += BOLME_SINIRI) {
-                        tumSorular[bolum + " (Kısım " + kisim + ")"] = sorular.slice(i, i + BOLME_SINIRI);
+                    for (let i = 0; i < sorular.length; i += parcaBasiSoru) {
+                        tumSorular[bolum + " (Kısım " + kisim + ")"] = sorular.slice(i, i + parcaBasiSoru);
                         kisim++;
                     }
                 } else {
@@ -372,24 +375,38 @@
         }
 
         function menuleriOlustur() {
-            let menuHTML = `
-            <button class="bolum-btn" style="background:var(--altin); color:var(--zumrut); border-color:var(--altin); text-align:center; display:block;" onclick="karmaDenemeBaslat()">
-                <div style="font-family:'Cinzel',serif; font-size:1.2rem; font-weight:bold;"><i class="fa-solid fa-crown"></i> Genel Deneme Çöz</div>
-                <div style="font-size:0.8rem; margin-top:5px; opacity:0.8;">Tüm kamp müfredatından rastgele 40 soru!</div>
-            </button>
-            <button class="bolum-btn" style="background:transparent; border: 1px dashed var(--altin); justify-content:center; margin-bottom:15px; color:var(--altin);" onclick="ekranGoster('ekran-info')">
-                <i class="fa-solid fa-circle-info" style="margin-right:10px;"></i> Rehber & Bilgi
-            </button>`;
-            
             let bolumİsimleri = Object.keys(tumSorular);
             let cozulmusTestSayisi = 0;
             let toplamCozulenSoru = 0;
             let toplamDogru = 0;
             let toplamSaniye = 0;
             
+            // 🔥 GENEL DENEME KİLİT KONTROLÜ 🔥
+            let tumuGecildi = true;
+            bolumİsimleri.forEach(b => {
+                if(!kaydedilenPuanlar[b] || kaydedilenPuanlar[b].yuzde < BARAJ_PUANI) {
+                    tumuGecildi = false;
+                }
+            });
+
+            let gdBackground = tumuGecildi ? "background:var(--altin); color:var(--zumrut); border-color:var(--altin);" : "background:var(--kart-bg); border-color:rgba(231,76,60,0.5); color:var(--yazi);";
+            let gdClass = tumuGecildi ? "" : "btn-kilitli";
+            let gdAction = tumuGecildi ? "karmaDenemeBaslat()" : "genelDenemeUyarisi()";
+            let gdIcon = tumuGecildi ? '<i class="fa-solid fa-crown"></i>' : '<i class="fa-solid fa-lock" style="color:#e74c3c;"></i>';
+            let gdSubText = tumuGecildi ? "Tüm kamp müfredatından rastgele 40 soru!" : "Önce tüm testleri %" + BARAJ_PUANI + " başarıyla bitirmelisin!";
+            let gdSubStyle = tumuGecildi ? "opacity:0.8;" : "color:#e74c3c;";
+
+            let menuHTML = `
+            <button class="bolum-btn ${gdClass}" style="${gdBackground} text-align:center; display:block; margin-bottom:15px;" onclick="${gdAction}">
+                <div style="font-family:'Cinzel',serif; font-size:1.2rem; font-weight:bold;">${gdIcon} Genel Deneme Sınavı</div>
+                <div style="font-size:0.8rem; margin-top:5px; ${gdSubStyle}">${gdSubText}</div>
+            </button>
+            <button class="bolum-btn" style="background:transparent; border: 1px dashed var(--altin); justify-content:center; margin-bottom:15px; color:var(--altin);" onclick="ekranGoster('ekran-info')">
+                <i class="fa-solid fa-circle-info" style="margin-right:10px;"></i> Rehber & Bilgi
+            </button>`;
+            
             bolumİsimleri.forEach((bolumKey, index) => {
                 
-                // YENİ: Kısım isimlerini ekranda gizlememek için özel isim oluşturucu
                 let gosterimAdi = "";
                 let rakam = bolumKey.match(/\d+/);
                 
@@ -474,6 +491,12 @@
             if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
         }
 
+        function genelDenemeUyarisi() {
+            let mesaj = `Genel Değerlendirme Sınavına girebilmek için tüm kamp testlerini en az %${BARAJ_PUANI} başarıyla bitirmelisin!`;
+            if (tg.showAlert) tg.showAlert(mesaj); else alert(mesaj);
+            if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
+        }
+
         function ekranGoster(ekranId) {
             let ekranlar = ['ekran-yukleniyor', 'ekran-menu', 'ekran-mod-secim', 'ekran-test', 'ekran-sonuc', 'ekran-hatalar', 'ekran-info'];
             ekranlar.forEach(id => document.getElementById(id).classList.remove('aktif-ekran'));
@@ -496,6 +519,7 @@
             aktifTestTuru = 'karma';
             aktifBolum = 'Genel Deneme Sınavı';
             testModu = 'sinav'; 
+            aktifVideoLink = "";
             
             guncelSoruIndex = 0;
             secilenCevaplar = new Array(aktifTestSorulari.length).fill(null);
@@ -709,6 +733,7 @@
                 localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
             }
 
+            // APPS SCRIPT İLE CANLI VERİ GÖNDERİMİ
             let tgKullanici = tg.initDataUnsafe?.user;
             let kullaniciAdi = tgKullanici ? (tgKullanici.first_name + (tgKullanici.last_name ? " " + tgKullanici.last_name : "")) : "Bilinmeyen Öğrenci";
             
@@ -720,6 +745,7 @@
             fetch(APPS_SCRIPT_URL, {
                 method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gonderilecekVeri)
             }).catch(e => console.log(e));
+            // ------------------------------------
 
             let unvan = yuzde === 100 ? "🌟 Nevevî Vârisi" : yuzde >= 70 ? "📚 İlim Yolcusu" : yuzde >= 40 ? "🌱 Gayretli Talebe" : "📖 Yolun Başında";
             document.getElementById('sonuc-unvan').innerText = unvan;
