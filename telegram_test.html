@@ -553,7 +553,7 @@
             let tgKullanici = tg.initDataUnsafe?.user;
             let kullaniciAdi = tgKullanici ? (tgKullanici.first_name + (tgKullanici.last_name ? " " + tgKullanici.last_name : "")) : "Bilinmeyen Öğrenci";
             
-            if(APPS_SCRIPT_URL !== "SENIN_APPS_SCRIPT_URL_Nİ_BURAYA_YAPISTIR") {
+            if(APPS_SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbzw7ri9LDEz8iaX1-d9n6UdA6BtoPpWalrTICaq3C9AKeFslatgGKige9QKmdDGSjtLoA/exec") {
                 let gonderilecekVeri = {
                     kullanici: kullaniciAdi, testAdi: (aktifTestTuru === 'normal' ? aktifBolum : "Yanlışlar Tekrarı"),
                     yuzde: "%" + yuzde, dogru: dogruHesap, yanlis: yanlisHesap, sure: sureStr
