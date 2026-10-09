@@ -16,14 +16,12 @@
     
     <style>
         :root {
-            /* Koyu Tema */
             --zumrut: #0b2614; --zumrut-acik: #15381a;
             --altin: #E2B973; --yazi: #FAF5EF;
             --yesil: #2ecc71; --kirmizi: #e74c3c;
             --sayac-yazi: #dcebd2; --kart-bg: rgba(226, 185, 115, 0.1);
         }
 
-        /* Aydınlık Tema (Varsayılan) */
         body.light-theme {
             --zumrut: #FAF5EF; --zumrut-acik: #FFFFFF;
             --altin: #b38938; --yazi: #0b2614;
@@ -53,23 +51,32 @@
         .bolum-btn:active { transform: scale(0.98); }
         body.light-theme .bolum-btn:active { background: var(--altin); color: #fff; }
         
+        /* Kilitli Buton Stili */
+        .btn-kilitli { opacity: 0.55; cursor: not-allowed; border-color: rgba(231,76,60,0.5); }
+        .btn-kilitli:active { transform: none; background: var(--kart-bg); color: var(--yazi); }
+        
         .btn-icerik { display: flex; flex-direction: column; gap: 5px; }
         .btn-baslik { font-family: 'Cinzel', serif; font-size: 1.15rem; font-weight: bold; color: var(--altin); }
         .btn-durum { font-size: 0.8rem; font-weight: bold; padding: 3px 8px; border-radius: 6px; background: rgba(0,0,0,0.3); width: max-content; }
+        
         .durum-cozulmedi { color: #aaa; }
         .durum-cozuldu { color: var(--yesil); background: rgba(46, 204, 113, 0.15); border: 1px solid var(--yesil); }
+        .durum-kilitli { color: var(--kirmizi); background: rgba(231, 76, 60, 0.15); border: 1px solid var(--kirmizi); }
         body.light-theme .durum-cozulmedi { color: #666; background: rgba(0,0,0,0.05); }
 
-        /* Kamp İstatistikleri (Karne) Kartı */
         .karne-kutu { background: var(--zumrut-acik); border: 2px dashed rgba(226,185,115,0.5); border-radius: 15px; padding: 20px; margin-top: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .karne-baslik { text-align: center; font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: bold; color: var(--altin); margin-bottom: 15px; border-bottom: 1px solid rgba(226,185,115,0.3); padding-bottom: 8px; }
-        .karne-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .karne-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;}
         .karne-item { text-align: center; background: var(--kart-bg); padding: 10px; border-radius: 10px; }
         .karne-item i { font-size: 1.4rem; color: var(--altin); margin-bottom: 5px; }
         .karne-deger { font-weight: bold; font-size: 1.1rem; color: var(--yazi); }
         .karne-etiket { font-size: 0.75rem; color: var(--sayac-yazi); }
+        
+        .btn-sifirla { background: transparent; border: 1px solid var(--kirmizi); color: var(--kirmizi); width: 100%; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: 'Lora', serif; font-size: 0.9rem;}
+        .btn-sifirla:hover { background: rgba(231,76,60,0.1); }
 
-        .ust-bilgi { display: flex; justify-content: space-between; color: var(--altin); font-weight: bold; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(226,185,115,0.3); }
+        .ust-bilgi { display: flex; justify-content: space-between; align-items: center; color: var(--altin); font-weight: bold; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(226,185,115,0.3); }
+        .cikis-btn { color: var(--kirmizi); background: rgba(231,76,60,0.1); padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 5px;}
         .zamanlayici { font-family: monospace; font-size: 1.1rem; }
 
         .soru-baslik { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; border-left: 4px solid var(--altin); padding-left: 10px; text-align: justify; }
@@ -94,7 +101,7 @@
         .buton-grup { display: flex; flex-direction: column; gap: 10px; }
         .btn-genis { border: none; width: 100%; padding: 14px; border-radius: 10px; font-weight: bold; font-family: 'Cinzel', serif; font-size: 1rem; cursor: pointer; transition: 0.2s; }
         .btn-altin { background: var(--altin); color: var(--zumrut); }
-        .btn-telegram { background: #24A1DE; color: #fff; border: 1px solid #1c88bd; } /* Telegram Mavi Buton */
+        .btn-telegram { background: #24A1DE; color: #fff; border: 1px solid #1c88bd; } 
         .btn-hatalar { background: transparent; border: 2px solid var(--altin); color: var(--altin); }
         body.light-theme .btn-hatalar { background: #fff; }
 
@@ -126,11 +133,12 @@
 
     <div id="ekran-menu">
         <div id="dinamik-menuler"></div>
-        <div id="dinamik-karne"></div> <!-- Karne Alanı -->
+        <div id="dinamik-karne"></div>
     </div>
 
     <div id="ekran-test">
         <div class="ust-bilgi">
+            <span class="cikis-btn" onclick="testiTerkEt()"><i class="fa-solid fa-xmark"></i> Çıkış</span>
             <span id="soru-sayaci">Soru: 1/10</span>
             <span class="zamanlayici"><i class="fa-regular fa-clock"></i> <span id="zaman-yazi">00:00</span></span>
         </div>
@@ -168,6 +176,9 @@
         if(tg.setHeaderColor) tg.setHeaderColor('#FAF5EF');
 
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
+        
+        // DİKKAT: Yeni bölümün açılması için gereken BARAJ PUANI
+        const BARAJ_PUANI = 70;
 
         let tumSorular = {};
         let aktifBolum = "";
@@ -239,21 +250,29 @@
         function menuleriOlustur() {
             let menuHTML = "";
             let bolumİsimleri = Object.keys(tumSorular);
-            
-            // Karne İstatistik Değişkenleri
             let cozulmusTestSayisi = 0;
             let toplamCozulenSoru = 0;
             let toplamDogru = 0;
             let toplamSaniye = 0;
             
-            bolumİsimleri.forEach((bolumKey) => {
+            bolumİsimleri.forEach((bolumKey, index) => {
                 let rakam = bolumKey.match(/\d+/);
                 let gosterimAdi = rakam ? rakam[0] + ". Test" : bolumKey.toUpperCase() + " Testi";
                 
                 let durumHTML = `<span class="btn-durum durum-cozulmedi">Henüz Çözülmedi</span>`;
                 let ikonHTML = `<i class="fa-solid fa-play"></i>`;
+                let ekstraClass = "";
+                let tiklamaOlayi = `onclick="testiBaslat('${bolumKey}')"`;
 
-                // Test daha önce çözüldüyse verileri topla
+                // 🔥 KİLİT SİSTEMİ MANTIĞI 🔥
+                let kilitli = false;
+                if(index > 0) {
+                    let oncekiBolum = bolumİsimleri[index - 1];
+                    if(!kaydedilenPuanlar[oncekiBolum] || kaydedilenPuanlar[oncekiBolum].yuzde < BARAJ_PUANI) {
+                        kilitli = true;
+                    }
+                }
+
                 if(kaydedilenPuanlar[bolumKey]) {
                     let kayit = kaydedilenPuanlar[bolumKey];
                     cozulmusTestSayisi++;
@@ -263,10 +282,16 @@
 
                     durumHTML = `<span class="btn-durum durum-cozuldu"><i class="fa-solid fa-check-double"></i> Çözüldü - %${kayit.yuzde} Başarı</span>`;
                     ikonHTML = `<i class="fa-solid fa-rotate-right" style="color:#2ecc71;"></i>`;
+                } else if (kilitli) {
+                    // Kilitli Test Durumu
+                    durumHTML = `<span class="btn-durum durum-kilitli"><i class="fa-solid fa-lock"></i> Kilitli</span>`;
+                    ikonHTML = `<i class="fa-solid fa-lock" style="color:#e74c3c;"></i>`;
+                    ekstraClass = "btn-kilitli";
+                    tiklamaOlayi = `onclick="kilitUyarisi()"`;
                 }
                 
                 menuHTML += `
-                <button class="bolum-btn" onclick="testiBaslat('${bolumKey}')">
+                <button class="bolum-btn ${ekstraClass}" ${tiklamaOlayi}>
                     <div class="btn-icerik">
                         <span class="btn-baslik">${gosterimAdi}</span>
                         ${durumHTML}
@@ -275,7 +300,6 @@
                 </button>`;
             });
 
-            // 1. Genel İlerleme Çubuğunu Güncelle
             document.getElementById('genel-ilerleme-kutu').style.display = 'block';
             let yuzdeTamamlanma = Math.round((cozulmusTestSayisi / bolumİsimleri.length) * 100);
             document.getElementById('p-bar').style.width = yuzdeTamamlanma + "%";
@@ -283,7 +307,6 @@
 
             document.getElementById('dinamik-menuler').innerHTML = menuHTML;
 
-            // 2. Kamp İstatistikleri (Karne) Kartını Oluştur (Eğer test çözdüyse)
             if(cozulmusTestSayisi > 0) {
                 let dk = Math.floor(toplamSaniye / 60);
                 let karneHTML = `
@@ -311,6 +334,7 @@
                             <div class="karne-etiket">Genel Başarı</div>
                         </div>
                     </div>
+                    <button class="btn-sifirla" onclick="ilerlemeyiSifirla()"><i class="fa-solid fa-trash-can"></i> İlerlemeyi Sıfırla</button>
                 </div>`;
                 document.getElementById('dinamik-karne').innerHTML = karneHTML;
             } else {
@@ -318,6 +342,13 @@
             }
 
             ekranGoster('ekran-menu');
+        }
+
+        function kilitUyarisi() {
+            let mesaj = `Bu testi çözebilmek için bir önceki testi en az %${BARAJ_PUANI} başarıyla geçmelisiniz!`;
+            if (tg.showAlert) tg.showAlert(mesaj);
+            else alert(mesaj);
+            if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
         }
 
         function ekranGoster(ekranId) {
@@ -346,6 +377,36 @@
             zamanlayiciBaslat();
             soruEkranaBas();
             ekranGoster('ekran-test');
+        }
+
+        function testiTerkEt() {
+            if (tg.showConfirm) {
+                tg.showConfirm("Testi yarıda bırakmak istediğinize emin misiniz? İlerlemeniz kaydedilmeyecek.", function(onay) {
+                    if(onay) { clearInterval(kronometreInterval); anaMenuyeDon(); }
+                });
+            } else {
+                if(confirm("Testi yarıda bırakmak istediğinize emin misiniz? İlerlemeniz kaydedilmeyecek.")) {
+                    clearInterval(kronometreInterval); anaMenuyeDon();
+                }
+            }
+        }
+
+        function ilerlemeyiSifirla() {
+            if (tg.showConfirm) {
+                tg.showConfirm("Tüm kamp geçmişiniz ve puanlarınız silinecek. Emin misiniz?", function(onay) {
+                    if(onay) {
+                        localStorage.removeItem('imamNeveviKampiSkorlar');
+                        kaydedilenPuanlar = {};
+                        menuleriOlustur();
+                    }
+                });
+            } else {
+                if(confirm("Tüm kamp geçmişiniz ve puanlarınız silinecek. Emin misiniz?")) {
+                    localStorage.removeItem('imamNeveviKampiSkorlar');
+                    kaydedilenPuanlar = {};
+                    menuleriOlustur();
+                }
+            }
         }
 
         function soruEkranaBas() {
@@ -433,13 +494,8 @@
             let sn = (testSaniye % 60).toString().padStart(2, '0');
             let sureStr = `${dk}:${sn}`;
 
-            // Hafızaya Kaydet (Yeni veri yapısıyla)
             kaydedilenPuanlar[aktifBolum] = { 
-                yuzde: yuzde, 
-                sure: sureStr, 
-                dogruSayisi: dogruHesap, 
-                toplamSoru: soruListesi.length,
-                saniye: testSaniye
+                yuzde: yuzde, sure: sureStr, dogruSayisi: dogruHesap, toplamSoru: soruListesi.length, saniye: testSaniye
             };
             localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
 
@@ -458,7 +514,6 @@
 
             ekranGoster('ekran-sonuc');
             
-            // Konfeti Patlatma Efekti (Sadece %100 Yapanlara)
             if(yuzde === 100) {
                 if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
                 confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#E2B973', '#2ecc71', '#ffffff'] });
@@ -467,23 +522,16 @@
             }
         }
 
-        // Telegram'da Puan Paylaşma Özelliği
         function sonucuPaylas() {
             let yuzde = document.getElementById('sonuc-yuzde').innerText;
-            let bolumAdi = aktifBolum.toUpperCase();
+            let rakam = aktifBolum.match(/\d+/);
+            let bolumAdi = rakam ? rakam[0] + ". Testinden" : aktifBolum.toUpperCase() + " Testinden";
             
-            // Kullanıcıya gidecek olan efsane mesaj
-            let mesaj = `📚 İmam Nevevî Kampı ${bolumAdi} Testinden ${yuzde} başarı elde ettim!\n\nSen de kendi ilmi seviyeni ölçmek ister misin? 👇`;
-            
-            // Telegram Paylaşım URL'sini oluştur
+            let mesaj = `📚 İmam Nevevî Kampı ${bolumAdi} ${yuzde} başarı elde ettim!\n\nSen de kendi ilmi seviyeni ölçmek ister misin? 👇`;
             let shareUrl = `https://t.me/share/url?url=https://t.me/ImamNeveviKampBot&text=${encodeURIComponent(mesaj)}`;
             
-            // Linki aç (Direkt arkadaş seçme ekranına gönderir)
-            if (tg.openTelegramLink) {
-                tg.openTelegramLink(shareUrl);
-            } else {
-                window.open(shareUrl, '_blank');
-            }
+            if (tg.openTelegramLink) tg.openTelegramLink(shareUrl);
+            else window.open(shareUrl, '_blank');
         }
 
         function hatalariGoster() {
