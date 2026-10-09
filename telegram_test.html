@@ -202,7 +202,7 @@
         <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="ekranGoster('ekran-sonuc')">Sonuç Ekranına Dön</button>
     </div>
 
-    <!-- Rehber Ekranı (Sıfırlama Butonu Eklendi) -->
+    <!-- Rehber Ekranı -->
     <div id="ekran-info">
         <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kamp Akademi Rehberi</h3>
         <div class="info-kart">
@@ -212,14 +212,13 @@
                 <li><b>📖 Öğrenme ve 📝 Sınav Modu:</b> Dilerseniz anında geri bildirim alın, dilerseniz gerçek bir deneme sınavı heyecanı yaşayın.</li>
                 <li><b>📚 Yanlışlar Defteri:</b> Yanlış yaptığınız sorular kaydedilir. Sadece eksiklerinizden özel test çözebilirsiniz.</li>
                 <li><b>🔒 Kilit Sistemi:</b> Sonraki konunun açılması için bulunduğunuz testi <b>%70 başarıyla</b> geçmelisiniz.</li>
-                <li><b>📊 Analitik:</b> Puanınız ve test bilgileri otomatik olarak eğitmenlerin paneline (veri tabanına) aktarılmaktadır.</li>
+                <li><b>📊 Analitik:</b> Puanınız ve test bilgileri otomatik olarak eğitmenlerin paneline aktarılmaktadır.</li>
             </ul>
             <i>Gayret bizden, tevfik Allah'tandır.</i>
         </div>
         
         <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="anaMenuyeDon()">Anladım, Kampa Başla</button>
         
-        <!-- YENİ: REHBER EKRANINDA DA SIFIRLAMA BUTONU -->
         <button class="btn-sifirla" style="margin-top:15px;" onclick="ilerlemeyiSifirla()"><i class="fa-solid fa-trash-can"></i> Tüm İlerlemeyi ve Hafızayı Sıfırla</button>
     </div>
 
@@ -243,7 +242,6 @@
         let guncelSoruIndex = 0;
         let secilenCevaplar = []; 
         
-        // LocalStorage Hatalarına Karşı Korumalı Parse İşlemi
         let kaydedilenPuanlar = {};
         try { kaydedilenPuanlar = JSON.parse(localStorage.getItem('imamNeveviKampiSkorlar')) || {}; } catch(e) {}
         
@@ -309,7 +307,6 @@
                 if(!tumSorular[bolum]) tumSorular[bolum] = [];
 
                 let secenekler = [];
-                // Sütun isimlerini BOM veya boşluk hatasına karşı korumalı okuyoruz
                 let aKey = Object.keys(satir).find(k => k.trim().toUpperCase() === "A");
                 let bKey = Object.keys(satir).find(k => k.trim().toUpperCase() === "B");
                 let cKey = Object.keys(satir).find(k => k.trim().toUpperCase() === "C");
@@ -322,7 +319,6 @@
                 if(dKey && satir[dKey] && satir[dKey].trim() !== "") secenekler.push(satir[dKey].trim());
                 if(eKey && satir[eKey] && satir[eKey].trim() !== "") secenekler.push(satir[eKey].trim());
 
-                // Doğru Cevap sütununu ne yazılmışsa yazılsın tanır
                 let dCevapKey = Object.keys(satir).find(k => {
                     let val = k.trim().toLowerCase();
                     return val.includes("dogru") || val.includes("doğru") || val.includes("cevap");
@@ -343,9 +339,13 @@
             }
             
             menuleriOlustur();
+            
+            // 🔥 İŞTE SORUNU ÇÖZEN BAĞLANTI (İkinci girişte donmayı engeller)
             if (!localStorage.getItem('imamNeveviIlkKullanim')) {
                 localStorage.setItem('imamNeveviIlkKullanim', 'tamam');
                 ekranGoster('ekran-info');
+            } else {
+                ekranGoster('ekran-menu');
             }
         }
 
@@ -415,7 +415,6 @@
             document.getElementById('p-yazi').innerText = "Kampın %" + yuzdeTamamlanma + " Kısmı Tamamlandı";
             document.getElementById('dinamik-menuler').innerHTML = menuHTML;
             
-            // Karne Güncelleme
             if(cozulmusTestSayisi > 0) {
                 let dk = Math.floor(toplamSaniye / 60);
                 let karneHTML = `
@@ -618,7 +617,6 @@
                 localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
             }
 
-            // APPS SCRIPT İLE CANLI VERİ GÖNDERİMİ
             let tgKullanici = tg.initDataUnsafe?.user;
             let kullaniciAdi = tgKullanici ? (tgKullanici.first_name + (tgKullanici.last_name ? " " + tgKullanici.last_name : "")) : "Bilinmeyen Öğrenci";
             
@@ -630,7 +628,6 @@
             fetch(APPS_SCRIPT_URL, {
                 method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gonderilecekVeri)
             }).catch(e => console.log(e));
-            // ------------------------------------
 
             let unvan = yuzde === 100 ? "🌟 Nevevî Vârisi" : yuzde >= 70 ? "📚 İlim Yolcusu" : yuzde >= 40 ? "🌱 Gayretli Talebe" : "📖 Yolun Başında";
             document.getElementById('sonuc-unvan').innerText = unvan;
