@@ -109,7 +109,6 @@
         .h-yanlis { color: var(--kirmizi); font-size: 0.9rem; margin-bottom: 5px; }
         .h-dogru { color: var(--yesil); font-size: 0.9rem; font-weight: bold; }
         
-        /* Info Ekranı Stilleri */
         .info-kart { background: var(--zumrut-acik); border: 1px solid rgba(226,185,115,0.3); padding: 20px; border-radius: 10px; text-align: justify; line-height: 1.7; font-size: 0.95rem; }
         .info-kart ul { padding-left: 20px; margin-top: 10px; }
         .info-kart li { margin-bottom: 10px; }
@@ -174,7 +173,6 @@
         <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="ekranGoster('ekran-sonuc')">Sonuç Ekranına Dön</button>
     </div>
 
-    <!-- YENİ: Kullanım İnfosu Ekranı -->
     <div id="ekran-info">
         <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kullanım Rehberi</h3>
         <div class="info-kart">
@@ -182,7 +180,7 @@
             <ul>
                 <li><b>🔒 Kilit Sistemi:</b> Bir sonraki testin açılması için bulunduğunuz testi en az <b>%70 başarıyla</b> geçmelisiniz.</li>
                 <li><b>🔀 Dinamik Sınav:</b> Sorular, ezberi engellemek amacıyla her girişte <b>karışık (rastgele)</b> sırayla karşınıza çıkar.</li>
-                <li><b>💾 Kalıcı Hafıza:</b> Testten çıkış yapsanız dahi ilerlemeniz cihazınıza kaydedilir. (Dilerseniz "İlerlemeyi Sıfırla" butonuyla silebilirsiniz).</li>
+                <li><b>💾 Kalıcı Hafıza:</b> Testten çıkış yapsanız dahi ilerlemeniz cihazınıza kaydedilir. (Dilerseniz karnedeki "İlerlemeyi Sıfırla" butonuyla silebilirsiniz).</li>
                 <li><b>📊 Kamp Karnesi:</b> Çözdüğünüz test sayısı ve genel başarınız ana menünün en altındaki karnede hesaplanır.</li>
             </ul>
             <i>Gayret bizden, tevfik Allah'tandır.</i>
@@ -234,7 +232,6 @@
             }
         }
 
-        // YENİ: Soruları Karıştırma (Shuffle) Fonksiyonu
         function sorulariKaristir(array) {
             let currentIndex = array.length, randomIndex;
             while (currentIndex != 0) {
@@ -277,7 +274,12 @@
         }
 
         function menuleriOlustur() {
-            let menuHTML = "";
+            // YENİ: Bilgi Butonunu Menünün En Üstüne Ekle
+            let menuHTML = `
+            <button class="bolum-btn" style="background:transparent; border: 1px dashed var(--altin); justify-content:center; margin-bottom:20px; color:var(--altin);" onclick="ekranGoster('ekran-info')">
+                <i class="fa-solid fa-circle-info" style="margin-right:10px;"></i> Nasıl Kullanılır?
+            </button>`;
+            
             let bolumİsimleri = Object.keys(tumSorular);
             let cozulmusTestSayisi = 0;
             let toplamCozulenSoru = 0;
@@ -326,12 +328,6 @@
                     ${ikonHTML}
                 </button>`;
             });
-            
-            // YENİ: Bilgi Butonunu Menüye Ekle
-            menuHTML += `
-            <button class="bolum-btn" style="background:transparent; border: 1px dashed var(--altin); justify-content:center; margin-top:20px; color:var(--altin);" onclick="ekranGoster('ekran-info')">
-                <i class="fa-solid fa-circle-info" style="margin-right:10px;"></i> Nasıl Kullanılır?
-            </button>`;
 
             document.getElementById('genel-ilerleme-kutu').style.display = 'block';
             let yuzdeTamamlanma = Math.round((cozulmusTestSayisi / bolumİsimleri.length) * 100);
@@ -405,10 +401,7 @@
         function testiBaslat(bolumAnahtari) {
             aktifBolum = bolumAnahtari;
             guncelSoruIndex = 0;
-            
-            // YENİ: Soruları test başlarken her seferinde karıştır
             sorulariKaristir(tumSorular[aktifBolum]);
-            
             let soruListesi = tumSorular[aktifBolum];
             secilenCevaplar = new Array(soruListesi.length).fill(null);
             zamanlayiciBaslat();
@@ -492,14 +485,12 @@
             if(secilenIndex === dogruIndex) {
                 btnElement.classList.add('dogru');
                 btnElement.innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
-                // Doğruda titreşim var
                 if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
             } else {
                 btnElement.classList.add('yanlis');
                 btnElement.innerHTML += ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
                 butonlar[dogruIndex].classList.add('dogru');
                 butonlar[dogruIndex].innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
-                // Yanlışta gelen titreşimi senin talebin üzerine iptal ettik
             }
             
             let ileriBtn = document.getElementById('btn-ileri');
