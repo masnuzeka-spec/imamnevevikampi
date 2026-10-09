@@ -125,7 +125,7 @@
 
     <div class="baslik-alani">
         <h1>İmam Nevevî Kampı</h1>
-        <p>İlim ve Takip Platformu</p>
+        <p>Telegram Test Merkezi</p>
         <div id="genel-ilerleme-kutu" style="display:none;">
             <div class="genel-ilerleme"><div class="ilerleme-bar" id="p-bar"></div></div>
             <div class="ilerleme-yazi" id="p-yazi">%0 Tamamlandı</div>
@@ -137,30 +137,24 @@
         <br>Sistem Hazırlanıyor...
     </div>
 
-    <!-- Menü Ekranı -->
     <div id="ekran-menu">
         <div id="dinamik-menuler"></div>
         <div id="dinamik-karne"></div>
     </div>
 
-    <!-- Test Modu Seçim Ekranı -->
     <div id="ekran-mod-secim">
         <h2 style="text-align:center; color:var(--altin); font-family:'Cinzel', serif; margin-bottom:20px;">Test Modunu Seçin</h2>
-        
         <div class="mod-kart" onclick="modSecildi('ogrenme')">
             <h3>📖 Öğrenme Modu</h3>
             <p>Doğru veya yanlış anında gösterilir.<br>Önceki soruya dönüp cevabınızı görebilirsiniz.</p>
         </div>
-        
         <div class="mod-kart" onclick="modSecildi('sinav')">
             <h3>📝 Sınav Modu</h3>
             <p>Cevapların doğruluğu test sonunda görünür.<br>Önceki soruya dönüp cevabınızı değiştirebilirsiniz.</p>
         </div>
-        
         <button class="btn-genis btn-hatalar" style="margin-top:10px;" onclick="ekranGoster('ekran-menu')">Geri Dön</button>
     </div>
 
-    <!-- Test Çözüm Ekranı -->
     <div id="ekran-test">
         <div class="ust-bilgi">
             <span class="cikis-btn" onclick="testiTerkEt()"><i class="fa-solid fa-xmark"></i> Çıkış</span>
@@ -175,7 +169,6 @@
         </div>
     </div>
 
-    <!-- Zengin Sonuç Ekranı -->
     <div id="ekran-sonuc">
         <div class="sonuc-kutu">
             <div class="unvan-yazi" id="sonuc-unvan">🌟 Nevevî Vârisi</div>
@@ -207,17 +200,16 @@
         <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="ekranGoster('ekran-sonuc')">Sonuç Ekranına Dön</button>
     </div>
 
-    <!-- Onboarding / Info Ekranı -->
     <div id="ekran-info">
         <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kamp Akademi Rehberi</h3>
         <div class="info-kart">
             Profesyonel eğitim platformumuza hoş geldiniz! Özelliklerimiz:
             <ul>
-                <li><b>🔀 Anti-Ezber Karıştırma:</b> Sorular ve A, B, C şıkları her girişinizde rastgele karıştırılır.</li>
+                <li><b>🔀 Anti-Ezber Karıştırma:</b> Sorular ve şıklar her girişinizde rastgele karıştırılır.</li>
                 <li><b>📖 Öğrenme ve 📝 Sınav Modu:</b> Dilerseniz anında geri bildirim alın, dilerseniz gerçek bir deneme sınavı heyecanı yaşayın.</li>
-                <li><b>📚 Yanlışlar Defteri:</b> Yanlış yaptığınız sorular kaydedilir. Menüden sadece eksiklerinizden oluşan özel testler çözerek konuları tam öğrenirsiniz.</li>
-                <li><b>🔒 Kilit Sistemi:</b> İlerlemek için testleri <b>%70 başarıyla</b> geçmelisiniz.</li>
-                <li><b>📊 Zengin Analitik:</b> Çözüm hızınızdan kişisel rekorunuza kadar her şey takip edilir.</li>
+                <li><b>📚 Yanlışlar Defteri:</b> Yanlış yaptığınız sorular kaydedilir. Sadece eksiklerinizden özel test çözebilirsiniz.</li>
+                <li><b>🔒 Kilit Sistemi:</b> Sonraki konunun açılması için bulunduğunuz testi <b>%70 başarıyla</b> geçmelisiniz.</li>
+                <li><b>📊 Analitik:</b> Puanınız ve test bilgileri otomatik olarak eğitmenlerin paneline (veri tabanına) aktarılmaktadır.</li>
             </ul>
             <i>Gayret bizden, tevfik Allah'tandır.</i>
         </div>
@@ -230,6 +222,12 @@
         if(tg.setHeaderColor) tg.setHeaderColor('#FAF5EF');
 
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
+        
+        // --------------------------------------------------------
+        // 🔥 KRAL BURAYA APPS SCRIPT URL'Nİ YAPIŞTIRACAKSIN 🔥
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzw7ri9LDEz8iaX1-d9n6UdA6BtoPpWalrTICaq3C9AKeFslatgGKige9QKmdDGSjtLoA/exec";
+        // --------------------------------------------------------
+
         const BARAJ_PUANI = 70;
 
         let tumSorular = {};
@@ -237,16 +235,13 @@
         let aktifBolum = "";
         let aktifTestSorulari = [];
         let testModu = "ogrenme"; 
-        
         let guncelSoruIndex = 0;
         let secilenCevaplar = []; 
-        
         let kaydedilenPuanlar = JSON.parse(localStorage.getItem('imamNeveviKampiSkorlar')) || {};
         let yanlisSorularHafizasi = JSON.parse(localStorage.getItem('imamNeveviKampiYanlislar')) || [];
         
         let testSaniye = 0;
         let kronometreInterval;
-
         const secenekHarfleri = ["A) ", "B) ", "C) ", "D) ", "E) "];
 
         window.onload = () => {
@@ -256,7 +251,7 @@
                 skipEmptyLines: true,
                 complete: function(results) { verileriIsle(results.data); },
                 error: function(err) {
-                    document.getElementById('ekran-yukleniyor').innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#e74c3c; font-size:2rem; margin-bottom:15px;"></i><br>Bağlantı Hatası. Tablo çekilemedi.';
+                    document.getElementById('ekran-yukleniyor').innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color:#e74c3c; font-size:2rem; margin-bottom:15px;"></i><br>Bağlantı Hatası.';
                 }
             });
         };
@@ -286,11 +281,9 @@
         function testHazirlaVeKaristir(soruArray) {
             let kopyalananSorular = JSON.parse(JSON.stringify(soruArray));
             sorulariKaristir(kopyalananSorular); 
-            
             kopyalananSorular.forEach(soru => {
                 let secenekObjeleri = soru.secenekler.map((metin, i) => ({ metin: metin, isDogru: i === soru.dogruCevap }));
                 sorulariKaristir(secenekObjeleri); 
-                
                 soru.secenekler = secenekObjeleri.map(o => o.metin);
                 soru.dogruCevap = secenekObjeleri.findIndex(o => o.isDogru);
             });
@@ -316,9 +309,7 @@
                 let dIndex = harfIndexi[dogruHarf] !== undefined ? harfIndexi[dogruHarf] : 0;
 
                 tumSorular[bolum].push({
-                    soru: satir.Soru.trim(),
-                    secenekler: secenekler,
-                    dogruCevap: dIndex
+                    soru: satir.Soru.trim(), secenekler: secenekler, dogruCevap: dIndex
                 });
             });
 
@@ -328,13 +319,9 @@
             }
             
             menuleriOlustur();
-            
-            // 🔥 HATANIN ÇÖZÜLDÜĞÜ YER: İlk girişte rehber açılır, ikinci girişte direkt ana menü açılır
             if (!localStorage.getItem('imamNeveviIlkKullanim')) {
                 localStorage.setItem('imamNeveviIlkKullanim', 'tamam');
                 ekranGoster('ekran-info');
-            } else {
-                ekranGoster('ekran-menu');
             }
         }
 
@@ -361,9 +348,7 @@
                 let kilitli = false;
                 if(index > 0) {
                     let oncekiBolum = bolumİsimleri[index - 1];
-                    if(!kaydedilenPuanlar[oncekiBolum] || kaydedilenPuanlar[oncekiBolum].yuzde < BARAJ_PUANI) {
-                        kilitli = true;
-                    }
+                    if(!kaydedilenPuanlar[oncekiBolum] || kaydedilenPuanlar[oncekiBolum].yuzde < BARAJ_PUANI) kilitli = true;
                 }
 
                 if(kaydedilenPuanlar[bolumKey]) {
@@ -371,7 +356,6 @@
                     cozulmusTestSayisi++;
                     toplamCozulenSoru += kayit.toplamSoru || 0;
                     toplamDogru += kayit.dogruSayisi || 0;
-
                     durumHTML = `<span class="btn-durum durum-cozuldu"><i class="fa-solid fa-check-double"></i> Çözüldü - En İyi: %${kayit.enIyiYuzde}</span>`;
                     ikonHTML = `<i class="fa-solid fa-rotate-right" style="color:#2ecc71;"></i>`;
                 } else if (kilitli) {
@@ -383,10 +367,7 @@
                 
                 menuHTML += `
                 <button class="bolum-btn ${ekstraClass}" ${tiklamaOlayi}>
-                    <div class="btn-icerik">
-                        <span class="btn-baslik">${gosterimAdi}</span>
-                        ${durumHTML}
-                    </div>
+                    <div class="btn-icerik"><span class="btn-baslik">${gosterimAdi}</span>${durumHTML}</div>
                     ${ikonHTML}
                 </button>`;
             });
@@ -429,12 +410,7 @@
         
         function modSecildi(mod) {
             testModu = mod;
-            if(aktifTestTuru === 'normal') {
-                aktifTestSorulari = testHazirlaVeKaristir(tumSorular[aktifBolum]);
-            } else {
-                aktifTestSorulari = testHazirlaVeKaristir(yanlisSorularHafizasi);
-            }
-            
+            aktifTestSorulari = aktifTestTuru === 'normal' ? testHazirlaVeKaristir(tumSorular[aktifBolum]) : testHazirlaVeKaristir(yanlisSorularHafizasi);
             guncelSoruIndex = 0;
             secilenCevaplar = new Array(aktifTestSorulari.length).fill(null);
             zamanlayiciBaslat();
@@ -468,7 +444,6 @@
 
         function soruEkranaBas() {
             let soruData = aktifTestSorulari[guncelSoruIndex];
-            
             document.getElementById('soru-metni').innerHTML = "<b>" + (guncelSoruIndex + 1) + ".</b> " + soruData.soru;
             document.getElementById('soru-sayaci').innerText = (guncelSoruIndex + 1) + " / " + aktifTestSorulari.length;
             document.getElementById('btn-geri').style.visibility = guncelSoruIndex > 0 ? 'visible' : 'hidden';
@@ -478,11 +453,10 @@
 
             for(let i=0; i<soruData.secenekler.length; i++){
                 let ekstraClass = ""; let ikon = "";
-                
                 if(oncekiCevap !== null) {
                     if (testModu === 'sinav') {
                         if (oncekiCevap === i) ekstraClass = "isaretli";
-                    } else { // Ogrenme modu
+                    } else {
                         if(i === soruData.dogruCevap) {
                             ekstraClass = "dogru"; ikon = ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
                         } else if (i === oncekiCevap && i !== soruData.dogruCevap) {
@@ -534,34 +508,24 @@
         }
 
         function sonrakiSoru() {
-            if(guncelSoruIndex < aktifTestSorulari.length - 1) {
-                guncelSoruIndex++; soruEkranaBas();
-            } else { testiBitir(); }
+            if(guncelSoruIndex < aktifTestSorulari.length - 1) { guncelSoruIndex++; soruEkranaBas(); } else { testiBitir(); }
         }
-
         function oncekiSoru() {
             if(guncelSoruIndex > 0) { guncelSoruIndex--; soruEkranaBas(); }
         }
 
         function testiBitir() {
             clearInterval(kronometreInterval);
-            let dogruHesap = 0;
-            let yanlisHesap = 0;
+            let dogruHesap = 0, yanlisHesap = 0;
             
             aktifTestSorulari.forEach((soru, index) => {
-                let kullaniciCevap = secilenCevaplar[index];
-                let dogruMu = (kullaniciCevap === soru.dogruCevap);
-                
+                let dogruMu = (secilenCevaplar[index] === soru.dogruCevap);
                 if (dogruMu) dogruHesap++; else yanlisHesap++;
-
                 let mevcutIndex = yanlisSorularHafizasi.findIndex(y => y.soru === soru.soru);
-
                 if (!dogruMu) {
-                    if (mevcutIndex === -1) yanlisSorularHafizasi.push(soru);
+                    if (mevcutIndex === -1) yanlisSorularHafizasi.push(soru); 
                 } else {
-                    if (aktifTestTuru === 'yanlislar' && mevcutIndex !== -1) {
-                        yanlisSorularHafizasi.splice(mevcutIndex, 1);
-                    }
+                    if (aktifTestTuru === 'yanlislar' && mevcutIndex !== -1) yanlisSorularHafizasi.splice(mevcutIndex, 1); 
                 }
             });
             
@@ -573,26 +537,33 @@
             let sureStr = `${dk}:${sn}`;
             let ortalamaSn = Math.round(testSaniye / aktifTestSorulari.length);
 
-            let enIyiPuan = yuzde;
-            let denemeSayisi = 1;
+            let enIyiPuan = yuzde, denemeSayisi = 1;
             
             if (aktifTestTuru === 'normal') {
                 let onceki = kaydedilenPuanlar[aktifBolum] || { enIyiYuzde: 0, denemeSayisi: 0 };
                 enIyiPuan = Math.max(onceki.enIyiYuzde, yuzde);
                 denemeSayisi = onceki.denemeSayisi + 1;
-                
                 kaydedilenPuanlar[aktifBolum] = { 
                     yuzde: yuzde, sure: sureStr, dogruSayisi: dogruHesap, toplamSoru: aktifTestSorulari.length, saniye: testSaniye, enIyiYuzde: enIyiPuan, denemeSayisi: denemeSayisi
                 };
                 localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
             }
 
-            let unvan = "";
-            if(yuzde === 100) unvan = "🌟 Nevevî Vârisi";
-            else if(yuzde >= 70) unvan = "📚 İlim Yolcusu";
-            else if(yuzde >= 40) unvan = "🌱 Gayretli Talebe";
-            else unvan = "📖 Yolun Başında";
+            // APPS SCRIPT VERİ GÖNDERİMİ (Canlı E-Tablo Kaydı)
+            let tgKullanici = tg.initDataUnsafe?.user;
+            let kullaniciAdi = tgKullanici ? (tgKullanici.first_name + (tgKullanici.last_name ? " " + tgKullanici.last_name : "")) : "Bilinmeyen Öğrenci";
+            
+            if(APPS_SCRIPT_URL !== "SENIN_APPS_SCRIPT_URL_Nİ_BURAYA_YAPISTIR") {
+                let gonderilecekVeri = {
+                    kullanici: kullaniciAdi, testAdi: (aktifTestTuru === 'normal' ? aktifBolum : "Yanlışlar Tekrarı"),
+                    yuzde: "%" + yuzde, dogru: dogruHesap, yanlis: yanlisHesap, sure: sureStr
+                };
+                fetch(APPS_SCRIPT_URL, {
+                    method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gonderilecekVeri)
+                }).catch(e => console.log("Gönderim hatası (normaldir):", e));
+            }
 
+            let unvan = yuzde === 100 ? "🌟 Nevevî Vârisi" : yuzde >= 70 ? "📚 İlim Yolcusu" : yuzde >= 40 ? "🌱 Gayretli Talebe" : "📖 Yolun Başında";
             document.getElementById('sonuc-unvan').innerText = unvan;
             document.getElementById('sonuc-yuzde').innerText = "%" + yuzde;
             document.getElementById('s-dogru').innerText = dogruHesap;
@@ -605,7 +576,7 @@
                 document.getElementById('s-deneme').innerText = denemeSayisi + ".";
                 document.getElementById('kutu-en-iyi').style.display = "block";
                 document.getElementById('kutu-deneme').style.display = "block";
-            } else { 
+            } else {
                 document.getElementById('kutu-en-iyi').style.display = "none";
                 document.getElementById('kutu-deneme').style.display = "none";
             }
@@ -614,7 +585,6 @@
             else document.getElementById('btn-hata-incele').style.display = 'block';
 
             ekranGoster('ekran-sonuc');
-            
             if(yuzde === 100) {
                 if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
                 confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#E2B973', '#2ecc71', '#ffffff'] });
@@ -624,20 +594,16 @@
         function sonucuPaylas() {
             let yuzde = document.getElementById('sonuc-yuzde').innerText;
             let bolumAdi = aktifTestTuru === 'normal' ? aktifBolum.toUpperCase() + " Testinden" : "Yanlışlar Tekrarından";
-            
             let mesaj = `📚 İmam Nevevî Kampı ${bolumAdi} ${yuzde} başarı elde ettim!\n\nSen de kendi ilmi seviyeni ölçmek ister misin? 👇`;
             let shareUrl = `https://t.me/share/url?url=https://t.me/ImamNeveviKampBot&text=${encodeURIComponent(mesaj)}`;
-            
             if (tg.openTelegramLink) tg.openTelegramLink(shareUrl); else window.open(shareUrl, '_blank');
         }
 
         function hatalariGoster() {
             let hatalarHTML = "";
-
             aktifTestSorulari.forEach((soru, i) => {
                 let dogruIndex = soru.dogruCevap;
                 let kullaniciCevap = secilenCevaplar[i];
-
                 if(kullaniciCevap !== dogruIndex) {
                     let kullaniciMetin = kullaniciCevap !== null ? secenekHarfleri[kullaniciCevap] + soru.secenekler[kullaniciCevap] : "Cevaplanmadı";
                     hatalarHTML += `
