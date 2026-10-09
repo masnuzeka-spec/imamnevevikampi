@@ -105,6 +105,7 @@
         .btn-hatalar { background: transparent; border: 2px solid var(--altin); color: var(--altin); }
         body.light-theme .btn-hatalar { background: #fff; }
         
+        /* Video Butonu Animasyonu */
         .btn-video { background: #e74c3c; color: #fff; border: 1px solid #c0392b; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(231,76,60,0.7); } 70% { box-shadow: 0 0 0 10px rgba(231,76,60,0); } 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0); } }
 
@@ -195,7 +196,7 @@
             </div>
             
             <div class="buton-grup" id="sonuc-butonlar">
-                <!-- Video Linki buraya dinamik eklenecek -->
+                <!-- Butonlar Dinamik Gelecek -->
             </div>
         </div>
     </div>
@@ -206,17 +207,16 @@
         <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="ekranGoster('ekran-sonuc')">Sonuç Ekranına Dön</button>
     </div>
 
-    <!-- Rehber Ekranı -->
     <div id="ekran-info">
-        <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kamp Yolculuğu Rehberi</h3>
+        <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kamp Akademi Rehberi</h3>
         <div class="info-kart">
             İmâm Nevevî Kampı Test platformumuza hoş geldiniz! Özelliklerimiz:
             <ul>
                 <li><b>🔀 Anti-Ezber Karıştırma:</b> Sorular ve şıklar her girişinizde rastgele karıştırılır.</li>
-                <li><b>✂️ Akıllı Bölme:</b> Odağınız kaybolmasın diye uzun testler (20 sorudan fazlaysa) otomatik olarak eşit parçalara bölünür. (Örn: 30 Soru -> 15 ve 15, 32 Soru -> 16 ve 16)</li>
+                <li><b>✂️ Akıllı Bölme:</b> Uzun testler (20 sorudan fazlaysa) otomatik olarak eşit parçalara bölünür.</li>
                 <li><b>🔮 %50 Jokeri:</b> Her testte zorlandığınız 1 soruda yanlış 2 şıkkı silebilirsiniz!</li>
                 <li><b>📚 Yanlışlar Defteri:</b> Eksiklerinizden özel test çözebilirsiniz.</li>
-                <li><b>🔒 Kilit Sistemi:</b> Sonraki konunun açılması için bulunduğunuz testi <b>%70 başarıyla</b> geçmelisiniz. (Barajı geçemezseniz ders videosuna yönlendirilirsiniz).</li>
+                <li><b>🔒 Kilit Sistemi:</b> Sonraki konunun açılması için bulunduğunuz testi <b>%70 başarıyla</b> geçmelisiniz. Geçemezseniz ders videosuna yönlendirilirsiniz.</li>
             </ul>
             <i>Gayret bizden, tevfik Allah'tandır.</i>
         </div>
@@ -229,10 +229,9 @@
         tg.expand();
         if(tg.setHeaderColor) tg.setHeaderColor('#FAF5EF');
 
-        // 🔥 KRAL URL BURADA (Değiştirmedim aynen bıraktım) 🔥
+        // 🔥 URL BURADA 🔥
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyyYzCk-ew1t1mgIUkOyxXVos3q_bZK4k4qxj1PJlue2FdGC_imRgsWvA0BTwzHikN5nQ/exec";
         
-        // CSV URLN
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQbE2BqilPJlGYwDX4-pODrgzyf-mv-rVLyLtN3TLEtNL4Y00PBfL_Dxo4pvM-hHkguQKIbtd6fE3vK/pub?output=csv";
         const BARAJ_PUANI = 70;
 
@@ -245,7 +244,7 @@
         let secilenCevaplar = []; 
         let jokerKullanildi = false; 
         let aktifVideoLink = ""; 
-        let isFinishing = false; // ÇİFT TIKLAMA KORUMASI İÇİN BAYRAK
+        let isFinishing = false; 
         
         let kaydedilenPuanlar = {};
         try { kaydedilenPuanlar = JSON.parse(localStorage.getItem('imamNeveviKampiSkorlar')) || {}; } catch(e) {}
@@ -339,14 +338,11 @@
                 });
             });
 
-            // 🔥 AKILLI EŞİT BÖLME MAKİNESİ 🔥
+            // AKILLI EŞİT BÖLME ALGORİTMASI
             for (let bolum in geciciSorular) {
                 let sorular = geciciSorular[bolum];
-                // Eğer 20 sorudan fazlaysa eşit böl
                 if (sorular.length > 20) {
-                    // Kaç parça olacağını bulur (Ortalama 15-16 soruluk hedefe göre)
                     let parcaSayisi = Math.ceil(sorular.length / 16); 
-                    // Parçalara düşen net soru sayısı (örn 30 için 15, 32 için 16)
                     let parcaBasiSoru = Math.ceil(sorular.length / parcaSayisi);
                     
                     let kisim = 1;
@@ -381,7 +377,6 @@
             let toplamDogru = 0;
             let toplamSaniye = 0;
             
-            // 🔥 GENEL DENEME KİLİT KONTROLÜ 🔥
             let tumuGecildi = true;
             bolumİsimleri.forEach(b => {
                 if(!kaydedilenPuanlar[b] || kaydedilenPuanlar[b].yuzde < BARAJ_PUANI) {
@@ -510,7 +505,7 @@
         }
 
         function karmaDenemeBaslat() {
-            isFinishing = false; // Çift Tıklama Sıfırlama
+            isFinishing = false; 
             let tumHavuz = [];
             for (let b in tumSorular) tumHavuz = tumHavuz.concat(tumSorular[b]);
             sorulariKaristir(tumHavuz);
@@ -533,11 +528,14 @@
         }
         
         function modSecildi(mod) {
-            isFinishing = false; // Çift Tıklama Sıfırlama
+            isFinishing = false; 
             testModu = mod;
             aktifTestSorulari = aktifTestTuru === 'normal' ? testHazirlaVeKaristir(tumSorular[aktifBolum]) : testHazirlaVeKaristir(yanlisSorularHafizasi);
             
-            aktifVideoLink = (aktifTestSorulari.length > 0 && aktifTestSorulari[0].videoLink) ? aktifTestSorulari[0].videoLink : "";
+            // Video Arama Algoritması
+            aktifVideoLink = "";
+            let videoluSoru = aktifTestSorulari.find(s => s.videoLink && s.videoLink.trim() !== "");
+            if (videoluSoru) aktifVideoLink = videoluSoru.videoLink;
 
             guncelSoruIndex = 0;
             secilenCevaplar = new Array(aktifTestSorulari.length).fill(null);
@@ -695,7 +693,6 @@
         }
 
         function testiBitir() {
-            // 🔥 ÇİFT TIKLAMA KORUMASI 🔥
             if (isFinishing) return;
             isFinishing = true;
             
@@ -733,7 +730,6 @@
                 localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
             }
 
-            // APPS SCRIPT İLE CANLI VERİ GÖNDERİMİ
             let tgKullanici = tg.initDataUnsafe?.user;
             let kullaniciAdi = tgKullanici ? (tgKullanici.first_name + (tgKullanici.last_name ? " " + tgKullanici.last_name : "")) : "Bilinmeyen Öğrenci";
             
@@ -745,7 +741,6 @@
             fetch(APPS_SCRIPT_URL, {
                 method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(gonderilecekVeri)
             }).catch(e => console.log(e));
-            // ------------------------------------
 
             let unvan = yuzde === 100 ? "🌟 Nevevî Vârisi" : yuzde >= 70 ? "📚 İlim Yolcusu" : yuzde >= 40 ? "🌱 Gayretli Talebe" : "📖 Yolun Başında";
             document.getElementById('sonuc-unvan').innerText = unvan;
