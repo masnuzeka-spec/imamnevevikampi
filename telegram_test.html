@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>İmam Nevevî Kampı Testleri</title>
     
-    <!-- Telegram Web App, CSV Okuyucu ve Konfeti Kütüphanesi -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
-    <!-- FontAwesome ve Fontlar -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Lora:wght@400;600&display=swap" rel="stylesheet">
     
@@ -41,7 +39,7 @@
         .ilerleme-bar { background: var(--altin); height: 100%; width: 0%; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .ilerleme-yazi { font-size: 0.8rem; font-family: 'Cinzel', serif; color: var(--altin); margin-top: 5px; font-weight: bold; }
 
-        #ekran-yukleniyor, #ekran-menu, #ekran-test, #ekran-sonuc, #ekran-hatalar, #ekran-info { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.4s ease; }
+        #ekran-yukleniyor, #ekran-menu, #ekran-mod-secim, #ekran-test, #ekran-sonuc, #ekran-hatalar, #ekran-info { display: none; width: 100%; max-width: 400px; animation: fadeIn 0.4s ease; }
         .aktif-ekran { display: block !important; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -63,13 +61,11 @@
         .durum-kilitli { color: var(--kirmizi); background: rgba(231, 76, 60, 0.15); border: 1px solid var(--kirmizi); }
         body.light-theme .durum-cozulmedi { color: #666; background: rgba(0,0,0,0.05); }
 
-        .karne-kutu { background: var(--zumrut-acik); border: 2px dashed rgba(226,185,115,0.5); border-radius: 15px; padding: 20px; margin-top: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .karne-kutu { background: var(--zumrut-acik); border: 2px dashed rgba(226,185,115,0.5); border-radius: 15px; padding: 20px; margin-top: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .karne-baslik { text-align: center; font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: bold; color: var(--altin); margin-bottom: 15px; border-bottom: 1px solid rgba(226,185,115,0.3); padding-bottom: 8px; }
-        .karne-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;}
-        .karne-item { text-align: center; background: var(--kart-bg); padding: 10px; border-radius: 10px; }
-        .karne-item i { font-size: 1.4rem; color: var(--altin); margin-bottom: 5px; }
-        .karne-deger { font-weight: bold; font-size: 1.1rem; color: var(--yazi); }
-        .karne-etiket { font-size: 0.75rem; color: var(--sayac-yazi); }
+        .karne-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px;}
+        .karne-item { text-align: center; background: var(--kart-bg); padding: 8px 5px; border-radius: 8px; font-size: 0.75rem; color: var(--sayac-yazi); }
+        .karne-deger { font-weight: bold; font-size: 1rem; color: var(--yazi); margin-top: 5px; }
         
         .btn-sifirla { background: transparent; border: 1px solid var(--kirmizi); color: var(--kirmizi); width: 100%; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: 'Lora', serif; font-size: 0.9rem;}
         .btn-sifirla:hover { background: rgba(231,76,60,0.1); }
@@ -83,8 +79,10 @@
         .secenek-btn:active { background: rgba(226, 185, 115, 0.2); }
         .secenek-btn.dogru { background: rgba(46, 204, 113, 0.2); border-color: var(--yesil); color: var(--yesil); font-weight: bold; }
         .secenek-btn.yanlis { background: rgba(231, 76, 60, 0.2); border-color: var(--kirmizi); color: var(--kirmizi); }
+        .secenek-btn.isaretli { background: rgba(226, 185, 115, 0.4); border-color: var(--altin); color: var(--yazi); font-weight: bold; }
         .secenek-btn:disabled { cursor: not-allowed; }
         body.light-theme .secenek-btn { border-color: rgba(179, 137, 56, 0.5); }
+        body.light-theme .secenek-btn.isaretli { background: rgba(179, 137, 56, 0.2); }
 
         .test-alt { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; }
         .nav-btn { padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: 'Cinzel', serif; transition: 0.3s; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
@@ -94,10 +92,9 @@
 
         .sonuc-kutu { background: var(--zumrut-acik); border: 2px solid var(--altin); border-radius: 15px; padding: 25px 20px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .puan-yuvarlak { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--altin); display: flex; justify-content: center; align-items: center; font-size: 2rem; font-weight: bold; color: var(--altin); margin: 0 auto 15px auto; font-family: 'Cinzel', serif; }
-        .unvan-yazi { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--altin); font-weight: 900; margin-bottom: 5px; }
-        .sure-yazi { font-size: 0.9rem; color: var(--sayac-yazi); margin-bottom: 20px; font-style: italic; }
+        .unvan-yazi { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--altin); font-weight: 900; margin-bottom: 15px; }
         
-        .buton-grup { display: flex; flex-direction: column; gap: 10px; }
+        .buton-grup { display: flex; flex-direction: column; gap: 10px; margin-top:20px; }
         .btn-genis { border: none; width: 100%; padding: 14px; border-radius: 10px; font-weight: bold; font-family: 'Cinzel', serif; font-size: 1rem; cursor: pointer; transition: 0.2s; }
         .btn-altin { background: var(--altin); color: var(--zumrut); }
         .btn-telegram { background: #24A1DE; color: #fff; border: 1px solid #1c88bd; } 
@@ -112,6 +109,13 @@
         .info-kart { background: var(--zumrut-acik); border: 1px solid rgba(226,185,115,0.3); padding: 20px; border-radius: 10px; text-align: justify; line-height: 1.7; font-size: 0.95rem; }
         .info-kart ul { padding-left: 20px; margin-top: 10px; }
         .info-kart li { margin-bottom: 10px; }
+        
+        /* Mod Seçim Ekranı Stilleri */
+        .mod-kart { background: var(--kart-bg); border: 2px solid var(--altin); border-radius: 12px; padding: 20px; margin-bottom: 15px; cursor: pointer; text-align: center; transition: 0.3s; }
+        .mod-kart:active { transform: scale(0.97); }
+        .mod-kart h3 { font-family: 'Cinzel', serif; color: var(--altin); margin: 0 0 10px 0; }
+        .mod-kart p { font-size: 0.85rem; margin: 0; color: var(--sayac-yazi); }
+        body.light-theme .mod-kart { background: #fff; }
     </style>
 </head>
 <body class="light-theme">
@@ -131,14 +135,33 @@
 
     <div id="ekran-yukleniyor" class="aktif-ekran">
         <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 15px;"></i>
-        <br>Sorular E-Tablodan Çekiliyor...
+        <br>Sistem Hazırlanıyor...
     </div>
 
+    <!-- Menü Ekranı -->
     <div id="ekran-menu">
         <div id="dinamik-menuler"></div>
         <div id="dinamik-karne"></div>
     </div>
 
+    <!-- Test Modu Seçim Ekranı -->
+    <div id="ekran-mod-secim">
+        <h2 style="text-align:center; color:var(--altin); font-family:'Cinzel', serif; margin-bottom:20px;">Test Modunu Seçin</h2>
+        
+        <div class="mod-kart" onclick="modSecildi('ogrenme')">
+            <h3>📖 Öğrenme Modu</h3>
+            <p>Doğru veya yanlış anında gösterilir.<br>Önceki soruya dönüp cevabınızı görebilirsiniz.</p>
+        </div>
+        
+        <div class="mod-kart" onclick="modSecildi('sinav')">
+            <h3>📝 Sınav Modu</h3>
+            <p>Cevapların doğruluğu test sonunda görünür.<br>Önceki soruya dönüp cevabınızı değiştirebilirsiniz.</p>
+        </div>
+        
+        <button class="btn-genis btn-hatalar" style="margin-top:10px;" onclick="ekranGoster('ekran-menu')">Geri Dön</button>
+    </div>
+
+    <!-- Test Çözüm Ekranı -->
     <div id="ekran-test">
         <div class="ust-bilgi">
             <span class="cikis-btn" onclick="testiTerkEt()"><i class="fa-solid fa-xmark"></i> Çıkış</span>
@@ -153,11 +176,23 @@
         </div>
     </div>
 
+    <!-- Zengin Sonuç Ekranı -->
     <div id="ekran-sonuc">
         <div class="sonuc-kutu">
             <div class="unvan-yazi" id="sonuc-unvan">🌟 Nevevî Vârisi</div>
             <div class="puan-yuvarlak" id="sonuc-yuzde">%100</div>
-            <div class="sure-yazi" id="sonuc-sure"><i class="fa-regular fa-clock"></i> Çözüm Süresi: 01:25</div>
+            
+            <div class="karne-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 10px;">
+                <div class="karne-item" style="background:rgba(46, 204, 113, 0.1);">Doğru<div class="karne-deger" style="color:var(--yesil)" id="s-dogru">0</div></div>
+                <div class="karne-item" style="background:rgba(231, 76, 60, 0.1);">Yanlış<div class="karne-deger" style="color:var(--kirmizi)" id="s-yanlis">0</div></div>
+            </div>
+            
+            <div class="karne-grid">
+                <div class="karne-item">Süre<div class="karne-deger" id="s-sure">00:00</div></div>
+                <div class="karne-item">Ort. Hız<div class="karne-deger" id="s-ortalama">0 sn</div></div>
+                <div class="karne-item" id="kutu-en-iyi">En İyi<div class="karne-deger" id="s-eniyi">%0</div></div>
+                <div class="karne-item" id="kutu-deneme" style="grid-column: span 3; margin-top:5px;">Bu sizin <b><span id="s-deneme">1.</span></b> denemeniz.</div>
+            </div>
             
             <div class="buton-grup">
                 <button class="btn-genis btn-telegram" onclick="sonucuPaylas()"><i class="fa-brands fa-telegram"></i> Sonucumu Paylaş</button>
@@ -173,19 +208,21 @@
         <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="ekranGoster('ekran-sonuc')">Sonuç Ekranına Dön</button>
     </div>
 
+    <!-- Onboarding / Info Ekranı -->
     <div id="ekran-info">
-        <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kullanım Rehberi</h3>
+        <h3 style="color:var(--altin); text-align:center; font-family:'Cinzel', serif; border-bottom:1px dashed rgba(226,185,115,0.5); padding-bottom:10px;">ℹ️ Kamp Akademi Rehberi</h3>
         <div class="info-kart">
-            Uygulamamız kamp sürecinizi en verimli şekilde takip etmek için tasarlanmıştır:
+            Profesyonel eğitim platformumuza hoş geldiniz! Özelliklerimiz:
             <ul>
-                <li><b>🔒 Kilit Sistemi:</b> Bir sonraki testin açılması için bulunduğunuz testi en az <b>%70 başarıyla</b> geçmelisiniz.</li>
-                <li><b>🔀 Dinamik Sınav:</b> Sorular, ezberi engellemek amacıyla her girişte <b>karışık (rastgele)</b> sırayla karşınıza çıkar.</li>
-                <li><b>💾 Kalıcı Hafıza:</b> Testten çıkış yapsanız dahi ilerlemeniz cihazınıza kaydedilir. (Dilerseniz karnedeki "İlerlemeyi Sıfırla" butonuyla silebilirsiniz).</li>
-                <li><b>📊 Kamp Karnesi:</b> Çözdüğünüz test sayısı ve genel başarınız ana menünün en altındaki karnede hesaplanır.</li>
+                <li><b>🔀 Anti-Ezber Karıştırma:</b> Sorular ve A, B, C şıkları her girişinizde rastgele karıştırılır.</li>
+                <li><b>📖 Öğrenme ve 📝 Sınav Modu:</b> Dilerseniz anında geri bildirim alın, dilerseniz gerçek bir deneme sınavı heyecanı yaşayın.</li>
+                <li><b>📚 Yanlışlar Defteri:</b> Yanlış yaptığınız sorular kalıcı olarak kaydedilir. Sadece eksiklerinizden oluşan özel testler çözerek konuları tam öğrenirsiniz.</li>
+                <li><b>🔒 Kilit Sistemi:</b> Bir sonraki konunun açılması için bulunduğunuz testi en az <b>%70 başarıyla</b> geçmelisiniz.</li>
+                <li><b>📊 Zengin Analitik:</b> Soru başına harcadığınız saniyeden, konudaki kişisel rekorunuza kadar her şey takip edilir.</li>
             </ul>
             <i>Gayret bizden, tevfik Allah'tandır.</i>
         </div>
-        <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="anaMenuyeDon()">Menüye Dön</button>
+        <button class="btn-genis btn-altin" style="margin-top:20px;" onclick="anaMenuyeDon()">Anladım, Kampa Başla</button>
     </div>
 
     <script>
@@ -197,15 +234,20 @@
         const BARAJ_PUANI = 70;
 
         let tumSorular = {};
+        let aktifTestTuru = "normal"; // normal veya yanlislar
         let aktifBolum = "";
+        let aktifTestSorulari = [];
+        let testModu = "ogrenme"; // ogrenme veya sinav
+        
         let guncelSoruIndex = 0;
         let secilenCevaplar = []; 
+        
         let kaydedilenPuanlar = JSON.parse(localStorage.getItem('imamNeveviKampiSkorlar')) || {};
+        let yanlisSorularHafizasi = JSON.parse(localStorage.getItem('imamNeveviKampiYanlislar')) || [];
         
         let testSaniye = 0;
         let kronometreInterval;
 
-        const harfIndexi = { "A": 0, "B": 1, "C": 2, "D": 3, "E": 4 };
         const secenekHarfleri = ["A) ", "B) ", "C) ", "D) ", "E) "];
 
         window.onload = () => {
@@ -242,7 +284,23 @@
             return array;
         }
 
+        // Çifte Karıştırma: Hem soruları hem şıkları karıştırır (A, B, C sabit kalır, içerik değişir)
+        function testHazirlaVeKaristir(soruArray) {
+            let kopyalananSorular = JSON.parse(JSON.stringify(soruArray));
+            sorulariKaristir(kopyalananSorular); // Soruların sırasını karıştır
+            
+            kopyalananSorular.forEach(soru => {
+                let secenekObjeleri = soru.secenekler.map((metin, i) => ({ metin: metin, isDogru: i === soru.dogruCevap }));
+                sorulariKaristir(secenekObjeleri); // Şıkların yerini karıştır
+                
+                soru.secenekler = secenekObjeleri.map(o => o.metin);
+                soru.dogruCevap = secenekObjeleri.findIndex(o => o.isDogru);
+            });
+            return kopyalananSorular;
+        }
+
         function verileriIsle(data) {
+            const harfIndexi = { "A": 0, "B": 1, "C": 2, "D": 3, "E": 4 };
             data.forEach(satir => {
                 if(!satir.Soru || satir.Soru.trim() === "") return;
                 let bolum = satir.Bolum ? satir.Bolum.trim() : "Genel";
@@ -270,21 +328,26 @@
                 document.getElementById('ekran-yukleniyor').innerHTML = '<i class="fa-solid fa-circle-exclamation" style="color:#E2B973; font-size:2rem; margin-bottom:15px;"></i><br>Tabloda kayıtlı soru bulunamadı.';
                 return;
             }
+            
             menuleriOlustur();
+            
+            // İlk Açılış Rehberi Kontrolü
+            if (!localStorage.getItem('imamNeveviIlkKullanim')) {
+                localStorage.setItem('imamNeveviIlkKullanim', 'tamam');
+                ekranGoster('ekran-info');
+            }
         }
 
         function menuleriOlustur() {
-            // YENİ: Bilgi Butonunu Menünün En Üstüne Ekle
             let menuHTML = `
-            <button class="bolum-btn" style="background:transparent; border: 1px dashed var(--altin); justify-content:center; margin-bottom:20px; color:var(--altin);" onclick="ekranGoster('ekran-info')">
-                <i class="fa-solid fa-circle-info" style="margin-right:10px;"></i> Nasıl Kullanılır?
+            <button class="bolum-btn" style="background:transparent; border: 1px dashed var(--altin); justify-content:center; margin-bottom:15px; color:var(--altin);" onclick="ekranGoster('ekran-info')">
+                <i class="fa-solid fa-circle-info" style="margin-right:10px;"></i> Rehber & Bilgi
             </button>`;
             
             let bolumİsimleri = Object.keys(tumSorular);
             let cozulmusTestSayisi = 0;
             let toplamCozulenSoru = 0;
             let toplamDogru = 0;
-            let toplamSaniye = 0;
             
             bolumİsimleri.forEach((bolumKey, index) => {
                 let rakam = bolumKey.match(/\d+/);
@@ -293,7 +356,7 @@
                 let durumHTML = `<span class="btn-durum durum-cozulmedi">Henüz Çözülmedi</span>`;
                 let ikonHTML = `<i class="fa-solid fa-play"></i>`;
                 let ekstraClass = "";
-                let tiklamaOlayi = `onclick="testiBaslat('${bolumKey}')"`;
+                let tiklamaOlayi = `onclick="testOncesiHazirlik('normal', '${bolumKey}')"`;
 
                 let kilitli = false;
                 if(index > 0) {
@@ -308,9 +371,8 @@
                     cozulmusTestSayisi++;
                     toplamCozulenSoru += kayit.toplamSoru || 0;
                     toplamDogru += kayit.dogruSayisi || 0;
-                    toplamSaniye += kayit.saniye || 0;
 
-                    durumHTML = `<span class="btn-durum durum-cozuldu"><i class="fa-solid fa-check-double"></i> Çözüldü - %${kayit.yuzde} Başarı</span>`;
+                    durumHTML = `<span class="btn-durum durum-cozuldu"><i class="fa-solid fa-check-double"></i> Çözüldü - En İyi: %${kayit.enIyiYuzde}</span>`;
                     ikonHTML = `<i class="fa-solid fa-rotate-right" style="color:#2ecc71;"></i>`;
                 } else if (kilitli) {
                     durumHTML = `<span class="btn-durum durum-kilitli"><i class="fa-solid fa-lock"></i> Kilitli (Baraj: %${BARAJ_PUANI})</span>`;
@@ -328,62 +390,57 @@
                     ${ikonHTML}
                 </button>`;
             });
+            
+            // Yanlışlarım Butonu Ekleme
+            if(yanlisSorularHafizasi.length > 0) {
+                menuHTML += `
+                <button class="bolum-btn" style="background: rgba(231, 76, 60, 0.1); border-color: var(--kirmizi);" onclick="testOncesiHazirlik('yanlislar', '')">
+                    <div class="btn-icerik">
+                        <span class="btn-baslik" style="color:var(--kirmizi)">📚 Yanlışlarım Defteri</span>
+                        <span class="btn-durum" style="background:var(--kirmizi); color:#fff;">Sadece Yanlışları Çöz (${yanlisSorularHafizasi.length} Soru)</span>
+                    </div>
+                    <i class="fa-solid fa-book-journal-whills" style="color:var(--kirmizi)"></i>
+                </button>`;
+            }
 
             document.getElementById('genel-ilerleme-kutu').style.display = 'block';
             let yuzdeTamamlanma = Math.round((cozulmusTestSayisi / bolumİsimleri.length) * 100);
             document.getElementById('p-bar').style.width = yuzdeTamamlanma + "%";
             document.getElementById('p-yazi').innerText = "Kampın %" + yuzdeTamamlanma + " Kısmı Tamamlandı";
-
             document.getElementById('dinamik-menuler').innerHTML = menuHTML;
-
-            if(cozulmusTestSayisi > 0) {
-                let dk = Math.floor(toplamSaniye / 60);
-                let karneHTML = `
-                <div class="karne-kutu">
-                    <div class="karne-baslik">📊 Kamp İstatistiklerim</div>
-                    <div class="karne-grid">
-                        <div class="karne-item">
-                            <i class="fa-solid fa-list-check"></i>
-                            <div class="karne-deger">${cozulmusTestSayisi} / ${bolumİsimleri.length}</div>
-                            <div class="karne-etiket">Çözülen Test</div>
-                        </div>
-                        <div class="karne-item">
-                            <i class="fa-solid fa-check-to-slot"></i>
-                            <div class="karne-deger">${toplamDogru} / ${toplamCozulenSoru}</div>
-                            <div class="karne-etiket">Doğru Cevap</div>
-                        </div>
-                        <div class="karne-item">
-                            <i class="fa-solid fa-stopwatch"></i>
-                            <div class="karne-deger">${dk} Dk</div>
-                            <div class="karne-etiket">Odaklanma Süresi</div>
-                        </div>
-                        <div class="karne-item">
-                            <i class="fa-solid fa-medal"></i>
-                            <div class="karne-deger">%${Math.round((toplamDogru/toplamCozulenSoru)*100)}</div>
-                            <div class="karne-etiket">Genel Başarı</div>
-                        </div>
-                    </div>
-                    <button class="btn-sifirla" onclick="ilerlemeyiSifirla()"><i class="fa-solid fa-trash-can"></i> İlerlemeyi Sıfırla</button>
-                </div>`;
-                document.getElementById('dinamik-karne').innerHTML = karneHTML;
-            } else {
-                document.getElementById('dinamik-karne').innerHTML = "";
-            }
-
-            ekranGoster('ekran-menu');
         }
 
         function kilitUyarisi() {
             let mesaj = `Bu testi çözebilmek için bir önceki testi en az %${BARAJ_PUANI} başarıyla geçmelisiniz!`;
-            if (tg.showAlert) tg.showAlert(mesaj);
-            else alert(mesaj);
+            if (tg.showAlert) tg.showAlert(mesaj); else alert(mesaj);
             if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
         }
 
         function ekranGoster(ekranId) {
-            let ekranlar = ['ekran-yukleniyor', 'ekran-menu', 'ekran-test', 'ekran-sonuc', 'ekran-hatalar', 'ekran-info'];
+            let ekranlar = ['ekran-yukleniyor', 'ekran-menu', 'ekran-mod-secim', 'ekran-test', 'ekran-sonuc', 'ekran-hatalar', 'ekran-info'];
             ekranlar.forEach(id => document.getElementById(id).classList.remove('aktif-ekran'));
             document.getElementById(ekranId).classList.add('aktif-ekran');
+        }
+        
+        function testOncesiHazirlik(tur, bolumKey) {
+            aktifTestTuru = tur;
+            aktifBolum = bolumKey;
+            ekranGoster('ekran-mod-secim');
+        }
+        
+        function modSecildi(mod) {
+            testModu = mod;
+            if(aktifTestTuru === 'normal') {
+                aktifTestSorulari = testHazirlaVeKaristir(tumSorular[aktifBolum]);
+            } else {
+                aktifTestSorulari = testHazirlaVeKaristir(yanlisSorularHafizasi);
+            }
+            
+            guncelSoruIndex = 0;
+            secilenCevaplar = new Array(aktifTestSorulari.length).fill(null);
+            zamanlayiciBaslat();
+            soruEkranaBas();
+            ekranGoster('ekran-test');
         }
 
         function zamanlayiciBaslat() {
@@ -398,17 +455,6 @@
             }, 1000);
         }
 
-        function testiBaslat(bolumAnahtari) {
-            aktifBolum = bolumAnahtari;
-            guncelSoruIndex = 0;
-            sorulariKaristir(tumSorular[aktifBolum]);
-            let soruListesi = tumSorular[aktifBolum];
-            secilenCevaplar = new Array(soruListesi.length).fill(null);
-            zamanlayiciBaslat();
-            soruEkranaBas();
-            ekranGoster('ekran-test');
-        }
-
         function testiTerkEt() {
             if (tg.showConfirm) {
                 tg.showConfirm("Testi yarıda bırakmak istediğinize emin misiniz? İlerlemeniz kaydedilmeyecek.", function(onay) {
@@ -421,48 +467,32 @@
             }
         }
 
-        function ilerlemeyiSifirla() {
-            if (tg.showConfirm) {
-                tg.showConfirm("Tüm kamp geçmişiniz ve puanlarınız silinecek. Emin misiniz?", function(onay) {
-                    if(onay) {
-                        localStorage.removeItem('imamNeveviKampiSkorlar');
-                        kaydedilenPuanlar = {};
-                        menuleriOlustur();
-                    }
-                });
-            } else {
-                if(confirm("Tüm kamp geçmişiniz ve puanlarınız silinecek. Emin misiniz?")) {
-                    localStorage.removeItem('imamNeveviKampiSkorlar');
-                    kaydedilenPuanlar = {};
-                    menuleriOlustur();
-                }
-            }
-        }
-
         function soruEkranaBas() {
-            let soruListesi = tumSorular[aktifBolum];
-            let soruData = soruListesi[guncelSoruIndex];
+            let soruData = aktifTestSorulari[guncelSoruIndex];
             
             document.getElementById('soru-metni').innerHTML = "<b>" + (guncelSoruIndex + 1) + ".</b> " + soruData.soru;
-            document.getElementById('soru-sayaci').innerText = (guncelSoruIndex + 1) + " / " + soruListesi.length;
+            document.getElementById('soru-sayaci').innerText = (guncelSoruIndex + 1) + " / " + aktifTestSorulari.length;
             document.getElementById('btn-geri').style.visibility = guncelSoruIndex > 0 ? 'visible' : 'hidden';
             
             let oncekiCevap = secilenCevaplar[guncelSoruIndex];
-            let dogruIndex = soruData.dogruCevap;
             let seceneklerHTML = "";
 
             for(let i=0; i<soruData.secenekler.length; i++){
                 let ekstraClass = ""; let ikon = "";
                 
                 if(oncekiCevap !== null) {
-                    if(i === dogruIndex) {
-                        ekstraClass = "dogru"; ikon = ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
-                    } else if (i === oncekiCevap && i !== dogruIndex) {
-                        ekstraClass = "yanlis"; ikon = ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
+                    if (testModu === 'sinav') {
+                        if (oncekiCevap === i) ekstraClass = "isaretli";
+                    } else { // Ogrenme modu
+                        if(i === soruData.dogruCevap) {
+                            ekstraClass = "dogru"; ikon = ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
+                        } else if (i === oncekiCevap && i !== soruData.dogruCevap) {
+                            ekstraClass = "yanlis"; ikon = ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
+                        }
                     }
                 }
                 
-                let disableAttr = oncekiCevap !== null ? "disabled" : "";
+                let disableAttr = (oncekiCevap !== null && testModu === 'ogrenme') ? "disabled" : "";
                 seceneklerHTML += `<button class="secenek-btn ${ekstraClass}" ${disableAttr} onclick="cevapKontrol(${i}, this)"><b>${secenekHarfleri[i]}</b> ${soruData.secenekler[i]}${ikon}</button>`;
             }
             document.getElementById('secenekler-alani').innerHTML = seceneklerHTML;
@@ -470,7 +500,7 @@
             let ileriBtn = document.getElementById('btn-ileri');
             if(oncekiCevap !== null) {
                 ileriBtn.style.display = 'block';
-                ileriBtn.innerHTML = (guncelSoruIndex === soruListesi.length - 1) ? 'Testi Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'Sonraki <i class="fa-solid fa-arrow-right"></i>';
+                ileriBtn.innerHTML = (guncelSoruIndex === aktifTestSorulari.length - 1) ? 'Testi Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'Sonraki <i class="fa-solid fa-arrow-right"></i>';
             } else {
                 ileriBtn.style.display = 'none';
             }
@@ -478,30 +508,35 @@
 
         function cevapKontrol(secilenIndex, btnElement) {
             secilenCevaplar[guncelSoruIndex] = secilenIndex; 
-            let dogruIndex = tumSorular[aktifBolum][guncelSoruIndex].dogruCevap;
+            let dogruIndex = aktifTestSorulari[guncelSoruIndex].dogruCevap;
             let butonlar = document.querySelectorAll('.secenek-btn');
-            butonlar.forEach(btn => btn.disabled = true);
 
-            if(secilenIndex === dogruIndex) {
-                btnElement.classList.add('dogru');
-                btnElement.innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
-                if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+            if (testModu === 'sinav') {
+                butonlar.forEach(btn => btn.classList.remove('isaretli'));
+                btnElement.classList.add('isaretli');
+                if (tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
             } else {
-                btnElement.classList.add('yanlis');
-                btnElement.innerHTML += ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
-                butonlar[dogruIndex].classList.add('dogru');
-                butonlar[dogruIndex].innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
+                butonlar.forEach(btn => btn.disabled = true);
+                if(secilenIndex === dogruIndex) {
+                    btnElement.classList.add('dogru');
+                    btnElement.innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
+                    if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+                } else {
+                    btnElement.classList.add('yanlis');
+                    btnElement.innerHTML += ' <i class="fa-solid fa-xmark" style="float:right; margin-top:3px;"></i>';
+                    butonlar[dogruIndex].classList.add('dogru');
+                    butonlar[dogruIndex].innerHTML += ' <i class="fa-solid fa-check" style="float:right; margin-top:3px;"></i>';
+                }
             }
             
             let ileriBtn = document.getElementById('btn-ileri');
             ileriBtn.style.display = 'block';
-            ileriBtn.innerHTML = (guncelSoruIndex === tumSorular[aktifBolum].length - 1) ? 'Testi Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'Sonraki <i class="fa-solid fa-arrow-right"></i>';
+            ileriBtn.innerHTML = (guncelSoruIndex === aktifTestSorulari.length - 1) ? 'Testi Bitir <i class="fa-solid fa-flag-checkered"></i>' : 'Sonraki <i class="fa-solid fa-arrow-right"></i>';
         }
 
         function sonrakiSoru() {
-            if(guncelSoruIndex < tumSorular[aktifBolum].length - 1) {
-                guncelSoruIndex++;
-                soruEkranaBas();
+            if(guncelSoruIndex < aktifTestSorulari.length - 1) {
+                guncelSoruIndex++; soruEkranaBas();
             } else { testiBitir(); }
         }
 
@@ -511,23 +546,51 @@
 
         function testiBitir() {
             clearInterval(kronometreInterval);
-            let soruListesi = tumSorular[aktifBolum];
             let dogruHesap = 0;
+            let yanlisHesap = 0;
             
-            for(let i=0; i<soruListesi.length; i++) {
-                if(secilenCevaplar[i] === soruListesi[i].dogruCevap) dogruHesap++;
-            }
+            // Sonuç hesaplama ve Yanlış Defteri Yönetimi
+            aktifTestSorulari.forEach((soru, index) => {
+                let kullaniciCevap = secilenCevaplar[index];
+                let dogruMu = (kullaniciCevap === soru.dogruCevap);
+                
+                if (dogruMu) dogruHesap++; else yanlisHesap++;
 
-            let yuzde = Math.round((dogruHesap / soruListesi.length) * 100);
+                let mevcutIndex = yanlisSorularHafizasi.findIndex(y => y.soru === soru.soru);
+
+                if (!dogruMu) {
+                    if (mevcutIndex === -1) yanlisSorularHafizasi.push(soru); // Yanlışlara ekle
+                } else {
+                    if (aktifTestTuru === 'yanlislar' && mevcutIndex !== -1) {
+                        yanlisSorularHafizasi.splice(mevcutIndex, 1); // Öğrendi, listeden çıkar
+                    }
+                }
+            });
+            
+            localStorage.setItem('imamNeveviKampiYanlislar', JSON.stringify(yanlisSorularHafizasi));
+
+            let yuzde = Math.round((dogruHesap / aktifTestSorulari.length) * 100);
             let dk = Math.floor(testSaniye / 60).toString().padStart(2, '0');
             let sn = (testSaniye % 60).toString().padStart(2, '0');
             let sureStr = `${dk}:${sn}`;
+            let ortalamaSn = Math.round(testSaniye / aktifTestSorulari.length);
 
-            kaydedilenPuanlar[aktifBolum] = { 
-                yuzde: yuzde, sure: sureStr, dogruSayisi: dogruHesap, toplamSoru: soruListesi.length, saniye: testSaniye
-            };
-            localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
+            // İstatistik Kaydı (Normal Test İse)
+            let enIyiPuan = yuzde;
+            let denemeSayisi = 1;
+            
+            if (aktifTestTuru === 'normal') {
+                let onceki = kaydedilenPuanlar[aktifBolum] || { enIyiYuzde: 0, denemeSayisi: 0 };
+                enIyiPuan = Math.max(onceki.enIyiYuzde, yuzde);
+                denemeSayisi = onceki.denemeSayisi + 1;
+                
+                kaydedilenPuanlar[aktifBolum] = { 
+                    yuzde: yuzde, sure: sureStr, dogruSayisi: dogruHesap, toplamSoru: aktifTestSorulari.length, saniye: testSaniye, enIyiYuzde: enIyiPuan, denemeSayisi: denemeSayisi
+                };
+                localStorage.setItem('imamNeveviKampiSkorlar', JSON.stringify(kaydedilenPuanlar));
+            }
 
+            // Unvan
             let unvan = "";
             if(yuzde === 100) unvan = "🌟 Nevevî Vârisi";
             else if(yuzde >= 70) unvan = "📚 İlim Yolcusu";
@@ -536,7 +599,20 @@
 
             document.getElementById('sonuc-unvan').innerText = unvan;
             document.getElementById('sonuc-yuzde').innerText = "%" + yuzde;
-            document.getElementById('sonuc-sure').innerHTML = `<i class="fa-regular fa-clock"></i> Çözüm Süresi: ${sureStr}`;
+            document.getElementById('s-dogru').innerText = dogruHesap;
+            document.getElementById('s-yanlis').innerText = yanlisHesap;
+            document.getElementById('s-sure').innerText = sureStr;
+            document.getElementById('s-ortalama').innerText = ortalamaSn + " sn";
+            
+            if(aktifTestTuru === 'normal') {
+                document.getElementById('s-eniyi').innerText = "%" + enIyiPuan;
+                document.getElementById('s-deneme').innerText = denemeSayisi + ".";
+                document.getElementById('kutu-en-iyi').style.display = "block";
+                document.getElementById('kutu-deneme').style.display = "block";
+            } else { // Yanlislar testinde bu istatistikleri gizle
+                document.getElementById('kutu-en-iyi').style.display = "none";
+                document.getElementById('kutu-deneme').style.display = "none";
+            }
             
             if(yuzde === 100) document.getElementById('btn-hata-incele').style.display = 'none';
             else document.getElementById('btn-hata-incele').style.display = 'block';
@@ -551,41 +627,36 @@
 
         function sonucuPaylas() {
             let yuzde = document.getElementById('sonuc-yuzde').innerText;
-            let rakam = aktifBolum.match(/\d+/);
-            let bolumAdi = rakam ? rakam[0] + ". Testinden" : aktifBolum.toUpperCase() + " Testinden";
+            let bolumAdi = aktifTestTuru === 'normal' ? aktifBolum.toUpperCase() + " Testinden" : "Yanlışlar Tekrarından";
             
             let mesaj = `📚 İmam Nevevî Kampı ${bolumAdi} ${yuzde} başarı elde ettim!\n\nSen de kendi ilmi seviyeni ölçmek ister misin? 👇`;
             let shareUrl = `https://t.me/share/url?url=https://t.me/ImamNeveviKampBot&text=${encodeURIComponent(mesaj)}`;
             
-            if (tg.openTelegramLink) tg.openTelegramLink(shareUrl);
-            else window.open(shareUrl, '_blank');
+            if (tg.openTelegramLink) tg.openTelegramLink(shareUrl); else window.open(shareUrl, '_blank');
         }
 
         function hatalariGoster() {
-            let soruListesi = tumSorular[aktifBolum];
             let hatalarHTML = "";
 
-            for(let i=0; i<soruListesi.length; i++) {
-                let dogruIndex = soruListesi[i].dogruCevap;
+            aktifTestSorulari.forEach((soru, i) => {
+                let dogruIndex = soru.dogruCevap;
                 let kullaniciCevap = secilenCevaplar[i];
 
                 if(kullaniciCevap !== dogruIndex) {
-                    let kullaniciMetin = kullaniciCevap !== null ? secenekHarfleri[kullaniciCevap] + soruListesi[i].secenekler[kullaniciCevap] : "Cevaplanmadı";
+                    let kullaniciMetin = kullaniciCevap !== null ? secenekHarfleri[kullaniciCevap] + soru.secenekler[kullaniciCevap] : "Cevaplanmadı";
                     hatalarHTML += `
                     <div class="hata-kart">
-                        <div class="h-soru">${i+1}. ${soruListesi[i].soru}</div>
+                        <div class="h-soru">${i+1}. ${soru.soru}</div>
                         <div class="h-yanlis"><i class="fa-solid fa-xmark"></i> Sizin Cevabınız: ${kullaniciMetin}</div>
-                        <div class="h-dogru"><i class="fa-solid fa-check"></i> Doğru Cevap: ${secenekHarfleri[dogruIndex]}${soruListesi[i].secenekler[dogruIndex]}</div>
+                        <div class="h-dogru"><i class="fa-solid fa-check"></i> Doğru Cevap: ${secenekHarfleri[dogruIndex]}${soru.secenekler[dogruIndex]}</div>
                     </div>`;
                 }
-            }
+            });
             document.getElementById('hatalar-listesi').innerHTML = hatalarHTML;
             ekranGoster('ekran-hatalar');
         }
 
-        function anaMenuyeDon() {
-            menuleriOlustur(); 
-        }
+        function anaMenuyeDon() { menuleriOlustur(); ekranGoster('ekran-menu'); }
     </script>
 </body>
 </html>
